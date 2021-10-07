@@ -811,11 +811,14 @@ def setRoofVisiblity() {
     if(player.underRoof) {
         if(startsWith(player.roof, "roof.mountain")) {
             setMaxZ(getRoofZ(player.move.z), player.roof);
+            overrideLight(true, 60, 60, 150);
         } else {
             setMaxZ(getRoofZ(player.move.z), null);
+            overrideLight(false, 0, 0, 0);
         }
     } else {
         setMaxZ(24, null);
+        overrideLight(false, 0, 0, 0);
     }
 }
 
