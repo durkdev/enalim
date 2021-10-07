@@ -1,6 +1,4 @@
-<img src="images/screens/inn.png" width="150">
-<img src="images/screens/lights2.png" width="150">
-<img src="images/screens/combat2.png" width="150">
+<a href="images/screens/inn.png"><img src="images/screens/inn.png" width="250"></a> <a href="images/screens/lights2.png"><img src="images/screens/lights2.png" width="250"></a> <a href="images/screens/combat2.png"><img src="images/screens/combat2.png" width="250"></a>
 
 # Welcome back adventurer!
 It's as if you never left. 
@@ -13,9 +11,7 @@ Between various chores, you dream of finally taking the necromantic vestments. S
 
 You are certain, your ascent to the storied ranks of powerful magi is near. While dreaming of a future glory as certain as gold, all you have to bide is time...
 
-<img src="images/screens/convo.png" width="150">
-<img src="images/screens/town.png" width="150">
-<img src="images/screens/dungeon.png" width="150">
+<img src="images/screens/convo.png" width="150"> <img src="images/screens/town.png" width="150"> <img src="images/screens/dungeon.png" width="150">
 
 
 `Enalim` is an isometric adventure game, written in [bscript](https://github.com/uzudil/benji4000/wiki/LanguageFeatures) running on [isongn](https://github.com/uzudil/isongn).
