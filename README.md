@@ -11,7 +11,7 @@ Between various chores, you dream of finally taking the necromantic vestments. S
 
 You are certain, your ascent to the storied ranks of powerful magi is near. While dreaming of a future glory as certain as gold, all you have to bide is time...
 
-<img src="images/screens/convo.png" width="150"> <img src="images/screens/town.png" width="150"> <img src="images/screens/dungeon.png" width="150">
+<a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/convo.png"><img src="images/screens/convo.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/town.png"><img src="images/screens/town.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/dungeon.png"><img src="images/screens/dungeon.png" width="150"></a>
 
 
 `Enalim` is an isometric adventure game, written in [bscript](https://github.com/uzudil/benji4000/wiki/LanguageFeatures) running on [isongn](https://github.com/uzudil/isongn).
