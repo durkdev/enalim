@@ -9,9 +9,7 @@ You are a neophite magician, working as an assistant to the Necromancer. One  da
 <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/convo.png"><img src="images/screens/convo.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/town.png"><img src="images/screens/town.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/dungeon.png"><img src="images/screens/dungeon.png" width="250"></a>
 
 
-`Enalim` is an isometric adventure game, written in [bscript](https://github.com/uzudil/benji4000/wiki/LanguageFeatures) running on [isongn](https://github.com/uzudil/isongn).
-
-To run the game, clone this repo and then isongn. Build and run from the isongn directory:
+To play, clone this repo, build and run the game:
 ```bash
 git clone https://github.com/uzudil/enalim.git
 cd enalim
