@@ -116,19 +116,19 @@ def editorInsertCommand() {
 
 def editorDefaultCommand() {
     if(isPressed(Key0)) {
-        setMaxZ(24, null);
+        setMaxZ(24, null, null);
     }
     if(isPressed(Key1)) {
-        setMaxZ(1, null);
+        setMaxZ(1, null, null);
     }
     if(isPressed(Key2)) {
-        setMaxZ(7, null);
+        setMaxZ(7, null, null);
     }
     if(isPressed(Key3)) {
-        setMaxZ(14, null);
+        setMaxZ(14, null, null);
     }
     if(isPressed(Key4)) {
-        setMaxZ(21, null);
+        setMaxZ(21, null, null);
     }    
     if(isPressed(Key6)) {
         startRug("rug.red");
@@ -156,11 +156,11 @@ def editorCommand() {
     if(isPressed(KeyTab)) {
         if(editor.roofMode) {
             print("to NO roof");
-            setMaxZ(24, null);
+            setMaxZ(24, null, null);
             editor.roofMode := false;
         } else {
             print("to roof");
-            setMaxZ(7, "roof.mountain.1");
+            setMaxZ(7, "roof.mountain.1", null);
             editor.roofMode := true;
         }
     }

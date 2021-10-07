@@ -49,10 +49,10 @@ const COMBAT_MESSAGES = [
     "Aaaaaaeeeergghhh!",
     "To the death!",
     "I have become your doom!",
-    "I will not rest until your doom!",
+    "No rest until your demise!",
     "Battle ever on!",
     "Glorious combat awaits!",
-    "May you not live to see the morning!",
+    "You will not see the morning!",
     "Give no quarter!",
     "No remorse!",
     "Take no prisoners!",
@@ -65,8 +65,10 @@ const COMBAT_MESSAGES = [
     "Unleash hell!",
     "Die, foul aberration!",
     "May you be food for worms!",
+    "Perish, noble foe!",
 ];
 
 # item categories
 const CAT_WEAPON = "weapon";
 const CAT_ARMOR = "armor";
+const CAT_MISC = "misc";

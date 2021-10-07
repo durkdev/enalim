@@ -17,8 +17,8 @@ func init() {
 }
 
 func main() {
-	winWidth := flag.Int("width", 800, "Window width (default: 800)")
-	winHeight := flag.Int("height", 600, "Window height (default: 600)")
+	winWidth := flag.Int("width", 1200, "Window width (default: 1200)")
+	winHeight := flag.Int("height", 900, "Window height (default: 900)")
 	fps := flag.Float64("fps", 60, "Frames per second")
 	fs := flag.Bool("fullscreen", false, "Fullscreen mode?")
 	flag.Parse()

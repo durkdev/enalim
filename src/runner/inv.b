@@ -227,6 +227,18 @@ def newInventory() {
         decode: (self, saved) => {
             array_foreach(saved, (i, item) => self.add(item.shape, item.x, item.y));
         },
+        forItem: (self, fx) => {
+            # todo: make recursive for containers
+            i := 0;
+            while(i < len(self.items)) {
+                r := fx(self.items[i]);
+                if(r != null) {
+                    return r;
+                }
+                i := i + 1;
+            }
+            return null;
+        }
     };
 }
 

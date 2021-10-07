@@ -28,6 +28,7 @@ const OBJECTS = [
     { name: "Broadsword", slot: SLOT_RIGHT_HAND, variation: "sword", shape: "item.sword", cat: CAT_WEAPON, price: 150 },
     { name: "Dagger", slot: SLOT_RIGHT_HAND, variation: "dagger", shape: "item.dagger", cat: CAT_WEAPON, price: 50 },
     { name: "Leather Helm", slot: SLOT_HEAD, shape: "item.helm.leather", cat: CAT_ARMOR, price: 80 },
+    { name: "Candle", slot: SLOT_LEFT_HAND, shape: "item.candle", cat: CAT_MISC, price: 20 },
 ];
 
 const OBJECTS_BY_SHAPE = {};

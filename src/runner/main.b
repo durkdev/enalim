@@ -543,6 +543,7 @@ def unequipItem(slot) {
     setShapeFromEquipment();
     player.move.erase();
     player.move.setShape(player.shape);
+    updatePlayerLight();
 }
 
 def setShapeFromEquipment() {
@@ -758,6 +759,7 @@ def endDrag(pos) {
         # dragging is done
         player.dragShape := null;
         clearCursorShape();
+        updatePlayerLight();
     }
 }
 
@@ -810,17 +812,25 @@ def setRoofVisiblity() {
     inspectRoof();
     if(player.underRoof) {
         if(startsWith(player.roof, "roof.mountain")) {
-            setMaxZ(getRoofZ(player.move.z), player.roof);
+            setMaxZ(getRoofZ(player.move.z), player.roof, null);
             overrideLight(true, 50, 50, 135);
-            setPlayerLight(1);
         } else {
-            setMaxZ(getRoofZ(player.move.z), null);
+            setMaxZ(getRoofZ(player.move.z), null, "roof.mountain.1");
             overrideLight(false, 0, 0, 0);
-            setPlayerLight(0);
         }
     } else {
-        setMaxZ(24, null);
+        setMaxZ(24, null, "roof.mountain.1");
         overrideLight(false, 0, 0, 0);
+    }
+    updatePlayerLight();
+}
+
+def updatePlayerLight() {
+    # player carries light?
+    e := player.equipment.equipment[SLOT_LEFT_HAND];
+    if(e != null && isLightShape(e)) {
+        setPlayerLight(1);
+    } else {
         setPlayerLight(0);
     }
 }
