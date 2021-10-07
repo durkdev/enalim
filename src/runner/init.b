@@ -63,6 +63,8 @@ const COMBAT_MESSAGES = [
     "Your destiny is death!",
     "I will feast on your grave!",
     "Unleash hell!",
+    "Die, foul aberration!",
+    "May you be food for worms!",
 ];
 
 # item categories

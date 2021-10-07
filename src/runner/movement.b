@@ -178,6 +178,21 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
             }
             print("can't open door");
         },
+        operateSwitch: (self, x, y, z) => {
+            shape := getShape(x, y, z);
+            if(shape != null) {
+                if(shape[0] = "switch.open") {
+                    player.gameState["switch_" + x + "_" + y + "_" + z] := true;
+                    setShape(x, y, z, "switch.closed");
+                    return true;
+                } else if(shape[0] = "switch.closed") {
+                    player.gameState["switch_" + x + "_" + y + "_" + z] := false;
+                    setShape(x, y, z, "switch.open");
+                    return true;
+                }
+            }
+            return false;
+        },
         blockedByCreature: (self, c, nextX, nextY) => {
             # blocked by player?
             if(self.intersect(player.move, nextX, nextY)) {

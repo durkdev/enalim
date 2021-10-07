@@ -326,6 +326,11 @@ def handleGameClick() {
                 return 1;
             }
 
+            if(player.move.operateSwitch(pos[0], pos[1], pos[2])) {
+                restartActiveSections();
+                return 1;
+            }
+
             if(operateWindowAt(shape[0], pos[0], pos[1], pos[2])) {
                 return 1;
             }

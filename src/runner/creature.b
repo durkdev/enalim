@@ -126,7 +126,42 @@ creaturesTemplates := {
         "movement": "anchor",
         "hp": 10,
     },
-
+    "skeleton": {
+        "shape": "skeleton",
+        "speed": 0.3,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "hunt",
+        "attackSteps": 2,
+        "attack": [3,6],
+        "hp": 25,
+    },
+    "skeleton_blue": {
+        "shape": "skeleton_blue",
+        "speed": 0.3,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "hunt",
+        "attackSteps": 2,
+        "attack": [4,8],
+        "hp": 30,
+    },
+    "skeleton_red": {
+        "shape": "skeleton_red",
+        "speed": 0.3,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "hunt",
+        "attackSteps": 2,
+        "attack": [5,10],
+        "hp": 37,
+    },
 };
 
 def initCreatures() {

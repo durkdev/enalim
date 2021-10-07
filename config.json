@@ -410,7 +410,10 @@
                 { "name": "item.dagger", "size": [ 2, 2, 1], "pos": [176, 200], "drag": true, "extra": true },
                 { "name": "item.helm.leather", "size": [ 2, 2, 1], "pos": [208, 200], "drag": true, "extra": true },
                 { "name": "door.sheets.x", "size": [ 4, 1, 6], "pos": [384, 528], "extra": true },
-                { "name": "door.sheets.y", "size": [ 1, 4, 6], "pos": [440, 528], "extra": true }
+                { "name": "door.sheets.y", "size": [ 1, 4, 6], "pos": [440, 528], "extra": true },
+                { "name": "switch.open", "size": [ 2, 1, 2], "pos": [520, 472], "interactive": true },
+                { "name": "switch.closed", "size": [ 2, 1, 2], "pos": [552, 472], "interactive": true },
+                { "name": "column.iron", "size": [ 1, 1, 6 ], "pos": [584, 448] }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },
@@ -708,6 +711,77 @@
                     "name": "stand",
                     "steps": 1,
                     "dirs": [ "e", "ne", "n", "nw", "w",  "sw", "s", "se" ]
+                }
+            ]
+        },
+        { 
+            "name": "skeleton", 
+            "size": [ 2, 2, 4 ], 
+            "dim": [ 64, 64 ], 
+            "breathe": true,
+            "frames": [
+                {
+                    "name": "move",
+                    "steps": 4,
+                    "dirs": [ "s", "se", "e", "ne", "n", "nw", "w", "sw" ]
+                },
+                {
+                    "name": "stand",
+                    "steps": 1,
+                    "dirs": [ "s", "se", "e", "ne", "n", "nw", "w", "sw" ]
+                },
+                {
+                    "name": "attack",
+                    "steps": 2,
+                    "dirs": [ "s", "se", "e", "ne", "n", "nw", "w", "sw" ]
+                }
+            ]
+        },
+        { 
+            "name": "skeleton_blue", 
+            "size": [ 2, 2, 4 ], 
+            "dim": [ 64, 64 ], 
+            "scale": 1.15,
+            "breathe": true,
+            "frames": [
+                {
+                    "name": "move",
+                    "steps": 4,
+                    "dirs": [ "s", "se", "e", "ne", "n", "nw", "w", "sw" ]
+                },
+                {
+                    "name": "stand",
+                    "steps": 1,
+                    "dirs": [ "s", "se", "e", "ne", "n", "nw", "w", "sw" ]
+                },
+                {
+                    "name": "attack",
+                    "steps": 2,
+                    "dirs": [ "s", "se", "e", "ne", "n", "nw", "w", "sw" ]
+                }
+            ]
+        },
+        { 
+            "name": "skeleton_red", 
+            "size": [ 2, 2, 4 ], 
+            "dim": [ 64, 64 ], 
+            "scale": 1.25,
+            "breathe": true,
+            "frames": [
+                {
+                    "name": "move",
+                    "steps": 4,
+                    "dirs": [ "s", "se", "e", "ne", "n", "nw", "w", "sw" ]
+                },
+                {
+                    "name": "stand",
+                    "steps": 1,
+                    "dirs": [ "s", "se", "e", "ne", "n", "nw", "w", "sw" ]
+                },
+                {
+                    "name": "attack",
+                    "steps": 2,
+                    "dirs": [ "s", "se", "e", "ne", "n", "nw", "w", "sw" ]
                 }
             ]
         }
