@@ -1,4 +1,4 @@
-<a href="images/screens/inn.png"><img src="images/screens/inn.png" width="250"></a> <a href="images/screens/lights2.png"><img src="images/screens/lights2.png" width="250"></a> <a href="images/screens/combat2.png"><img src="images/screens/combat2.png" width="250"></a>
+<a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/inn.png"><img src="images/screens/inn.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/lights2.png"><img src="images/screens/lights2.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/combat2.png"><img src="images/screens/combat2.png" width="250"></a>
 
 # Welcome back adventurer!
 It's as if you never left. 
