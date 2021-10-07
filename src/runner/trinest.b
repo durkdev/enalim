@@ -138,3 +138,37 @@ addNpcDef({
         { name: "room", from: 23, to: 11, movement: "anchor", waypointDir: 1 },
     ],    
 });
+
+addNpcDef({
+    name: "Snemil",
+    label: "Snemil",
+    creature: "man-blue",
+    convo: {
+        "": "A nervous looking man motions you closer and says: \"Have you come to $rescue me? Are those 
+            murderous $goblins still outside?\"",
+        "rescue": "The man sighs and continues: \"Yes, you could be asking yourself why I'm in this mess. 
+            If you want I can tell you my $story.\"",
+        "story": "\"I'm a simple jewel merchant from Rentua. One day I had the bad luck of purchasing a large
+            cabochon $jewel of a kind of a gem I've never seen before. My life has been a living hell ever 
+            since that fated day.\"",
+        "jewel": "\"It is a large dark-red jewel with a shiny surface. The patterns in the stone are mesmerizing,
+            as if it were alive! I've never seen anything like it before.\" - he trails off reminiscing but then 
+            continues - \"Soon after the purchase, I've started getting offers for the jewel and then $threats!\"",
+        "threats": "\"Several would be buyers insisted that I sell them the gem and when that didn't work, became
+            aggressive. Eventually, I had to leave Rentua and I've been on the $move ever since.\"",
+        "move": "He motions at the caverns around: \"And that is how I ended up here in Trinest, or more specifically,
+            how I became trapped in this accursed dungeon. You see, someone tracked me down and in a last ditch effort 
+            to save my life, I hid in this dungeon. Now I'm trapped here by the $goblins outside and on top of that, 
+            my prized jewel was $stolen.\"",
+        "goblins": "The man points to the door of his cave: \"Beware of the goblins outside! They will stop at nothing
+            to destroy you. And unfortunatelly there are even worse beasts here like the ones who have $stolen my
+            most prized $jewel.\"",
+        "stolen": "\"I didn't see the creature who stole my $jewel, because it was quite dark. All I remember is a 
+            strange rattling noise. I was pushed to the ground and my pack, with the jewel inside, was gone!\"",
+    },
+    waypoints: [ [ 5382, 5024, 1 ] ],
+    schedule: [
+        { name: "pub", from: 11, to: 23, movement: "anchor", waypointDir: -1 },
+        { name: "room", from: 23, to: 11, movement: "anchor", waypointDir: 1 },
+    ],    
+});
