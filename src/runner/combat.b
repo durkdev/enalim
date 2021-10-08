@@ -51,6 +51,7 @@ def findNearestMonster() {
 def attackDamage() {
     dam := int(random() * 5);
     takeDamage(player.attackTarget, dam, c => {
+        combatWin(c.anchor[0], c.anchor[1], c.id, c.move.x, c.move.y, c.move.z);
         c.move.erase();
         array_remove(creatures, cc => {
             return cc.id = c.id;

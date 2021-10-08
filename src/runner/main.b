@@ -515,7 +515,7 @@ def addToInventory(shape, container, panelX, panelY) {
 
 def equipItem(shape, panelX, panelY) {
     obj := OBJECTS_BY_SHAPE[shape];
-    if(obj != null) {
+    if(obj != null && obj.slot != null) {
         # remove equipped item if any
         if(player.equipment.equipment[obj.slot] != null) {
             addToInventory(player.equipment.equipment[obj.slot], null, -1, -1);
@@ -1049,6 +1049,52 @@ def distanceAndDirToCreature(creature) {
         cx, cy, creature.move.z, 
         px, py, player.move.z);
     return [d, dir];
+}
+
+def setShapeNearby(targetX, targetY, targetZ, shape, isExtra) {
+    pos := [-1, -1, -1];
+
+    path := findPath(
+        player.move.x, player.move.y, player.move.z, 
+        targetX, targetY, targetZ, 
+        false, 2, 20);
+    if(path != null) {
+        pos[0] := targetX;
+        pos[1] := targetY;
+        pos[2] := targetZ;
+    } else {
+        range(1, 4, 1, r => {
+            range(-1 * r, r + 1, 1, x => {
+                range(-1 * r, r + 1, 1, y => {
+                    if(pos[0] = -1) {
+                        sx := targetX + x;
+                        sy := targetY + y;
+                        # can the player reach this position?
+                        path := findPath(
+                            player.move.x, player.move.y, player.move.z, 
+                            sx, sy, targetZ, 
+                            false, 2, 20);
+                        if(path != null) {
+                            pos[0] := sx;
+                            pos[1] := sy;
+                            pos[2] := targetZ;
+                        }
+                    }
+                });
+            });    
+        });
+    }   
+    # can't find position: put it under the player 
+    if(pos[0] = -1) {
+        pos[0] := player.move.x;
+        pos[1] := player.move.y;
+        pos[2] := player.move.z;
+    }
+    if(isExtra) {
+        setShapeExtra(pos[0], pos[1], pos[2], shape);
+    } else {
+        setShape(pos[0], pos[1], pos[2], shape);
+    }
 }
 
 def main() {

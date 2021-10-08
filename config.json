@@ -413,7 +413,9 @@
                 { "name": "door.sheets.y", "size": [ 1, 4, 6], "pos": [440, 528], "extra": true },
                 { "name": "switch.open", "size": [ 2, 1, 2], "pos": [520, 472], "interactive": true },
                 { "name": "switch.closed", "size": [ 2, 1, 2], "pos": [552, 472], "interactive": true },
-                { "name": "column.iron", "size": [ 1, 1, 6 ], "pos": [584, 448] }
+                { "name": "column.iron", "size": [ 1, 1, 6 ], "pos": [584, 448] },
+                { "name": "item.gem.ruby", "size": [ 1, 1, 1], "pos": [240, 208], "drag": true, "extra": true },
+                { "name": "item.gem.theohadron", "description": "Theohadron Stone", "size": [ 1, 1, 1], "pos": [256, 208], "drag": true, "extra": true }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },

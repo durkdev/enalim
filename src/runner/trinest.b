@@ -39,9 +39,17 @@ addNpcDef({
     convo: {
         "": () => {
             if(player.convo.npc.activeSchedule = 0) {
-                return "You see a portly man who has obviously been sampling the local ale: \"Hello there stranger\"
-                     - he slurs slightly - \"you have the look of an $adventurer. I also used to roam the lands freely, 
-                     but lately I've been $stuck in Trinest.\"";
+                if(player.gameState["ender_quest_after"] = true) {
+                    return "The portly man seems very stressed, nervously looking over his shoulder. \"I already told you where you can find $Fearon. 
+                        Keep the gem and leave me alone!\"";
+                } else if(player.gameState["ender_quest"] = true) {
+                    return "The portly man looks at you impatiently and says: \"Clearly, you have yet to set off and help me with my $favor. 
+                        Off to $Ravenous with you and bring back what is rightfully mine!\"";
+                } else {
+                    return "You see a portly man who has obviously been sampling the local ale: \"Hello there stranger\"
+                        - he slurs slightly - \"you have the look of an $adventurer. I also used to roam the lands freely, 
+                        but lately I've been $stuck in Trinest.\"";
+                }
             } else {
                 return "The portly man seems irritated by the interruption: \"Yes, yes that's very interesting but 
                     you see I'm quiet tired. Talk to me tomorrow in the $pub.\"";
@@ -58,11 +66,40 @@ addNpcDef({
         "Ravenous": "\"Ravenous is a large dungeon just north-east of here. Follow the road and it will guide you there. But beware, 
             its depths are fill with loathsome horrors. Unless you're very foolish or very brave, I would not advise you to enter there. 
             Many an $adventurer paid the ultimate price for their curiosity in Ravenous!\"",
-        "Fearon": "You mention that you're looking for a man named Fearon. The portly man nods and says: \"I know Fearon well. I would 
-            gladly direct you to him if you could just do me a small $favor.\"",
-        "favor": "He moves closes and whispers conspiratorially: \"You seem like a very brave and experienced $adventurer.\" - he
-            smiles creepily - \"Despite my personal misgivings about the dungeon $Ravenous, I believe you could brave its depths 
-            and bring me the $jewel the thief was carrying. Do that and I will show you the way to Fearon.\"",
+        "Fearon": () => {
+            if(player.gameState["ender_quest_after"] = true) {
+                return "The man says: \"You can find Fearon in the Forest fastness south of Rentua. Follow the river to the west and then take the forest path
+                to the south from there. Good luck friend!\" - he backs away from you, clearly not wishing for more conversation.";
+            } else {
+                return "You mention that you're looking for a man named Fearon. The portly man nods and says: \"I know Fearon well. I would 
+                gladly direct you to him if you could just do me a small $favor.\"";
+            }
+        },
+        "favor": () => {
+            if(player.gameState["ender_quest"] = null) {
+                player.gameState["ender_quest"] := true;
+                return "He moves closes and whispers conspiratorially: \"You seem like a very brave and experienced $adventurer.\" - he
+                    smiles creepily - \"Despite my personal misgivings about the dungeon $Ravenous, I believe you could brave its depths 
+                    and bring me the $jewel the thief was carrying. Do that and I will show you the way to Fearon.\"";
+            } else {
+                idx := player.inventory.findIndex("item.gem.theohadron");
+                if(idx > -1) {
+                    if(player.gameState["ender_quest_after"] = null) {
+                        player.gameState["ender_quest_after"] := true;
+                        return "You pull the shiny gem from your bag with, what you perceive as, an air casual confidence.
+                            His reaction however, is not what you expected. Instead of relief, he seems at a loss for words! \"How did you?...\"
+                            he begins, but then: \"Well no matter, a deal is a deal! Tell you what? Keep the gem! I will show you the way 
+                            to $Fearon for free!\".";
+                    } else {
+                        return "The man smiles while carefully keeping his distance from you: \"Yes friend, I'm so impressed with you that I will tell you 
+                            how to find $Fearon and let you keep the gem you found!\"";
+                    }
+                } else {
+                    return "The man seem impatient to see you off: \"Yes, like we discussed earlier: fetch me the $jewel from $Ravenous and 
+                        I will\" - he winks creepily - \"send you off to $Fearon. It's a fair trade.\" - he adds, as if to satisfy his conscience.";
+                }
+            }
+        },
         "jewel": "He winks at you and says: \"You could certainly keep the jewel, but then you'll never find $Fearon. Bring it to
             me instead and I will personally give you his location.\". Seems like a reasonable trade, you think."
     },

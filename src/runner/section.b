@@ -90,3 +90,13 @@ def scriptedAction(x, y, z) {
     }
     return null;
 }
+
+def combatWin(x, y, creatureId, creatureX, creatureY, creatureZ) {
+    sectionPos := getSectionPos(x, y);
+    section := getSection(sectionPos[0], sectionPos[1]);
+    if(section != null) {
+        if(section["combatWin"] != null) {
+            section.combatWin(creatureId, creatureX, creatureY, creatureZ);
+        }
+    }    
+}

@@ -45,5 +45,11 @@ SECTIONS["26,25"] := {
             return true;
         }
         return null;
-    }
+    },
+    "combatWin": (this, creatureId, x, y, z) => {
+        if(creatureId = "c.5360.5075.1") {
+            # drop "item.gem.theohadron"
+            setShapeNearby(x, y, z, "item.gem.theohadron", true);
+        }
+    },
 };
