@@ -68,8 +68,9 @@ addNpcDef({
             Many an $adventurer paid the ultimate price for their curiosity in Ravenous!\"",
         "Fearon": () => {
             if(player.gameState["ender_quest_after"] = true) {
-                return "The man says: \"You can find Fearon in the Forest fastness south of Rentua. Follow the river to the west and then take the forest path
-                to the south from there. Good luck friend!\" - he backs away from you, clearly not wishing for more conversation.";
+                return "The man says: \"The last time I saw Fearon, he was hiking to someplace in the forest of Amnadel. Follow the Enalim road to the west and 
+                after you reach the town of Rentua turn south on the forest path. Good luck friend!\" - he backs away from you, clearly not wishing for more 
+                conversation.";
             } else {
                 return "You mention that you're looking for a man named Fearon. The portly man nods and says: \"I know Fearon well. I would 
                 gladly direct you to him if you could just do me a small $favor.\"";

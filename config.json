@@ -415,7 +415,12 @@
                 { "name": "switch.closed", "size": [ 2, 1, 2], "pos": [552, 472], "interactive": true },
                 { "name": "column.iron", "size": [ 1, 1, 6 ], "pos": [584, 448] },
                 { "name": "item.gem.ruby", "size": [ 1, 1, 1], "pos": [240, 208], "drag": true, "extra": true },
-                { "name": "item.gem.theohadron", "description": "Theohadron Stone", "size": [ 1, 1, 1], "pos": [256, 208], "drag": true, "extra": true }
+                { "name": "item.gem.theohadron", "description": "Theohadron Stone", "size": [ 1, 1, 1], "pos": [256, 208], "drag": true, "extra": true },
+                { "name": "floor.stone.4x4", "size": [ 4, 4, 1 ], "pos": [8, 120] },
+                { "name": "streetlamp.base", "size": [ 2, 2, 6 ], "pos": [376, 16], "light": true, "lightZ": 0 },
+                { "name": "streetlamp.top", "size": [ 4, 2, 4 ], "pos": [416, 16], "light": true },
+                { "name": "bridge.x.left", "size": [ 4, 4, 5 ], "pos": [480, 8] },
+                { "name": "bridge.x.right", "size": [ 4, 4, 5 ], "pos": [545, 8] }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },
