@@ -1367,9 +1367,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="11.313709"
-     inkscape:cx="561.04504"
-     inkscape:cy="69.605824"
+     inkscape:zoom="5.6568543"
+     inkscape:cx="561.00084"
+     inkscape:cy="69.56163"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      inkscape:document-rotation="0"
@@ -1983,6 +1983,11 @@
      id="layer2"
      inkscape:label="walls"
      style="display:inline">
+    <path
+       id="path101838"
+       style="fill:#2d2d2d;fill-opacity:1;stroke:#000000;stroke-width:1.00000002;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 512 8 L 480 40 L 480 80 L 512 112 L 518.25 90 L 525.5 71.75 L 536 56 L 544 48 L 576 80 L 584 72 L 592.25 67.25 L 595.65039 67.650391 L 608 80 L 608 56 L 608 40 L 576 8 L 544 40 L 512 8 z "
+       transform="scale(0.26458333)" />
     <path
        style="fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.079375;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 160.86667,21.166667 -4.23334,-4.233334 4.23334,-2.116666 z"
