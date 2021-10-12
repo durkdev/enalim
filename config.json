@@ -69,8 +69,8 @@
             "dpi": 288,
             "shapes": [
                 { "name": "ground.grass", "size": [ 4, 4, 1], "pos": [8, 520] },
-                { "name": "ground.marsh", "size": [ 4, 4, 1], "pos": [88, 520] },
-                { "name": "ground.marsh.2", "size": [ 4, 4, 1], "pos": [168, 520] },
+                { "name": "ground.grass.marsh", "size": [ 4, 4, 1], "pos": [88, 520] },
+                { "name": "ground.grass.marsh.2", "size": [ 4, 4, 1], "pos": [168, 520] },
                 { "name": "ground.dirt", "size": [ 4, 4, 1], "pos": [248, 520] },
                 { "name": "ground.grass.2", "size": [ 4, 4, 1], "pos": [328, 520] },
                 { "name": "ground.water", "size": [ 4, 4, 1], "pos": [408, 520], "offset": [0, 0, -1], "nosupport": true },
@@ -290,7 +290,10 @@
                 { "name": "roof.red.w2", "size": [ 6, 6, 6], "pos": [400, 752], "alphaMin": 0.75 },
                 { "name": "roof.red.e2", "size": [ 6, 6, 6], "pos": [496, 752], "alphaMin": 0.75 },
                 { "name": "roof.red.s2", "size": [ 6, 6, 6], "pos": [592, 752], "alphaMin": 0.75 },
-                { "name": "roof.red.n2", "size": [ 6, 6, 6], "pos": [688, 752], "alphaMin": 0.75 }
+                { "name": "roof.red.n2", "size": [ 6, 6, 6], "pos": [688, 752], "alphaMin": 0.75 },
+                { "name": "roof.red.6x6", "size": [ 6, 6, 6], "pos": [800, 624], "alphaMin": 0.75 },
+                { "name": "roof.red.4x6", "size": [ 4, 6, 6], "pos": [792, 488], "alphaMin": 0.75 },
+                { "name": "roof.red.6x4", "size": [ 6, 4, 6], "pos": [880, 480], "alphaMin": 0.75 }
             ]
         },
         {
@@ -420,7 +423,8 @@
                 { "name": "streetlamp.base", "size": [ 2, 2, 6 ], "pos": [376, 16], "light": true, "lightZ": 0 },
                 { "name": "streetlamp.top", "size": [ 4, 2, 4 ], "pos": [416, 16], "light": true },
                 { "name": "bridge.x.left", "size": [ 4, 4, 5 ], "pos": [480, 8] },
-                { "name": "bridge.x.right", "size": [ 4, 4, 5 ], "pos": [545, 8] }
+                { "name": "bridge.x.right", "size": [ 4, 4, 5 ], "pos": [552, 8] },
+                { "name": "railing.x", "size": [ 2, 1, 1 ], "pos": [480, 120], "extra": true }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },

@@ -69,7 +69,7 @@ addNpcDef({
         "Fearon": () => {
             if(player.gameState["ender_quest_after"] = true) {
                 return "The man says: \"The last time I saw Fearon, he was hiking to someplace in the forest of Amnadel. Follow the Enalim road to the west and 
-                after you reach the town of Rentua turn south on the forest path. Good luck friend!\" - he backs away from you, clearly not wishing for more 
+                after you reach the town of Valora turn south on the forest path. Good luck friend!\" - he backs away from you, clearly not wishing for more 
                 conversation.";
             } else {
                 return "You mention that you're looking for a man named Fearon. The portly man nods and says: \"I know Fearon well. I would 
@@ -186,14 +186,14 @@ addNpcDef({
             murderous $goblins still outside?\"",
         "rescue": "The man sighs and continues: \"Yes, you could be asking yourself why I'm in this mess. 
             If you want I can tell you my $story.\"",
-        "story": "\"I'm a simple jewel merchant from Rentua. One day I had the bad luck of purchasing a large
+        "story": "\"I'm a simple jewel merchant from Valora. One day I had the bad luck of purchasing a large
             cabochon $jewel of a kind of a gem I've never seen before. My life has been a living hell ever 
             since that fated day.\"",
         "jewel": "\"It is a large dark-red jewel with a shiny surface. The patterns in the stone are mesmerizing,
             as if it were alive! I've never seen anything like it before.\" - he trails off reminiscing but then 
             continues - \"Soon after the purchase, I've started getting offers for the jewel and then $threats!\"",
         "threats": "\"Several would be buyers insisted that I sell them the gem and when that didn't work, became
-            aggressive. Eventually, I had to leave Rentua and I've been on the $move ever since.\"",
+            aggressive. Eventually, I had to leave Valora and I've been on the $move ever since.\"",
         "move": "He motions at the caverns around: \"And that is how I ended up here in Trinest, or more specifically,
             how I became trapped in this accursed dungeon. You see, someone tracked me down and in a last ditch effort 
             to save my life, I hid in this dungeon. Now I'm trapped here by the $goblins outside and on top of that, 

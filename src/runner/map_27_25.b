@@ -28,6 +28,10 @@ SECTIONS["27,25"] := {
         return null;
     },
     "action": (this, x, y, z) => {
+        if(x = 5504 && y = 5056 && z = 1) {
+            timedMessage(x, y, z, "Trinest", false);
+            return true;
+        }
         return null;
     }
 };

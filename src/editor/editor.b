@@ -25,14 +25,16 @@ def editorSectionCommand() {
         drawGrass(getPosition(), 
             null,
             ["rock", "rock.corner", "rock.2", "rock.3", "rock.4", "rock.5", "trunk.y", "plant.bush"],
-            [ "plant.flower.green.large", "plant.flower.yellow.large", "plant.flower.red.large" ]
+            [ "plant.flower.green.large", "plant.flower.yellow.large", "plant.flower.red.large" ],
+            true
         );
     }
     if(isPressed(Key4)) {
         drawGrass(getPosition(), 
             null,
             null,
-            null
+            null,
+            true
         );
     }
     if(isPressed(Key5)) {
@@ -108,6 +110,10 @@ def editorInsertCommand() {
         drawMountain(getPosition());
         step := 4;
     }
+    if(isPressed(Key7)) {
+        drawPath(getPosition());
+        step := 4;
+    }    
     
     if(step != 0 && (editor.dirX != 0 || editor.dirY != 0)) {
         moveViewTo(editor.lastX + editor.dirX * step, editor.lastY + editor.dirY * step);
@@ -546,25 +552,31 @@ def drawLand(x, y, w, h, trees, objects, extras) {
         range(0, int(n*0.5), 1, i => {
             i := int(random() * len(pos));
             p := pos[i];
-            setShape(p[0] + 1, p[1] + 1, 1, "plant.trunk");
-            setShape(p[0], p[1], 5, choose(trees));
-            del pos[i];
+            info := getShape(int(p[0]/4)*4, int(p[1]/4)*4, 0);
+            if(info != null && startsWith(info[0], "ground.grass")) {
+                setShape(p[0] + 1, p[1] + 1, 1, "plant.trunk");
+                setShape(p[0], p[1], 5, choose(trees));
+                del pos[i];
+            }
         });
     }
     if(objects != null) {
         range(0, int(n*0.15), 1, i => {
             i := int(random() * len(pos));
             p := pos[i];
-            setShape(p[0], p[1], 1, choose(objects));
-            del pos[i];
+            info := getShape(int(p[0]/4)*4, int(p[1]/4)*4, 0);
+            if(info != null && startsWith(info[0], "ground.grass")) {
+                setShape(p[0], p[1], 1, choose(objects));
+                del pos[i];
+            }
         });
     }
 }
 
-def drawGrass(pos, trees, objects, extras) {
+def drawGrass(pos, trees, objects, extras, clearFloor=false) {
     x := int(pos[0] / LAND_UNIT) * LAND_UNIT;
     y := int(pos[1] / LAND_UNIT) * LAND_UNIT;
-    clearArea(x, y, LAND_UNIT, LAND_UNIT);
+    clearArea(x, y, LAND_UNIT, LAND_UNIT, clearFloor);
     shape2 := null;
     if(objects != null) {
         shape2 := choose([
@@ -573,12 +585,24 @@ def drawGrass(pos, trees, objects, extras) {
             ["ground.grass.3"]
         ]);
     }
-    fillFloor(x, y, LAND_UNIT, LAND_UNIT, "ground.grass", shape2);
+    if(clearFloor) {
+        fillFloor(x, y, LAND_UNIT, LAND_UNIT, "ground.grass", shape2);
+    }
+    if(clearFloor = false) {
+        extras := null;
+    }
     drawLand(x, y, LAND_UNIT, LAND_UNIT, trees, objects, extras);
 }
 
 def drawEdge(fx) {
     range(0, 1 + int(random() * 3), 1, fx);
+}
+
+def drawPath(pos) {
+    x := int(pos[0] / 4) * 4;
+    y := int(pos[1] / 4) * 4;
+    clearArea(x, y, 4, 4);
+    setShapeEditor(x, y, 0, "ground.dirt");
 }
 
 def drawRiver(pos) {
