@@ -80,40 +80,34 @@ def editorInsertCommand() {
     }
     if(isPressed(Key2)) {
         pos := getPosition();
-        x := int(pos[0] / 4) * 4;
-        y := int(pos[1] / 4) * 4;
-        if(drawDungeon(x, y, 0)) {
-            step := 4;
-        }
+        x := int(pos[0] / 2) * 2;
+        y := int(pos[1] / 2) * 2;        
+        drawDungeonNew(x, y, 0);
+        step := 2;
     }
     if(isPressed(Key3)) {
         pos := getPosition();
-        x := int(pos[0] / 4) * 4;
-        y := int(pos[1] / 4) * 4;
-        if(drawDungeon(x, y, 1)) {
-            step := 4;
-        }
+        x := int(pos[0] / 2) * 2;
+        y := int(pos[1] / 2) * 2;        
+        drawDungeonNew(x, y, 1);
+        step := 2;
     }
     if(isPressed(Key4)) {
-        pos := getPosition();
-        x := int(pos[0] / 4) * 4;
-        y := int(pos[1] / 4) * 4;
-        if(drawDungeon(x, y, 2)) {
-            step := 4;
-        }
+        drawMountain(getPosition(), 0);
+        step := 4;
     }
     if(isPressed(Key5)) {
-        drawRiver(getPosition());
+        drawMountain(getPosition(), 1);
         step := 4;
     }
     if(isPressed(Key6)) {
-        drawMountain(getPosition());
+        drawRiver(getPosition());
         step := 4;
     }
     if(isPressed(Key7)) {
         drawPath(getPosition());
         step := 4;
-    }    
+    }
     
     if(step != 0 && (editor.dirX != 0 || editor.dirY != 0)) {
         moveViewTo(editor.lastX + editor.dirX * step, editor.lastY + editor.dirY * step);
@@ -259,64 +253,12 @@ def drawRugEdge(x, y, z, rug) {
     }
 }
 
-dungeon := [
-    {
-        "floor": "ground.cave",
-        "corner.black": "cave.earth.corner.2",
-        "corner": "cave.earth.corner.1",
-        "wall.w": "cave.earth.e3", 
-        "wall.e": "cave.earth.w3", 
-        "wall.s": "cave.earth.s3", 
-        "wall.n": "cave.earth.n3", 
-        "wall.w.wide": "cave.earth.e", 
-        "wall.e.wide": "cave.earth.w", 
-        "wall.s.wide": "cave.earth.s", 
-        "wall.n.wide": "cave.earth.n", 
-        "corner.se": "cave.dirt.corner.sw",
-        "corner.ne": "cave.dirt.corner.nw",
-        "corner.sw": "cave.dirt.corner.se",
-        "corner.nw": "cave.dirt.corner.ne",
-    },
-    {
-        "floor": "ground.cave.2",
-        "corner.black": "cave.earth.corner.2",
-        "corner": "cave.rock.corner.1",
-        "wall.w": "cave.rock.e3", 
-        "wall.e": "cave.earth.w3", 
-        "wall.s": "cave.earth.s3", 
-        "wall.n": "cave.rock.n3", 
-        "wall.w.wide": "cave.rock.e", 
-        "wall.e.wide": "cave.earth.w", 
-        "wall.s.wide": "cave.earth.s", 
-        "wall.n.wide": "cave.rock.n",     
-        "corner.se": "cave.rock.corner.sw",
-        "corner.ne": "cave.rock.corner.nw",
-        "corner.sw": "cave.rock.corner.se",
-        "corner.nw": "cave.rock.corner.ne",
-    },
-    {
-        "floor": "ground.cave.2",
-        "corner.black": "cave.earth.corner.2",
-        "corner": "dungeon.stone.corner",
-        "wall.w": "dungeon.stone.e3", 
-        "wall.e": "dungeon.stone.w3", 
-        "wall.s": "dungeon.stone.s3", 
-        "wall.n": "dungeon.stone.n3", 
-        "wall.w.wide": "dungeon.stone.e", 
-        "wall.e.wide": "dungeon.stone.w", 
-        "wall.s.wide": "dungeon.stone.s", 
-        "wall.n.wide": "dungeon.stone.n",     
-        "corner.se": "dungeon.stone.corner",
-        "corner.ne": "dungeon.stone.corner",
-        "corner.sw": "dungeon.stone.corner",
-        "corner.nw": "dungeon.stone.corner",
-    },
-];
-
 def isDungeonFloor(x, y) {
-    info := getShape(x, y, 0);
-    if(info != null) {
-        return info[0] = "ground.cave" || info[0] = "ground.cave.2";
+    xx := int(x/4) * 4;
+    yy := int(y/4) * 4;
+    info := getShape(xx, yy, 0);
+    if(info != null && startsWith(info[0], "ground.cave")) {
+        return true;
     }
     return false;
 }
@@ -329,96 +271,126 @@ def isUnderMountain(x, y) {
     return false;
 }
 
-def drawDungeon(x, y, dungeonType) {
-    if(isUnderMountain(x, y)) {
-        drawDungeonBlock(x, y, dungeon[dungeonType]);
+const dungeonNew = [
+    {
+        "floor": "ground.cave.3",
+        "block": "cave.earth.2x2.2",
+        "block_black": "cave.earth.2x2.black",
+        "corner_se": "cave.earth.1x1.se",
+        "corner_sw": "cave.earth.1x1.sw",
+        "corner_ne": "cave.earth.1x1.ne",
+        "corner_nw": "cave.earth.1x1.nw",
+    }
+];
+
+def isDungeon(x, y) {
+    info := getShape(x, y, 1);
+    if(info != null && startsWith(info[0], "cave.earth.2x2")) {
         return true;
     }
     return false;
 }
 
-def drawDungeonBlock(x, y, d) {
-    eraseShape(x, y, 0);
-    setShape(x, y, 0, d.floor);
-    range(0, 4, 1, xx => {
-        range(0, 4, 1, yy => {
+def drawDungeonNew(x, y, dungeonType) {
+    if(isUnderMountain(x, y) && isDungeon(x, y) = false) {
+        drawDungeonBlockNew(x, y, dungeonNew[dungeonType]);
+        return true;
+    }
+    return false;
+}
+
+def drawDungeonBlockNew(x, y, d) {
+    range(0, 2, 1, xx => {
+        range(0, 2, 1, yy => {
             eraseShape(x + xx, y + yy, 1);
         });
     });
-    drawDungeonWalls(x, y, d);
-}
-
-def drawDungeonWalls(x, y, d) {
-    n := isDungeonFloor(x, y - 4) = false;
-    s := isDungeonFloor(x, y + 4) = false;
-    e := isDungeonFloor(x + 4, y) = false;
-    w := isDungeonFloor(x - 4, y) = false;
-    ne := isDungeonFloor(x + 4, y - 4) = false;
-    se := isDungeonFloor(x + 4, y + 4) = false;
-    nw := isDungeonFloor(x - 4, y - 4) = false;
-    sw := isDungeonFloor(x - 4, y + 4) = false;
-
-    sw_corner := s && w;
-    nw_corner := n && w;
-    se_corner := s && e;
-    ne_corner := n && e;
-
-    if(sw_corner) {
-        setShape(x, y + 3, 1, d["corner.black"]);
-        setShape(x, y, 1, d["wall.w"]);
-        setShape(x + 1, y + 3, 1, d["wall.s"]);
-        return 1;
-    }
-    if(nw_corner) {
-        setShape(x, y, 1, d["corner.black"]);
-        setShape(x, y + 1, 1, d["wall.w"]);
-        setShape(x + 1, y, 1, d["wall.n"]);
-        return 1;
-    }
-    if(se_corner) {
-        setShape(x + 3, y + 3, 1, d["corner.black"]);
-        setShape(x + 3, y, 1, d["wall.e"]);
-        setShape(x, y + 3, 1, d["wall.s"]);
-        return 1;
-    }
-    if(ne_corner) {
-        setShape(x + 3, y, 1, d["corner.black"]);
-        setShape(x + 3, y + 1, 1, d["wall.e"]);
-        setShape(x, y, 1, d["wall.n"]);
-        return 1;
-    }    
-
-    if(n) {
-        setShape(x, y, 1, d["wall.n.wide"]);
-        return 1;
-    }
-    if(s) {
-        setShape(x, y + 3, 1, d["wall.s.wide"]);
-        return 1;
-    }
-    if(w) {
-        setShape(x, y, 1, d["wall.w.wide"]);
-        return 1;
-    }
-    if(e) {
-        setShape(x + 3, y, 1, d["wall.e.wide"]);
-        return 1;
+    if(isDungeonFloor(x + 2, y) = false || isDungeonFloor(x, y + 2) = false) {
+        setShape(x, y, 1, d.block_black);
+    } else {
+        setShape(x, y, 1, d.block);
     }
 
-    if(nw) {
-        setShape(x, y, 1, d["corner.nw"]); 
+    # left
+    if(isDungeonFloor(x - 1, y)) {
+        if(isDungeon(x - 1, y) = false) {
+            eraseShape(x - 1, y, 1);
+            if(isDungeon(x - 1, y - 1)) {
+                setShape(x - 1, y, 1, d.corner_nw);
+            } else if(isDungeon(x - 1, y + 1)) {
+                setShape(x - 1, y, 1, d.corner_sw);
+            }
+        }
+        if(isDungeon(x - 1, y + 1) = false) {
+            eraseShape(x - 1, y + 1, 1);
+            if(isDungeon(x - 1, y)) {
+                setShape(x - 1, y + 1, 1, d.corner_nw);
+            } else if(isDungeon(x - 1, y + 2)) {
+                setShape(x - 1, y + 1, 1, d.corner_sw);
+            }
+        }
     }
-    if(ne) {
-        setShape(x + 3, y, 1, d["corner.ne"]); 
-    }
-    if(sw) {
-        setShape(x, y + 3, 1, d["corner.sw"]); 
-    }
-    if(se) {
-        setShape(x + 3, y + 3, 1, d["corner.black"]); 
-    }
-    return 1;
 
+    # right
+    if(isDungeonFloor(x + 2, y)) {
+        if(isDungeon(x + 2, y) = false) {
+            eraseShape(x + 2, y, 1);
+            if(isDungeon(x + 2, y - 1)) {
+                setShape(x + 2, y, 1, d.corner_ne);
+            } else if(isDungeon(x + 2, y + 1)) {
+                setShape(x + 2, y, 1, d.corner_se);
+            }
+        }
+        if(isDungeon(x + 2, y + 1) = false) {
+            eraseShape(x + 2, y + 1, 1);
+            if(isDungeon(x + 2, y)) {
+                setShape(x + 2, y + 1, 1, d.corner_ne);
+            } else if(isDungeon(x + 2, y + 2)) {
+                setShape(x + 2, y + 1, 1, d.corner_se);
+            }
+        }
+    }
+
+
+    # above
+    if(isDungeonFloor(x, y - 1)) {
+        if(isDungeon(x, y - 1) = false) {
+            eraseShape(x, y - 1, 1);
+            if(isDungeon(x - 1, y - 1)) {
+                setShape(x, y - 1, 1, d.corner_se);
+            } else if(isDungeon(x + 1, y - 1)) {
+                setShape(x, y - 1, 1, d.corner_sw);
+            }
+        }
+        if(isDungeon(x + 1, y - 1) = false) {
+            eraseShape(x + 1, y - 1, 1);
+            if(isDungeon(x, y - 1)) {
+                setShape(x + 1, y - 1, 1, d.corner_se);
+            } else if(isDungeon(x + 2, y - 1)) {
+                setShape(x + 1, y - 1, 1, d.corner_sw);
+            }
+        }
+    }
+
+    # below
+    if(isDungeonFloor(x, y + 2)) {
+        if(isDungeon(x, y + 2) = false) {
+            eraseShape(x, y + 2, 1);
+            if(isDungeon(x - 1, y + 2)) {
+                setShape(x, y + 2, 1, d.corner_ne);
+            } else if(isDungeon(x + 1, y + 2)) {
+                setShape(x, y + 2, 1, d.corner_nw);
+            }
+        }
+        if(isDungeon(x + 1, y + 2) = false) {
+            eraseShape(x + 1, y + 2, 1);
+            if(isDungeon(x, y + 2)) {
+                setShape(x + 1, y + 2, 1, d.corner_ne);
+            } else if(isDungeon(x + 2, y + 2)) {
+                setShape(x + 1, y + 2, 1, d.corner_nw);
+            }
+        }
+    }
 }
 
 const LAND_UNIT = 32;
@@ -635,11 +607,12 @@ def drawRiver(pos) {
     });
 }
 
-def drawMountain(pos) {
+def drawMountain(pos, dungeonType) {
     x := int(pos[0] / 4) * 4;
     y := int(pos[1] / 4) * 4;
     if(isCave(x, y) = false) {
         clearArea(x, y, 4, 4);
+        setShape(x, y, 0, dungeonNew[dungeonType].floor);
         setShape(x, y, 7, choose(ROCK_ROOF));
         drawMountainEdge(x, y);
 
