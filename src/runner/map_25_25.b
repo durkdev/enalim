@@ -12,8 +12,7 @@ SECTIONS["25,25"] := {
 
         setBook(5025, 5018, 3, "map", "Raising the dead");
         setBook(5023, 5010, 6, "map", "Spell reagents");        
-        setBook(5197, 5016, 3, "map", "On ghosts and spirits"); 
-        setBook(5198, 5015, 3, "map", "In the shadow of Vreit");
+        setBook(5190, 5016, 3, "map", "The book of Vreit");
     },
     "teleport": (this, x, y, z) => {
         if(x >= 5000 && x <= 5001 && y <= 5039 && y >= 5036 && z = 1) {

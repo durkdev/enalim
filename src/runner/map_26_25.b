@@ -19,16 +19,16 @@ SECTIONS["26,25"] := {
         setCreature(5367, 5081, 1, creaturesTemplates.skeleton);
         setCreature(5395, 5089, 1, creaturesTemplates.skeleton_blue);
 
-        setBook(5214, 5034, 3, "map", "In the shadow of Vreit");
+        setBook(5214, 5034, 3, "map", "The book of Vreit");
     },
     "start": this => {
-        eraseShape(5293, 5022, 1);
+        eraseShape(5291, 5018, 1);
         if(player.gameState["switch_5442_5129_1"] = true) {
-            setShape(5293, 5022, 1, "teleport.x");
+            setShape(5291, 5018, 1, "teleport.x");
         }
     },
     "teleport": (this, x, y, z) => {
-        if(player.gameState["switch_5442_5129_1"] = true && x = 5293 && y >= 5022 && y < 5026 && z = 1) {
+        if(player.gameState["switch_5442_5129_1"] = true && x = 5291 && y >= 5018 && y < 5024 && z = 1) {
             return [ 5400, 5146, 1 ];
         } else if(x = 5396 && y >= 5146 && y < 5150 && z = 1) {
             return [ 5297, 5022, 1 ];

@@ -9,8 +9,8 @@ SECTIONS["25,24"] := {
         setCreature(5170, 4932, 1, creaturesTemplates.ogre);
         setContainer("chest", 4998, 4970, 1, "map", [ "item.thermex", { "shape": "item.book.2", "book": "Raising the dead" } ]);
         setContainer("chest", 5002, 4960, 1, "map", [ "item.dagger", "item.candle", "item.candle" ]);
-        setContainer("chest", 5184, 4926, 3, "map", [ "key.ourdlen2", "item.candle" ]);
-        setBook(5125, 4995, 3, "map", "In the shadow of Vreit");
+        setContainer("chest", 5182, 4918, 3, "map", [ "key.ourdlen2", "item.candle" ]);
+        setBook(5125, 4995, 3, "map", "The book of Vreit");
     },
     "start": this => {
         eraseShape(5003, 4966, 1);
@@ -26,6 +26,12 @@ SECTIONS["25,24"] := {
             if(player.gameState["gate_to_ruins"] != null) {
                 return [5178, 5084, 2];
             }
+        }
+        if(x >= 5164 && x <= 5167 && y = 4976) {
+            return [5139, 4973, 1];
+        }
+        if(x >= 5136 && x <= 5137 && y >= 4972 && y <= 4976) {
+            return [ 5165, 4978, 1 ];
         }
         return null;
     },

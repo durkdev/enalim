@@ -11,8 +11,8 @@ SECTIONS["27,24"] := {
         setCreature(5415, 4897, 1, creaturesTemplates.goblin);
     },
     "teleport": (this, x, y, z) => {
-        if(x = 5400 && y <= 4971 && y >= 4968 && z = 1) {
-            return [5482, 5019, 1];
+        if(x >= 5400 && x <= 5401 && y >= 4968 && y <= 4971) {
+            return [5481, 5017, 1];
         }
         return null;
     },
