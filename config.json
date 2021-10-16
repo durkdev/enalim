@@ -458,7 +458,9 @@
                 { "name": "cave.earth.1x1.ne", "size": [ 1, 1, 6], "pos": [248, 544], "alphaMin": 0.5 },
                 { "name": "cave.earth.1x1.sw", "size": [ 1, 1, 6], "pos": [248, 624], "alphaMin": 0.5 },
                 { "name": "cave.earth.1x1.se", "size": [ 1, 1, 6], "pos": [280, 624], "alphaMin": 0.5 },
-                { "name": "cave.earth.1x1.nw", "size": [ 1, 1, 6], "pos": [312, 624], "alphaMin": 0.5 }
+                { "name": "cave.earth.1x1.nw", "size": [ 1, 1, 6], "pos": [312, 624], "alphaMin": 0.5 },
+                { "name": "cave.earth.gate", "size": [ 2, 4, 6], "pos": [272, 416], "light": true },
+                { "name": "cave.earth.1x1.ne.2", "size": [ 1, 1, 6], "pos": [216, 544], "alphaMin": 0.5 }
             ]
         }
     ],    

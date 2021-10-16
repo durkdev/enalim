@@ -65,10 +65,19 @@ Beware dear reader that this is not an exhaustive list of reagents. You may come
 varieties during your study of the magical arts.
 ";
 
+const BOOK_VREIT = "In the shadow of Vreit
+
+Let these pages attest the eternal glory of Vreit! May earthly toils by scribes ever sing his praise! May the spoken
+words of his flourishing progeny sound their joyful and gregarious cacophony!
+
+For such are the ways of lord Vreit, he who vouchsafes his followers the gift of stories, learning and the joy of words.
+";
+
 BOOKS := {
     "Raising the dead": RAISE_DEAD,
     "On ghosts and spirits": ON_GHOSTS,
     "Spell reagents": ON_REAGENTS,
+    "In the shadow of Vreit": BOOK_VREIT,
 };
 
 const PAGE_LINE_COUNT = 15;

@@ -278,7 +278,7 @@ const dungeonNew = [
         "block_black": "cave.earth.2x2.black",
         "corner_se": "cave.earth.1x1.se",
         "corner_sw": "cave.earth.1x1.sw",
-        "corner_ne": "cave.earth.1x1.ne",
+        "corner_ne": ["cave.earth.1x1.ne", "cave.earth.1x1.ne.2"],
         "corner_nw": "cave.earth.1x1.nw",
     }
 ];
@@ -299,6 +299,14 @@ def drawDungeonNew(x, y, dungeonType) {
     return false;
 }
 
+def drawDungeonShape(x, y, z, shapes) {
+    if(typeof(shapes) = "array") {
+        setShape(x, y, z, choose(shapes));
+    } else {
+        setShape(x, y, z, shapes);
+    }
+}
+
 def drawDungeonBlockNew(x, y, d) {
     range(0, 2, 1, xx => {
         range(0, 2, 1, yy => {
@@ -306,9 +314,9 @@ def drawDungeonBlockNew(x, y, d) {
         });
     });
     if(isDungeonFloor(x + 2, y) = false || isDungeonFloor(x, y + 2) = false) {
-        setShape(x, y, 1, d.block_black);
+        drawDungeonShape(x, y, 1, d.block_black);
     } else {
-        setShape(x, y, 1, d.block);
+        drawDungeonShape(x, y, 1, d.block);
     }
 
     # left
@@ -316,17 +324,17 @@ def drawDungeonBlockNew(x, y, d) {
         if(isDungeon(x - 1, y) = false) {
             eraseShape(x - 1, y, 1);
             if(isDungeon(x - 1, y - 1)) {
-                setShape(x - 1, y, 1, d.corner_nw);
+                drawDungeonShape(x - 1, y, 1, d.corner_nw);
             } else if(isDungeon(x - 1, y + 1)) {
-                setShape(x - 1, y, 1, d.corner_sw);
+                drawDungeonShape(x - 1, y, 1, d.corner_sw);
             }
         }
         if(isDungeon(x - 1, y + 1) = false) {
             eraseShape(x - 1, y + 1, 1);
             if(isDungeon(x - 1, y)) {
-                setShape(x - 1, y + 1, 1, d.corner_nw);
+                drawDungeonShape(x - 1, y + 1, 1, d.corner_nw);
             } else if(isDungeon(x - 1, y + 2)) {
-                setShape(x - 1, y + 1, 1, d.corner_sw);
+                drawDungeonShape(x - 1, y + 1, 1, d.corner_sw);
             }
         }
     }
@@ -336,17 +344,17 @@ def drawDungeonBlockNew(x, y, d) {
         if(isDungeon(x + 2, y) = false) {
             eraseShape(x + 2, y, 1);
             if(isDungeon(x + 2, y - 1)) {
-                setShape(x + 2, y, 1, d.corner_ne);
+                drawDungeonShape(x + 2, y, 1, d.corner_ne);
             } else if(isDungeon(x + 2, y + 1)) {
-                setShape(x + 2, y, 1, d.corner_se);
+                drawDungeonShape(x + 2, y, 1, d.corner_se);
             }
         }
         if(isDungeon(x + 2, y + 1) = false) {
             eraseShape(x + 2, y + 1, 1);
             if(isDungeon(x + 2, y)) {
-                setShape(x + 2, y + 1, 1, d.corner_ne);
+                drawDungeonShape(x + 2, y + 1, 1, d.corner_ne);
             } else if(isDungeon(x + 2, y + 2)) {
-                setShape(x + 2, y + 1, 1, d.corner_se);
+                drawDungeonShape(x + 2, y + 1, 1, d.corner_se);
             }
         }
     }
@@ -357,17 +365,17 @@ def drawDungeonBlockNew(x, y, d) {
         if(isDungeon(x, y - 1) = false) {
             eraseShape(x, y - 1, 1);
             if(isDungeon(x - 1, y - 1)) {
-                setShape(x, y - 1, 1, d.corner_se);
+                drawDungeonShape(x, y - 1, 1, d.corner_se);
             } else if(isDungeon(x + 1, y - 1)) {
-                setShape(x, y - 1, 1, d.corner_sw);
+                drawDungeonShape(x, y - 1, 1, d.corner_sw);
             }
         }
         if(isDungeon(x + 1, y - 1) = false) {
             eraseShape(x + 1, y - 1, 1);
             if(isDungeon(x, y - 1)) {
-                setShape(x + 1, y - 1, 1, d.corner_se);
+                drawDungeonShape(x + 1, y - 1, 1, d.corner_se);
             } else if(isDungeon(x + 2, y - 1)) {
-                setShape(x + 1, y - 1, 1, d.corner_sw);
+                drawDungeonShape(x + 1, y - 1, 1, d.corner_sw);
             }
         }
     }
@@ -377,17 +385,17 @@ def drawDungeonBlockNew(x, y, d) {
         if(isDungeon(x, y + 2) = false) {
             eraseShape(x, y + 2, 1);
             if(isDungeon(x - 1, y + 2)) {
-                setShape(x, y + 2, 1, d.corner_ne);
+                drawDungeonShape(x, y + 2, 1, d.corner_ne);
             } else if(isDungeon(x + 1, y + 2)) {
-                setShape(x, y + 2, 1, d.corner_nw);
+                drawDungeonShape(x, y + 2, 1, d.corner_nw);
             }
         }
         if(isDungeon(x + 1, y + 2) = false) {
             eraseShape(x + 1, y + 2, 1);
             if(isDungeon(x, y + 2)) {
-                setShape(x + 1, y + 2, 1, d.corner_ne);
+                drawDungeonShape(x + 1, y + 2, 1, d.corner_ne);
             } else if(isDungeon(x + 2, y + 2)) {
-                setShape(x + 1, y + 2, 1, d.corner_nw);
+                drawDungeonShape(x + 1, y + 2, 1, d.corner_nw);
             }
         }
     }

@@ -18,6 +18,8 @@ SECTIONS["26,25"] := {
         setCreature(5354, 5081, 1, creaturesTemplates.skeleton);
         setCreature(5367, 5081, 1, creaturesTemplates.skeleton);
         setCreature(5395, 5089, 1, creaturesTemplates.skeleton_blue);
+
+        setBook(5214, 5034, 3, "map", "In the shadow of Vreit");
     },
     "start": this => {
         eraseShape(5293, 5022, 1);
