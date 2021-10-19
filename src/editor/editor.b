@@ -280,12 +280,21 @@ const dungeonNew = [
         "corner_sw": "cave.earth.1x1.sw",
         "corner_ne": ["cave.earth.1x1.ne", "cave.earth.1x1.ne.2"],
         "corner_nw": "cave.earth.1x1.nw",
+    },
+    {
+        "floor": "ground.cave.4",
+        "block": "cave.rock.2x2.2",
+        "block_black": "cave.earth.2x2.black",
+        "corner_se": "cave.rock.1x1.se",
+        "corner_sw": "cave.rock.1x1.sw",
+        "corner_ne": ["cave.rock.1x1.ne", "cave.rock.1x1.ne.2"],
+        "corner_nw": "cave.rock.1x1.nw",
     }
 ];
 
 def isDungeon(x, y) {
     info := getShape(x, y, 1);
-    if(info != null && startsWith(info[0], "cave.earth.2x2")) {
+    if(info != null && (startsWith(info[0], "cave.earth.2x2") || startsWith(info[0], "cave.rock.2x2"))) {
         return true;
     }
     return false;

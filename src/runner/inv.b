@@ -60,10 +60,29 @@ def updateItemLocation(c, x, y, z, location) {
     print("New item location for id=" + c.id + " " + c.location + ":" + c.x + "," + c.y + "," + c.z);
 }
 
+const EMPTY_CONTAINERS = {
+    "barrel": "barrel",
+    "chest.y": "chest",
+    "chest.x": "chest",
+    "crate": "crate",
+};
+
 def getItem(x, y, z, location) {
     # todo: linear search
     if(location = "map") {
-        return array_find(items, c => c.x = x && c.y = y && c.z = z);
+        mapItem := array_find(items, c => c.x = x && c.y = y && c.z = z);
+        if(mapItem = null) {
+            # try to create an empty container
+            shape := getShape(x, y, z);
+            if(shape != null) {
+                c := EMPTY_CONTAINERS[shape[0]];
+                if(c != null) {
+                    print("Creating empty container.");
+                    return setContainer(c, x, y, z, "map", []);
+                }
+            }
+        }
+        return mapItem;
     }
     return array_find(items, c => c.x = x && c.location = location);
 }

@@ -39,6 +39,9 @@ SECTIONS["26,25"] := {
         if(x = 5208 && y = 5017 && z = 1) {
             return "key.ourdlen2";
         }
+        if(x = 5373 && y = 5024 && z = 1) {
+            return "key.ravenous";
+        }
         return null;
     },
     "action": (this, x, y, z) => {
