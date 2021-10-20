@@ -313,22 +313,24 @@
             },
             "dpi": 288,
             "shapes": [
-                { "name": "roof.mountain.1", "size": [ 4, 4, 4], "pos": [40, 616], "alphaMin": 0.75, "offset": [0, 0, -0.25], "group": 1 },
+                { "name": "roof.mountain.1", "size": [ 4, 4, 4], "pos": [40, 616], "alphaMin": 0.75, "offset": [0, 0, -0.35], "group": 1 },
                 { "name": "mountain.s", "size": [ 4, 4, 6], "pos": [120, 584], "alphaMin": 0.75 },
                 { "name": "mountain.w", "size": [ 4, 4, 6], "pos": [200, 584], "alphaMin": 0.75 },
                 { "name": "mountain.n", "size": [ 4, 4, 6], "pos": [280, 584], "alphaMin": 0.75 },
                 { "name": "mountain.e", "size": [ 4, 4, 6], "pos": [360, 584], "alphaMin": 0.75 },
-                { "name": "roof.mountain.2", "size": [ 4, 4, 4], "pos": [40, 728], "alphaMin": 0.75, "offset": [0, 0, -0.25], "group": 1 },
+                { "name": "roof.mountain.2", "size": [ 4, 4, 4], "pos": [40, 728], "alphaMin": 0.75, "offset": [0, 0, -0.35], "group": 1 },
                 { "name": "mountain.sw", "size": [ 4, 4, 6], "pos": [120, 712], "alphaMin": 0.75 },
                 { "name": "mountain.se", "size": [ 4, 4, 6], "pos": [200, 712], "alphaMin": 0.75 },
                 { "name": "mountain.ne", "size": [ 4, 4, 6], "pos": [280, 712], "alphaMin": 0.75 },
                 { "name": "mountain.nw", "size": [ 4, 4, 6], "pos": [360, 712], "alphaMin": 0.75 },
-                { "name": "roof.mountain.3", "size": [ 4, 4, 4], "pos": [40, 840], "alphaMin": 0.75, "offset": [0, 0, -0.25], "group": 1 },
+                { "name": "roof.mountain.3", "size": [ 4, 4, 4], "pos": [40, 840], "alphaMin": 0.75, "offset": [0, 0, -0.35], "group": 1 },
                 { "name": "mountain.sw.2", "size": [ 4, 4, 6], "pos": [120, 840], "alphaMin": 0.75 },
                 { "name": "mountain.se.2", "size": [ 4, 4, 6], "pos": [200, 840], "alphaMin": 0.75 },
                 { "name": "mountain.ne.2", "size": [ 4, 4, 6], "pos": [280, 840], "alphaMin": 0.75 },
                 { "name": "mountain.nw.2", "size": [ 4, 4, 6], "pos": [360, 840], "alphaMin": 0.75 },
-                { "name": "mountain.cave.s", "size": [ 4, 4, 6], "pos": [120, 440], "alphaMin": 0.75 }
+                { "name": "mountain.cave.s", "size": [ 4, 4, 6], "pos": [120, 440], "alphaMin": 0.75 },
+                { "name": "mountain.door.e.1", "size": [ 4, 3, 6], "pos": [200, 440], "alphaMin": 0.75 },
+                { "name": "mountain.door.e.2", "size": [ 4, 2, 6], "pos": [280, 440], "alphaMin": 0.75 }
             ]
         },
         {
@@ -382,7 +384,8 @@
                 { "name": "bridge.x.right", "size": [ 4, 4, 5 ], "pos": [552, 8] },
                 { "name": "railing.x", "size": [ 2, 1, 1 ], "pos": [480, 120], "extra": true },
                 { "name": "barrel", "size": [ 2, 2, 2 ], "pos": [80, 128], "drag": true },
-                { "name": "crate", "size": [ 2, 1, 1 ], "pos": [120, 136], "drag": true }
+                { "name": "crate", "size": [ 2, 1, 1 ], "pos": [120, 136], "drag": true },
+                { "name": "top.stone.4x4", "size": [ 4, 4, 1 ], "pos": [152, 120] }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },

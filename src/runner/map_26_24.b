@@ -20,11 +20,7 @@ SECTIONS["26,24"] := {
         }
     },
     "teleport": (this, x, y, z) => {
-        if(x >= 5396 && x < 5400 && y >= 4908 && y < 4912 && z = 1) {
-            return [ 5368, 4909, 1 ];    
-        } else if(x >= 5364 && x <= 5365 && y >= 4908 && y < 4912 && z = 1) {
-            return [ 5397, 4914, 1 ];
-        } else if(player.gameState["switch_5371_5047_2"] = true && x = 5291 && y >= 4986 && y < 4990 && z = 1) {
+        if(player.gameState["switch_5371_5047_2"] = true && x = 5291 && y >= 4986 && y < 4990 && z = 1) {
             return [ 5510, 5067, 1 ];
         }
         return null;
@@ -32,4 +28,12 @@ SECTIONS["26,24"] := {
     "locked": (this, x, y, z) => {
         return null;
     },
+    "action": (this, x, y, z) => {
+        if(x = 5388 && y = 4920 && z = 1) {
+            timedMessage(x, y, z, "North entrance to Ravenous", false);
+            return true;
+        }
+        return null;
+    }
+
 };

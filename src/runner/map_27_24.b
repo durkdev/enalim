@@ -18,12 +18,5 @@ SECTIONS["27,24"] := {
     },
     "locked": (this, x, y, z) => {
         return null;
-    },
-    "action": (this, x, y, z) => {
-        if(x = 5401 && y = 4912 && z = 1) {
-            timedMessage(x, y, z, "North entrance to Ravenous", false);
-            return true;
-        }
-        return null;
     }
 };
