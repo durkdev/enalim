@@ -314,23 +314,27 @@
             "dpi": 288,
             "shapes": [
                 { "name": "roof.mountain.1", "size": [ 4, 4, 4], "pos": [40, 616], "alphaMin": 0.75, "offset": [0, 0, -0.35], "group": 1 },
-                { "name": "mountain.s", "size": [ 4, 4, 6], "pos": [120, 584], "alphaMin": 0.75 },
-                { "name": "mountain.w", "size": [ 4, 4, 6], "pos": [200, 584], "alphaMin": 0.75 },
-                { "name": "mountain.n", "size": [ 4, 4, 6], "pos": [280, 584], "alphaMin": 0.75 },
-                { "name": "mountain.e", "size": [ 4, 4, 6], "pos": [360, 584], "alphaMin": 0.75 },
+                { "name": "mountain.s", "size": [ 4, 4, 6], "pos": [120, 584], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.w", "size": [ 4, 4, 6], "pos": [200, 584], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.n", "size": [ 4, 4, 6], "pos": [280, 584], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.e", "size": [ 4, 4, 6], "pos": [360, 584], "alphaMin": 0.75, "onHide": "block.void" },
                 { "name": "roof.mountain.2", "size": [ 4, 4, 4], "pos": [40, 728], "alphaMin": 0.75, "offset": [0, 0, -0.35], "group": 1 },
-                { "name": "mountain.sw", "size": [ 4, 4, 6], "pos": [120, 712], "alphaMin": 0.75 },
-                { "name": "mountain.se", "size": [ 4, 4, 6], "pos": [200, 712], "alphaMin": 0.75 },
-                { "name": "mountain.ne", "size": [ 4, 4, 6], "pos": [280, 712], "alphaMin": 0.75 },
-                { "name": "mountain.nw", "size": [ 4, 4, 6], "pos": [360, 712], "alphaMin": 0.75 },
+                { "name": "mountain.sw", "size": [ 4, 4, 6], "pos": [120, 712], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.se", "size": [ 4, 4, 6], "pos": [200, 712], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.ne", "size": [ 4, 4, 6], "pos": [280, 712], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.nw", "size": [ 4, 4, 6], "pos": [360, 712], "alphaMin": 0.75, "onHide": "block.void" },
                 { "name": "roof.mountain.3", "size": [ 4, 4, 4], "pos": [40, 840], "alphaMin": 0.75, "offset": [0, 0, -0.35], "group": 1 },
-                { "name": "mountain.sw.2", "size": [ 4, 4, 6], "pos": [120, 840], "alphaMin": 0.75 },
-                { "name": "mountain.se.2", "size": [ 4, 4, 6], "pos": [200, 840], "alphaMin": 0.75 },
-                { "name": "mountain.ne.2", "size": [ 4, 4, 6], "pos": [280, 840], "alphaMin": 0.75 },
-                { "name": "mountain.nw.2", "size": [ 4, 4, 6], "pos": [360, 840], "alphaMin": 0.75 },
-                { "name": "mountain.cave.s", "size": [ 4, 4, 6], "pos": [120, 440], "alphaMin": 0.75 },
+                { "name": "mountain.sw.2", "size": [ 4, 4, 6], "pos": [120, 840], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.se.2", "size": [ 4, 4, 6], "pos": [200, 840], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.ne.2", "size": [ 4, 4, 6], "pos": [280, 840], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.nw.2", "size": [ 4, 4, 6], "pos": [360, 840], "alphaMin": 0.75, "onHide": "block.void" },
+                { "name": "mountain.cave.s", "size": [ 4, 4, 6], "pos": [120, 440], "alphaMin": 0.75, "onHide": "block.void" },
                 { "name": "mountain.door.e.1", "size": [ 4, 3, 6], "pos": [200, 440], "alphaMin": 0.75 },
-                { "name": "mountain.door.e.2", "size": [ 4, 2, 6], "pos": [280, 440], "alphaMin": 0.75 }
+                { "name": "mountain.door.e.2", "size": [ 4, 2, 6], "pos": [280, 440], "alphaMin": 0.75 },
+                { "name": "marker.light", "size": [ 1, 1, 1], "pos": [72, 448], "light": true, "marker": true },
+                { "name": "mountain.door.n.1", "size": [ 2, 4, 6], "pos": [344, 440], "alphaMin": 0.75 },
+                { "name": "mountain.door.n.2", "size": [ 3, 4, 6], "pos": [400, 440], "alphaMin": 0.75 },
+                { "name": "block.void", "size": [ 4, 4, 7], "pos": [462, 440], "alphaMin": 0.5 }
             ]
         },
         {
@@ -431,9 +435,40 @@
                 { "name": "ground.cave.4", "size": [ 4, 4, 1], "pos": [464, 560] },
                 { "name": "cave.rock.1x1.sw", "size": [ 1, 1, 6], "pos": [248, 624], "alphaMin": 0.5 },
                 { "name": "cave.rock.gate", "size": [ 2, 4, 6], "pos": [352, 416], "light": true },
-                { "name": "cave.rock.1x1.ne.2", "size": [ 1, 1, 6], "pos": [72, 624], "alphaMin": 0.5 }
+                { "name": "cave.rock.1x1.ne.2", "size": [ 1, 1, 6], "pos": [72, 624], "alphaMin": 0.5 }                
             ]
-        }
+        },
+        {
+            "image": "items.png",
+            "grid": {
+                "units": [ 8, 8 ]
+            },
+            "dpi": 288,
+            "shapes": [                
+                { "name": "item.shirt.red", "description": "shirt", "size": [ 2, 2, 0], "pos": [8, 8], "extra": true, "drag": true },
+                { "name": "item.pants.brown", "description": "pants", "size": [ 2, 2, 0], "pos": [40, 8], "extra": true, "drag": true },
+                { "name": "item.shirt.green", "description": "shirt", "size": [ 2, 2, 0], "pos": [72, 8], "extra": true, "drag": true },
+                { "name": "item.pants.blue", "description": "pants", "size": [ 2, 2, 0], "pos": [104, 8], "extra": true, "drag": true },
+                { "name": "item.coat.yellow", "description": "coat", "size": [ 2, 2, 0], "pos": [136, 8], "extra": true, "drag": true },
+                { "name": "item.cape.blue", "description": "cape", "size": [ 2, 2, 0], "pos": [168, 8], "extra": true, "drag": true },
+                { "name": "item.cape.red", "description": "cape", "size": [ 2, 2, 0], "pos": [200, 8], "extra": true, "drag": true },
+                { "name": "item.trash.paper", "description": "trash", "size": [ 2, 2, 0], "pos": [8, 40], "extra": true, "drag": true },
+                { "name": "item.trash.glass", "description": "trash", "size": [ 2, 2, 0], "pos": [40, 40], "extra": true, "drag": true },
+                { "name": "item.trash.glass.2", "description": "trash", "size": [ 2, 2, 0], "pos": [72, 40], "extra": true, "drag": true },
+                { "name": "item.trash.wood", "description": "trash", "size": [ 2, 2, 0], "pos": [104, 40], "extra": true, "drag": true },
+                { "name": "item.trash.wood.2", "description": "trash", "size": [ 2, 2, 0], "pos": [136, 40], "extra": true, "drag": true },
+                { "name": "item.trash.dust", "description": "trash", "size": [ 2, 2, 0], "pos": [168, 40], "extra": true },
+                { "name": "item.trash.dust.2", "description": "trash", "size": [ 2, 2, 0], "pos": [200, 40], "extra": true },
+                { "name": "item.belt.1", "description": "belt", "size": [ 2, 2, 0], "pos": [232, 8], "extra": true, "drag": true },
+                { "name": "item.belt.2", "description": "belt", "size": [ 2, 2, 0], "pos": [264, 8], "extra": true, "drag": true },
+                { "name": "item.apron.lether", "description": "leather apron", "size": [ 2, 2, 0], "pos": [296, 8], "extra": true, "drag": true },
+                { "name": "item.skirt.blue", "description": "skirt", "size": [ 2, 2, 0], "pos": [328, 8], "extra": true, "drag": true },
+                { "name": "item.ash.1", "description": "belt", "size": [ 2, 2, 0], "pos": [232, 40], "extra": true },
+                { "name": "item.blood.1", "description": "belt", "size": [ 2, 2, 0], "pos": [264, 40], "extra": true },
+                { "name": "item.blood.2", "description": "leather apron", "size": [ 2, 2, 0], "pos": [296, 40], "extra": true },
+                { "name": "item.blood.3", "description": "skirt", "size": [ 2, 2, 0], "pos": [328, 40], "extra": true }
+            ]
+        }        
     ],    
     "creatures": [
         { 
