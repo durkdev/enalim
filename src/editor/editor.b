@@ -271,6 +271,25 @@ def isUnderMountain(x, y) {
     return false;
 }
 
+const dungeonBlock = [
+    {
+        "floor": "ground.dungeon.1",
+        "n": "dungeon.n",
+        "s": "dungeon.s",
+        "e": "dungeon.e",
+        "w": "dungeon.w",
+        "nw": "dungeon.nw",
+        "ne": "dungeon.ne",
+        "se": "dungeon.se",
+        "sw": "dungeon.sw",
+        "inv_nw": "dungeon.nw.inv",
+        "inv_ne": "dungeon.ne.inv",
+        "inv_se": "dungeon.se.inv",
+        "inv_sw": "dungeon.sw.inv",        
+        "black": "dungeon.black",        
+    }
+];
+
 const dungeonNew = [
     {
         "floor": "ground.cave.3",
