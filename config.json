@@ -334,7 +334,7 @@
                 { "name": "marker.light", "size": [ 1, 1, 1], "pos": [72, 448], "light": true, "marker": true },
                 { "name": "mountain.door.n.1", "size": [ 2, 4, 6], "pos": [344, 440], "alphaMin": 0.75 },
                 { "name": "mountain.door.n.2", "size": [ 3, 4, 6], "pos": [400, 440], "alphaMin": 0.75 },
-                { "name": "block.void", "size": [ 4, 4, 7], "pos": [462, 440], "alphaMin": 0.75 }
+                { "name": "block.void", "size": [ 4, 4, 7], "pos": [462, 440], "alphaMin": 0.75, "onHideShape": true }
             ]
         },
         {
@@ -437,10 +437,10 @@
                 { "name": "cave.rock.gate", "size": [ 2, 4, 6], "pos": [352, 416], "light": true },
                 { "name": "cave.rock.1x1.ne.2", "size": [ 1, 1, 6], "pos": [72, 624], "alphaMin": 0.5 },
                 { "name": "ground.dungeon.1", "size": [ 4, 4, 1], "pos": [24, 24] },
-                { "name": "dungeon.w", "size": [ 2, 2, 6], "pos": [8, 200] },
-                { "name": "dungeon.e", "size": [ 2, 2, 6], "pos": [56, 200] },
-                { "name": "dungeon.s", "size": [ 2, 2, 6], "pos": [104, 200] },
-                { "name": "dungeon.n", "size": [ 2, 2, 6], "pos": [152, 200] },
+                { "name": "dungeon.n", "size": [ 2, 2, 6], "pos": [8, 200] },
+                { "name": "dungeon.s", "size": [ 2, 2, 6], "pos": [56, 200] },
+                { "name": "dungeon.e", "size": [ 2, 2, 6], "pos": [104, 200] },
+                { "name": "dungeon.w", "size": [ 2, 2, 6], "pos": [152, 200] },
                 { "name": "dungeon.black", "size": [ 2, 2, 6], "pos": [200, 200] },
                 { "name": "dungeon.sw", "size": [ 2, 2, 6], "pos": [8, 296] },
                 { "name": "dungeon.se", "size": [ 2, 2, 6], "pos": [56, 296] },
