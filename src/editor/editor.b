@@ -69,6 +69,9 @@ def editorSectionCommand() {
             [ "plant.flower.green.large" ]
         );
     }
+    if(isPressed(Key8)) {
+        drawMountainSection(getPosition());
+    }
 }
 
 def editorInsertCommand() {
@@ -82,29 +85,40 @@ def editorInsertCommand() {
         pos := getPosition();
         x := int(pos[0] / 2) * 2;
         y := int(pos[1] / 2) * 2;        
-        drawDungeonNew(x, y, 0);
+        drawDungeonCave(x, y, 0);
         step := 2;
     }
     if(isPressed(Key3)) {
         pos := getPosition();
         x := int(pos[0] / 2) * 2;
         y := int(pos[1] / 2) * 2;        
-        drawDungeonNew(x, y, 1);
+        drawDungeonCave(x, y, 1);
         step := 2;
     }
     if(isPressed(Key4)) {
-        drawMountain(getPosition(), 0);
+        pos := getPosition();
+        x := int(pos[0] / 4) * 4;
+        y := int(pos[1] / 4) * 4;        
+        drawDungeon(x, y, 0);
         step := 4;
     }
     if(isPressed(Key5)) {
-        drawMountain(getPosition(), 1);
+        drawMountain(getPosition(), 0);
         step := 4;
     }
     if(isPressed(Key6)) {
-        drawRiver(getPosition());
+        drawMountain(getPosition(), 1);
         step := 4;
     }
     if(isPressed(Key7)) {
+        drawMountain(getPosition(), -1);
+        step := 4;
+    }
+    if(isPressed(Key8)) {
+        drawRiver(getPosition());
+        step := 4;
+    }
+    if(isPressed(Key9)) {
         drawPath(getPosition());
         step := 4;
     }
@@ -290,7 +304,7 @@ const dungeonBlock = [
     }
 ];
 
-const dungeonNew = [
+const dungeonCave = [
     {
         "floor": "ground.cave.3",
         "block": "cave.earth.2x2.2",
@@ -311,6 +325,78 @@ const dungeonNew = [
     }
 ];
 
+def isDungeonGround(x, y) {
+    info := getShape(x, y, 0);
+    if(info != null && startsWith(info[0], "ground.dungeon")) {
+        return true;
+    }
+    return false;
+}
+
+def drawDungeon(x, y, dungeonType) {
+    d := dungeonBlock[dungeonType];
+    if(isUnderMountain(x, y) && isDungeonGround(x, y)) {
+        clearArea(x, y, 4, 4, false);
+        setShape(x, y, 7, choose(ROCK_ROOF));
+        n := isDungeonGround(x, y - 4);
+        s := isDungeonGround(x, y + 4);
+        w := isDungeonGround(x + 4, y);
+        e := isDungeonGround(x - 4, y);
+        ne := isDungeonGround(x - 4, y - 4);
+        nw := isDungeonGround(x + 4, y - 4);
+        se := isDungeonGround(x - 4, y + 4);
+        sw := isDungeonGround(x + 4, y + 4);
+        
+        # nw corner
+        if(n && w && nw) {
+        } else if(n && w && nw = false) {
+            setShape(x + 2, y, 1, d.inv_se);
+        } else if(n = false && w) {
+            setShape(x + 2, y, 1, d.n);
+        } else if(n && w = false) {
+            setShape(x + 2, y, 1, d.w);
+        } else if(n = false && w = false && nw = false) {
+            setShape(x + 2, y, 1, d.se);
+        }
+
+        # ne corner
+        if(n && e && ne) {
+        } else if(n && e && ne = false) {
+            setShape(x, y, 1, d.inv_sw);
+        } else if(n = false && e) {
+            setShape(x, y, 1, d.n);
+        } else if(n && e = false) {
+            setShape(x, y, 1, d.e);
+        } else if(n = false && e = false && ne = false) {
+            setShape(x, y, 1, d.sw);
+        }
+
+        # sw corner
+        if(s && w && sw) {
+        } else if(s && w && sw = false) {
+            setShape(x + 2, y + 2, 1, d.inv_ne);
+        } else if(s = false && w) {
+            setShape(x + 2, y + 2, 1, d.s);
+        } else if(s && w = false) {
+            setShape(x + 2, y + 2, 1, d.w);
+        } else if(s = false && w = false && sw = false) {
+            setShape(x + 2, y + 2, 1, d.ne);
+        }
+
+        # se corner
+        if(s && e && se) {
+        } else if(s && e && se = false) {
+            setShape(x, y + 2, 1, d.inv_nw);
+        } else if(s = false && e) {
+            setShape(x, y + 2, 1, d.s);
+        } else if(s && e = false) {
+            setShape(x, y + 2, 1, d.e);
+        } else if(s = false && e = false && se = false) {
+            setShape(x, y + 2, 1, d.nw);
+        }
+    }
+}
+
 def isDungeon(x, y) {
     info := getShape(x, y, 1);
     if(info != null && (startsWith(info[0], "cave.earth.2x2") || startsWith(info[0], "cave.rock.2x2"))) {
@@ -319,9 +405,9 @@ def isDungeon(x, y) {
     return false;
 }
 
-def drawDungeonNew(x, y, dungeonType) {
+def drawDungeonCave(x, y, dungeonType) {
     if(isUnderMountain(x, y) && isDungeon(x, y) = false) {
-        drawDungeonBlockNew(x, y, dungeonNew[dungeonType]);
+        drawDungeonCaveBlock(x, y, dungeonCave[dungeonType]);
         return true;
     }
     return false;
@@ -335,7 +421,7 @@ def drawDungeonShape(x, y, z, shapes) {
     }
 }
 
-def drawDungeonBlockNew(x, y, d) {
+def drawDungeonCaveBlock(x, y, d) {
     range(0, 2, 1, xx => {
         range(0, 2, 1, yy => {
             eraseShape(x + xx, y + yy, 1);
@@ -581,6 +667,18 @@ def drawLand(x, y, w, h, trees, objects, extras) {
     }
 }
 
+def drawMountainSection(pos) {
+    x := int(pos[0] / LAND_UNIT) * LAND_UNIT;
+    y := int(pos[1] / LAND_UNIT) * LAND_UNIT;
+    clearArea(x, y, LAND_UNIT, LAND_UNIT);
+    range(0, LAND_UNIT, 4, xx => {
+        range(0, LAND_UNIT, 4, yy => {
+            drawMountain([x + xx, y + yy], -1);
+        });
+    });
+
+}
+
 def drawGrass(pos, trees, objects, extras, clearFloor=false) {
     x := int(pos[0] / LAND_UNIT) * LAND_UNIT;
     y := int(pos[1] / LAND_UNIT) * LAND_UNIT;
@@ -648,7 +746,9 @@ def drawMountain(pos, dungeonType) {
     y := int(pos[1] / 4) * 4;
     if(isCave(x, y) = false) {
         clearArea(x, y, 4, 4);
-        setShape(x, y, 0, dungeonNew[dungeonType].floor);
+        if(dungeonType > -1) {
+            setShape(x, y, 0, dungeonCave[dungeonType].floor);
+        }
         setShape(x, y, 7, choose(ROCK_ROOF));
         drawMountainEdge(x, y);
 
@@ -812,4 +912,3 @@ def drawWater(pos, drawBeach) {
 # put this last so parse errors make the app panic()
 def main() {
 }
-
