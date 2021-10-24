@@ -312,6 +312,8 @@ def moveCreatureRandomMove(c, delta) {
     }
 }
 
+const BLOOD_TILES = [ "item.blood.1", "item.blood.2", "item.blood.3" ];
+
 def takeDamage(c, dam, onDeath) {
     if(dam > 0) {
         showMessageAt(
@@ -330,7 +332,7 @@ def takeDamage(c, dam, onDeath) {
                 c.move.x + int(random() * (c.move.width + 2)) - 1,
                 c.move.y + int(random() * (c.move.height + 2)) - 1,
                 c.move.z,
-                "splat.blood.small"
+                choose(BLOOD_TILES)
             );
             onDeath(c);
         } else if(random() >= 0.75) {
@@ -338,7 +340,7 @@ def takeDamage(c, dam, onDeath) {
                 c.move.x + int(random() * (c.move.width + 2) - 1),
                 c.move.y + int(random() * (c.move.height + 2) - 1),
                 c.move.z,
-                "splat.blood.small"
+                choose(BLOOD_TILES)
             );
         }
     }
