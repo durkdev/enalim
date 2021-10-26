@@ -449,7 +449,15 @@
                 { "name": "dungeon.nw.inv", "size": [ 2, 2, 6], "pos": [8, 392] },
                 { "name": "dungeon.sw.inv", "size": [ 2, 2, 6], "pos": [56, 392] },
                 { "name": "dungeon.se.inv", "size": [ 2, 2, 6], "pos": [104, 392] },
-                { "name": "dungeon.ne.inv", "size": [ 2, 2, 6], "pos": [152, 392] }
+                { "name": "dungeon.ne.inv", "size": [ 2, 2, 6], "pos": [152, 392] },
+                { "name": "wall.stone.ew", "size": [ 2, 1, 6], "pos": [120, 24] },
+                { "name": "wall.stone.ns", "size": [ 1, 2, 6], "pos": [160, 24] },
+                { "name": "wall.stone.column.1", "size": [ 1, 1, 6], "pos": [200, 32] },
+                { "name": "roof.stone.1", "size": [ 4, 4, 1 ], "pos": [32, 112] },
+                { "name": "wall.stone.low.ns", "size": [ 1, 4, 2 ], "pos": [120, 112] },
+                { "name": "wall.stone.low.ew", "size": [ 4, 1, 2 ], "pos": [192, 112] },
+                { "name": "wall.stone.column.2", "size": [ 1, 1, 6], "pos": [232, 32] },
+                { "name": "wall.stone.column.3", "size": [ 1, 1, 6], "pos": [264, 32] }
             ]
         },
         {
