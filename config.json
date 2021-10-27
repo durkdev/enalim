@@ -249,6 +249,7 @@
         },
         {
             "image": "roofs.png",
+            "magFilter": "nearest",
             "grid": {
                 "units": [ 8, 8 ]
             },
@@ -298,6 +299,7 @@
         },
         {
             "image": "cave.png",
+            "magFilter": "nearest",
             "grid": {
                 "units": [ 8, 8 ]
             },
@@ -308,6 +310,7 @@
         },
         {
             "image": "mountain.png",
+            "magFilter": "nearest",
             "grid": {
                 "units": [ 8, 8 ]
             },
@@ -414,6 +417,7 @@
         },
         {
             "image": "cave2.png",
+            "magFilter": "nearest",
             "grid": {
                 "units": [ 8, 8 ]
             },
@@ -462,6 +466,7 @@
         },
         {
             "image": "items.png",
+            "magFilter": "nearest",
             "grid": {
                 "units": [ 8, 8 ]
             },
