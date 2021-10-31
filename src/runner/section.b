@@ -1,5 +1,5 @@
 
-const SECTION_SIZE = 200;
+const SECTION_SIZE = 240;
 
 activeSections := [];
 
