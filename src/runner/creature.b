@@ -177,7 +177,7 @@ def getCreature(x, y, z) {
 }
 
 def pruneCreatures(sectionX, sectionY) {
-    print("pruneCreatures: " + sectionX + "," + sectionY);
+    # print("pruneCreatures: " + sectionX + "," + sectionY);
     removes := [];
     array_remove(creatures, c => {
         sectionPos := getSectionPos(c.move.x, c.move.y);
@@ -194,7 +194,7 @@ def pruneCreatures(sectionX, sectionY) {
                 "movement": c.movement,
                 "hp": c.hp,
             };
-            print("* Pruning creature: " + c.template.shape + " " + c.id);
+            # print("* Pruning creature: " + c.template.shape + " " + c.id);
         }
         return b;
     });
@@ -204,7 +204,7 @@ def pruneCreatures(sectionX, sectionY) {
 
 def restoreCreature(savedCreature) {
     tmpl := creaturesTemplates[savedCreature.name];
-    print("* Restoring creature " + tmpl.shape + " " + savedCreature.id);
+    # print("* Restoring creature " + tmpl.shape + " " + savedCreature.id);
     move := decodeMovement(savedCreature.move, tmpl.baseWidth, tmpl.baseHeight, tmpl.sizeZ, tmpl.shape, tmpl.speed, false, tmpl.isFlying);
     move.setShape(tmpl.shape);
     creatures[len(creatures)] := {
@@ -224,7 +224,7 @@ def setCreature(x, y, z, creature) {
     id := "c." + x + "." + y + "." + z;
     c := array_find(creatures, c => c.id = id);
     if(c = null) {
-        print("* Adding creature: " + creature.shape + " " + id);
+        # print("* Adding creature: " + creature.shape + " " + id);
         c := {
             "id": id,
             "template": creature,

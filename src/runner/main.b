@@ -8,6 +8,7 @@ const MODE_CONVO = "convo";
 const MODE_TITLE = "title";
 const MODE_TITLE2 = "title2";
 const MODE_TITLE3 = "title3";
+const MODE_TITLE4 = "title4";
 const MODE_BOOK = "book";
 const MODE_EXIT = "exit";
 
@@ -71,9 +72,9 @@ const REPLACE_SHAPES = {
 
 # called when the hour changes
 def onHour(hour) {
-    print("* HOUR tick: " + hour);
+    # print("* HOUR tick: " + hour);
     evalNpcSchedules(hour);
-    print("* HOUR tick done");
+    # print("* HOUR tick done");
 }
 
 # called on every frame
@@ -134,7 +135,7 @@ def eventsTitle(delta, fadeDir) {
         # all black
         fadeViewTo(500, 500); 
     } else {
-        moveCreatures(delta);
+        # moveCreatures(delta);
     }
 }
 
@@ -154,13 +155,20 @@ def eventsTitle3(delta, fadeDir) {
     if(isPressed(KeySpace) || didClick()) {
         getClick();
         delAllMessages();
-        player.mode := MODE_GAME;
-        player.move := newMovement(5000, 5015, 1, PLAYER_X, PLAYER_Y, PLAYER_Z, player.shape, PLAYER_MOVE_SPEED, true, false);
+        player.mode := MODE_TITLE4;
+        player.move := newMovement(6070, 5651, 1, PLAYER_X, PLAYER_Y, PLAYER_Z, player.shape, PLAYER_MOVE_SPEED, true, false);        
+        stopCreatures();
         load_game();
+        fadeViewTo(player.move.x, player.move.y);
+    }
+}
+
+def eventsTitle4(delta, fadeDir) {
+    if(fadeDir = 1) {
+        
         player.move.setShape(player.shape);
         player.move.setAnimation(ANIM_STAND);
-        stopCreatures();
-        fadeViewTo(player.move.x, player.move.y);
+        player.mode := MODE_GAME;
     }
 }
 
@@ -1110,6 +1118,7 @@ def main() {
     EVENTS_MAP[MODE_TITLE] := (s, d,f) => eventsTitle(d, f);
     EVENTS_MAP[MODE_TITLE2] := (s, d,f) => eventsTitle2(d, f);
     EVENTS_MAP[MODE_TITLE3] := (s, d,f) => eventsTitle3(d, f);
+    EVENTS_MAP[MODE_TITLE4] := (s, d,f) => eventsTitle4(d, f);
     EVENTS_MAP[MODE_GAME] := (s, d,f) => eventsGameplay(d, f);
     EVENTS_MAP[MODE_BOOK] := (s, d,f) => eventsBook(d, f);
     EVENTS_MAP[MODE_EXIT] := (s, d,f) => eventsExit(d, f);
@@ -1120,5 +1129,5 @@ def main() {
 
     setPathThroughShapes(keys(REPLACE_SHAPES));
 
-    fadeViewTo(TITLE_X, TITLE_Y);    
+    fadeViewTo(500, 500);    
 }
