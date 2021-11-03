@@ -46,7 +46,7 @@ def setItem(uiImage, x, y, z, location, type) {
             z: z,
             location: location,
         };
-        print("*** Adding item of type: " + c.type);
+        # print("*** Adding item of type: " + c.type);
         items[len(items)] := c;
     }
     return c;
@@ -57,7 +57,7 @@ def updateItemLocation(c, x, y, z, location) {
     c.y := y;
     c.z := z;
     c.location := location;
-    print("New item location for id=" + c.id + " " + c.location + ":" + c.x + "," + c.y + "," + c.z);
+    # print("New item location for id=" + c.id + " " + c.location + ":" + c.x + "," + c.y + "," + c.z);
 }
 
 const EMPTY_CONTAINERS = {
@@ -77,7 +77,7 @@ def getItem(x, y, z, location) {
             if(shape != null) {
                 c := EMPTY_CONTAINERS[shape[0]];
                 if(c != null) {
-                    print("Creating empty container.");
+                    # print("Creating empty container.");
                     return setContainer(c, x, y, z, "map", []);
                 }
             }
@@ -171,11 +171,11 @@ def prune_contained(tests, doRemove) {
 }
 
 def restoreItem(savedItem) {
-    print("* Restoring item " + savedItem.uiImage + " " + savedItem.id + " saved=" + savedItem);
+    # print("* Restoring item " + savedItem.uiImage + " " + savedItem.id + " saved=" + savedItem);
     c := loadItem(savedItem);
     items[len(items)] := c;
     restore_contained(savedItem.containers);
-    print("* Done restoring item");
+    # print("* Done restoring item");
 }
 
 def restore_contained(saved) {
