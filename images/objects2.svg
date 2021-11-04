@@ -1401,6 +1401,17 @@
        x2="280"
        y2="568"
        gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1612"
+       id="radialGradient7041"
+       cx="79.37236"
+       cy="43.544891"
+       fx="79.37236"
+       fy="43.544891"
+       r="5.1917162"
+       gradientTransform="matrix(1,0,0,2.0630609,0,-46.290873)"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1409,19 +1420,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.9999999"
-     inkscape:cx="147.5"
-     inkscape:cy="152.5625"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="251.1113"
+     inkscape:cy="136.38322"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer4"
      inkscape:document-rotation="0"
      showgrid="true"
      units="px"
      inkscape:snap-global="false"
-     inkscape:window-width="1957"
+     inkscape:window-width="1920"
      inkscape:window-height="1025"
-     inkscape:window-x="-4"
-     inkscape:window-y="25"
+     inkscape:window-x="68"
+     inkscape:window-y="91"
      inkscape:window-maximized="0"
      inkscape:pagecheckerboard="0"
      inkscape:lockguides="true">
@@ -1599,6 +1610,10 @@
        height="52.384827"
        x="53.507359"
        y="122.1689" />
+    <path
+       style="display:inline;fill:#5a8586;stroke:none;stroke-width:0.396875;stroke-linejoin:round;fill-opacity:1"
+       d="m 82.549999,31.75 -8.466667,8.466666 v 12.7 l 2.116667,2.116667 8.466667,-8.466667 v -12.7 z"
+       id="path317557" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -20522,5 +20537,10 @@
          d="m 32.202636,39.966815 1.935196,1.935197 0.403411,-0.403408 -1.905966,-1.905966 z"
          id="path30355" />
     </g>
+    <path
+       style="fill:url(#radialGradient7041);fill-opacity:1.0;stroke:none;stroke-width:0.396875;stroke-linejoin:round"
+       d="m 74.695152,40.504696 0.608037,-0.701582 0.140316,-0.467722 0.841899,-0.701582 0.514495,-0.280633 0.187087,-0.467723 0.561266,-0.795126 0.701583,-0.467722 0.420949,-0.09354 0.608039,-0.935442 0.514493,-0.561266 0.654812,-0.420949 0.327406,-0.42095 0.187087,-0.374179 0.561266,-0.420949 0.888672,-0.561266 0.514492,0.140316 0.982216,0.701583 0.374179,0.935445 v 1.216075 l 0.23386,0.561266 -0.04677,0.654809 -0.140317,0.327406 -0.187087,0.23386 0.140317,0.42095 0.187087,0.608039 v 1.075761 0.748353 l -0.23386,0.514495 V 41.3466 l 0.140316,0.514493 0.140317,0.841898 v 0.701583 l 0.04677,1.216078 -0.18709,0.608039 -0.23386,0.280633 0.140317,0.467719 -0.140317,0.654812 -0.233862,0.608037 -0.701583,0.748355 -0.608036,0.327406 -0.608039,0.42095 -0.280633,0.467722 -0.280633,0.374177 c 0,0 -0.514493,0.514492 -0.701582,0.654809 -0.18709,0.140316 -0.280633,0.233862 -0.514493,0.280633 -0.233863,0.04677 -0.982218,0.374179 -0.982218,0.374179 l -0.187087,0.608036 -0.374179,0.701583 -0.748353,0.608038 -0.327406,0.42095 -0.748355,0.748355 -0.561266,0.280633 -0.748353,-0.187089 -0.608039,-0.514493 -0.420949,-0.654812 -0.18709,-0.701582 V 50.51394 l 0.23386,-0.514493 0.233863,-0.514493 -0.374179,-0.467722 -0.04677,-0.608039 -0.09355,-0.514493 0.04677,-0.982216 0.09354,-0.748355 0.280635,-0.514493 0.280633,-0.327406 -0.327406,-0.420949 -0.327406,-0.701583 -0.140316,-0.701582 v -1.028988 l 0.04677,-0.514493 0.09354,-0.701583 z"
+       id="path4750"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccsscccccccccccccccccccccccccccc" />
   </g>
 </svg>
