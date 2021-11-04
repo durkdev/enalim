@@ -414,10 +414,12 @@ def drawDungeonCave(x, y, dungeonType) {
 }
 
 def drawDungeonShape(x, y, z, shapes) {
-    if(typeof(shapes) = "array") {
-        setShape(x, y, z, choose(shapes));
-    } else {
-        setShape(x, y, z, shapes);
+    if(isDungeonFloor(x, y)) {
+        if(typeof(shapes) = "array") {
+            setShape(x, y, z, choose(shapes));
+        } else {
+            setShape(x, y, z, shapes);
+        }
     }
 }
 

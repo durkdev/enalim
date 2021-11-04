@@ -106,9 +106,10 @@ addNpcDef({
             "He's practically pushing you towards the portal in the basement.",
         "hurry": ">mainland",
     },
-    "schedule": [
-        { "from": 8, "to": 18, "pos": [ 5010, 5000, 1 ], "movement": "anchor" },
-        { "from": 18, "to": 8, "pos": [ 5000, 5005, 8 ], "movement": "anchor" },
+    waypoints: [ [ 6053, 5660, 1 ], [ 6054, 5641, 1 ], [ 6047, 5641, 8 ], [ 6056, 5652, 8 ], [ 6050, 5659, 8 ] ],
+    schedule: [
+        { name: "work", from: 8, to: 18, movement: "anchor", waypointDir: -1 },
+        { name: "bedroom", from: 18, to: 8, movement: "anchor", waypointDir: 1 },
     ],
 });
 
@@ -127,10 +128,11 @@ addNpcDef({
         },
         "repeat": ">",
     },
-    "schedule": [
-        { "from": 5, "to": 10, "pos": [ 4974, 4934, 1 ], "movement": "anchor" },
-        { "from": 10, "to": 15, "pos": [ 4974, 4971, 1 ], "movement": "anchor" },
-        { "from": 15, "to": 20, "pos": [ 4974, 4934, 1 ], "movement": "anchor" },
-        { "from": 20, "to": 5, "pos": [ 4974, 4971, 1 ], "movement": "anchor" },
-    ],    
+    waypoints: [ [ 6037, 5604, 1 ], [ 6044, 5580, 1 ], [ 6059, 5558, 1 ], [ 6064, 5544, 1 ] ],
+    schedule: [
+        { name: "corn", from: 5, to: 10, movement: "anchor", waypointDir: 1 },
+        { name: "swamp", from: 10, to: 15, movement: "anchor", waypointDir: -1 },
+        { name: "corn2", from: 15, to: 20, movement: "anchor", waypointDir: 1 },
+        { name: "swamp2", from: 20, to: 5, movement: "anchor", waypointDir: -1 },
+    ],
 });
