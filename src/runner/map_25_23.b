@@ -7,9 +7,9 @@ SECTIONS["25,23"] := {
         setCreature(6072, 5662, 1, creaturesTemplates.cow);
     },
     "start": this => {
-        eraseShape(6051, 5691, 1);
+        eraseShape(6051, 5691, 2);
         if(player.gameState["gate_to_ruins"] != null) {
-            setShape(6051, 5691, 1, "teleport.y");
+            setShape(6051, 5691, 2, "teleport.y");
         }
     },
     "teleport": (this, x, y, z) => {
@@ -18,7 +18,7 @@ SECTIONS["25,23"] := {
         }
         if(x >= 6051 && x <= 6054 && y = 5691) {
             if(player.gameState["start_journey"] != null) {
-                return [5503, 5745, 1];
+                return [5423, 5796, 1];
             }
             if(player.gameState["gate_to_ruins"] != null) {
                 return [6320, 5394, 1];
