@@ -15,11 +15,11 @@ addNpcDef({
         "documents": "At the mention of documents, the monk becomes so animated you wonder if he'll break something: " + 
             "\"Aha, you're looking for a specific scroll for your master the Necromancer?\" - you wonder how he knows the Necromancer? - " + 
             "\" If it's here, it will be in our $storage room.\"",
-        "storage": "He points to the east and continues: " + 
-            "\"We keep the storage room locked because of the $goblins. " + 
-            "The key can be found in the $grain chamber to the north of here.\"",
+        "storage": "He points to the north and continues: " + 
+            "\"The storage room is actually a separate building. We keep it locked because of the $goblins. " + 
+            "The key can be found in the $grain chamber in the sacred caverns.\"",
         "goblins": "He sighs deeply, shaking his head and finally says: " + 
-            "\"Lately $Ourdlen has been plagued by goblins so we now conduct much of our business underground. " + 
+            "\"Lately $Ourdlen has been plagued by goblins so we now conduct much of our business indoors. " + 
             "See Brother Armin about the history of these attacks.\"",
         "grain": "The grain chamber sounds exciting, until the frail monk explains: " + 
             "\"Yes, the grain chamber is where we keep our dry food.\" - You feel let down. This is decidedly not exciting. - " +
@@ -44,8 +44,8 @@ addNpcDef({
         },
     },
     "schedule": [
-        { "from": 8, "to": 18, "pos": [ 5223, 5014, 1 ], "movement": "anchor" },
-        { "from": 18, "to": 8, "pos": [ 5217, 5035, 1 ], "movement": "anchor" },
+        { "from": 8, "to": 18, "pos": [ 6534, 5442, 1 ], "movement": "anchor" },
+        { "from": 18, "to": 8, "pos": [ 6526, 5426, 1 ], "movement": "anchor" },
     ],
 });
 
@@ -54,16 +54,16 @@ addNpcDef({
     "label": "Brother Armin",
     "creature": "monk",
     "convo": {
-        "": "You smell brother Armin before he even speaks. It is obvious that years of living underground have resulted in relaxed personal hygene habits... " +
+        "": "You smell brother Armin before he even speaks. It is obvious that years of living frugally have resulted in relaxed personal hygene habits... " +
             "\"Welcome to $Ourdlen traveler. The outside world may have $forgotten about this monastery, but rest assured...\" " + 
             "- he coughs spasmodically - \"...rest assured our sanctuary is in perfect health.\"",
         "Ourdlen": "He gestures around you with a thin, yet surprisingly malodorous arm: " + 
             "\"Once a majestic homage to our Lord $Vreit and a libray of rare $documents, our monastery is now mostly a ruin.\" " +
             "To call it that gives actual ruins a bad name. More of a pile of stones, you think. The pungent monk goes on: " + 
-            "\"Dangerous $goblins roam the grounds above and so we are forced to now dwell $underground.\"",
-        "underground": "With a dirty finger, he points to the world above: " + 
+            "\"Dangerous $goblins roam the sacred caverns and so we are forced to now stay $indoors.\"",
+        "indoors": "With a dirty finger, he points to the east: " + 
             "\"Because of the threat from the $goblins, we were forced to move our worship of Lord $Vreit " + 
-            "here to the lower levels of the monastery.\" " + 
+            "out of the sacred caverns to inside the monastery.\" " + 
             "You decide to not ask where that finger's been.",
         "Vreit": "The old monk raises his filthy hands in what must be a gesture of adoration and says: " + 
             "\"Lord Vreit (may his name be glorified ever on) is the god of arcanum and books.\" " +
@@ -75,15 +75,15 @@ addNpcDef({
         "documents": "His eyes lit, he rubs his hands on his filthy habit. " +
             "\"You seek such a document? A paperwork for your master, the Necromancer?\" - You wonder how the monks know of the Necromancer? - " + 
             "\"If we still have the scroll, it would be in the locked $storage room. Ask Brother $Hermil for the key.\"",
-        "storage": "\"The storage room is locked most of the time.\" - he mutters while inspecting one filth-caked fingernail - " + 
-            "\"If the $goblins should ever breach our $underground halls, this will hopefully prevent the destruction of the $documents.\"",
+        "storage": "\"The storage room is the small building to the north. It is locked most of the time.\" - he mutters while inspecting one filth-caked fingernail - " + 
+            "\"If the $goblins should ever reach us $indoors, this will hopefully prevent the destruction of the $documents.\"",
         "goblins": "The monks face destorts in a grimace of hate. The effect is only ruined by the copious dirt on his face, making him look more comical than threatening. " +
-            "\"Wretched monsters they are!\" - he shouts - \"No one knows where they came from but their appearance forced us $underground and signalled the end of an era for $Ourdlen.\"",
+            "\"Wretched monsters they are!\" - he shouts - \"No one knows where they came from but their appearance forced us $indoors and signalled the end of an era for $Ourdlen.\"",
         "Hermil": "The monk points to the west: \"Brother Hermil is the keeper of keys to the $storage room. " + 
             "He is a mighty scholar, able to decode even the most ancient tomes.\""
     },
     "schedule": [
-        { "from": 8, "to": 18, "pos": [ 5127, 5002, 1 ], "movement": "anchor" },
-        { "from": 18, "to": 8, "pos": [ 5129, 5012, 1 ], "movement": "anchor" },
+        { "from": 8, "to": 18, "pos": [ 6532, 5446, 1 ], "movement": "anchor" },
+        { "from": 18, "to": 8, "pos": [ 6543, 5458, 1 ], "movement": "anchor" },
     ],
 });
