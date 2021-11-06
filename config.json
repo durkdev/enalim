@@ -204,13 +204,13 @@
     },
     "runtime": {
         "editor": {
-            "resolution": [ 1024, 768 ],
+            "pixelRatio": 1,
             "fonts": [
                 { "font": "Mirza/Mirza-Regular.ttf", "fontSize": 32 }
             ]
         },
         "runner": {
-            "resolution": [ 400, 300 ],
+            "pixelRatio": 2.5,
             "fonts": [
                 { "font": "Mirza/Mirza-Regular.ttf", "fontSize": 21 },
                 { "font": "bainsley/Bainsley-VGgJ6.ttf", "fontSize": 12, "alphaMin": 135, "alphaDiv": 4 },
@@ -257,12 +257,13 @@
         "sizeZ": 32,
         "sector": 400,
         "camera": [ 0.000001, 0.000001, 1 ],
-        "zoom": 1.5,
+        "zoom": 1,
         "shear": [ 0, -1.5, 0 ]
     },
     "shapes": [
         {
             "image": "grounds.png",
+            "magFilter": "nearest",
             "grid": {
                 "units": [ 8, 8 ]
             },
@@ -348,6 +349,7 @@
         },
         {
             "image": "objects.png",
+            "magFilter": "nearest",
             "grid": {
                 "units": [ 8, 8 ]
             },
@@ -546,6 +548,7 @@
         },
         {
             "image": "objects2.png",
+            "magFilter": "nearest",
             "grid": {
                 "units": [ 8, 8 ]
             },
