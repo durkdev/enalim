@@ -344,7 +344,8 @@
                 { "name": "splat.ash.big", "size": [ 4, 4, 0], "pos": [ 488, 362 ], "extra": true },
                 { "name": "splat.bones", "size": [ 4, 4, 0], "pos": [ 488, 440 ], "extra": true },
                 { "name": "splat.blood.small", "size": [ 2, 2, 0], "pos": [ 568, 328 ], "extra": true },
-                { "name": "splat.ash.small", "size": [ 2, 2, 0], "pos": [ 568, 280 ], "extra": true }
+                { "name": "splat.ash.small", "size": [ 2, 2, 0], "pos": [ 568, 280 ], "extra": true },
+                { "name": "ground.planks", "size": [ 4, 4, 1], "pos": [ 920, 440 ] }
             ]
         },
         {
@@ -600,7 +601,8 @@
                 { "name": "barrel", "size": [ 2, 2, 2 ], "pos": [80, 128], "drag": true },
                 { "name": "crate", "size": [ 2, 1, 1 ], "pos": [120, 136], "drag": true },
                 { "name": "top.stone.4x4", "size": [ 4, 4, 1 ], "pos": [152, 120] },
-                { "name": "teleport.y", "size": [ 4, 1, 6], "pos": [280, 120], "light": true }
+                { "name": "teleport.y", "size": [ 4, 1, 6], "pos": [280, 120], "light": true },
+                { "name": "cot.y", "size": [ 2, 5, 2], "pos": [352, 128] }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },
@@ -719,7 +721,11 @@
                 { "name": "item.corpse.dark.5", "description": "bones", "size": [ 2, 2, 0], "pos": [200, 120], "extra": true, "drag": true },
                 { "name": "item.corpse.dark.6", "description": "bones", "size": [ 2, 2, 0], "pos": [232, 120], "extra": true, "drag": true },
                 { "name": "item.corpse.dark.7", "description": "bones", "size": [ 2, 2, 0], "pos": [264, 120], "extra": true, "drag": true },
-                { "name": "item.corpse.dark.8", "description": "bones", "size": [ 2, 2, 0], "pos": [296, 120], "extra": true, "drag": true }
+                { "name": "item.corpse.dark.8", "description": "bones", "size": [ 2, 2, 0], "pos": [296, 120], "extra": true, "drag": true },
+                { "name": "item.trash.fish.1", "description": "trash", "size": [ 2, 1, 0], "pos": [360, 40], "extra": true, "drag": true },
+                { "name": "item.trash.fish.2", "description": "trash", "size": [ 1, 2, 0], "pos": [384, 40], "extra": true, "drag": true },
+                { "name": "item.trash.peel.1", "description": "trash", "size": [ 2, 1, 0], "pos": [368, 64], "extra": true, "drag": true },
+                { "name": "item.trash.peel.2", "description": "trash", "size": [ 1, 2, 0], "pos": [392, 64], "extra": true, "drag": true }
             ]
         }        
     ],    
