@@ -9,10 +9,10 @@ addNpcDef({
         "insignificant": "Hmm, seems like she doesn't know about the Necromancer's island. Maybe you should $tell her. Then again, that's the kind of detail that gets one killed in places like this. Maybe buy something instead.",
         "tell": "You pointificate about the island of the Necromancer. \"Fascinating.\" - she says, without a hint of interest - \"Well, let me know if you need any weapons!\" - she continues.",
     },
-    waypoints: [ [ 5441, 5015, 1 ], [ 5440, 5027, 1 ], [ 5456, 5027, 1 ], [ 5454, 5044, 1 ], [ 5439, 5042, 1 ] ], 
+    waypoints: [ [ 5711, 5886, 1 ], [ 5694, 5870, 1 ] ], 
     schedule: [
-        { name: "store", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
-        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 }
+        { name: "store", from: 8, to: 18, movement: "anchor", waypointDir: -1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: 1 }
     ],
 });
 
@@ -25,7 +25,7 @@ addNpcDef({
         "": "A man with a warm smile says: \"Be welcome in Trinest wanderer. I buy and sell armor at my shop. Our $town may be small but rest assured my shop is well equipped. Just ask if you need anything.\"",
         "town": "\"Trinest is the last town on the east side of the Enalim mainland. My name is Hamid and I trade in high quality armor.\"",
     },
-    waypoints: [ [ 5413, 5036, 1 ], [ 5426, 5039, 1 ], [ 5414, 5051, 1 ], [ 5405, 5065, 1 ], [ 5419, 5079, 1 ], [ 5416, 5063, 1 ] ],
+    waypoints: [ [ 5715, 5837, 1 ], [ 5696, 5839, 1 ] ],
     schedule: [
         { name: "store", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
         { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 },
@@ -104,7 +104,7 @@ addNpcDef({
         "jewel": "He winks at you and says: \"You could certainly keep the jewel, but then you'll never find $Fearon. Bring it to
             me instead and I will personally give you his location.\". Seems like a reasonable trade, you think."
     },
-    waypoints: [ [ 5472, 5028, 1 ], [ 5481, 5017, 1 ], [ 5465, 5021, 8 ], [ 5482, 5034, 8 ] ],
+    waypoints: [ [ 5746, 5880, 1 ], [ 5755, 5870, 1 ], [ 5738, 5869, 8 ], [5749, 5873, 8], [ 5760, 5888, 8 ] ],
     schedule: [
         { name: "pub", from: 10, to: 22, movement: "anchor", waypointDir: -1 },
         { name: "room", from: 22, to: 10, movement: "anchor", waypointDir: 1 },
@@ -143,7 +143,7 @@ addNpcDef({
         "demon": "\"I don't actually know what manner of beast has taken home in my former $estate. But from the vile smells that
             emanate from the lower levels, I can only assume it must a fiend from the pits! Please do $vanquish it for me!\"",
     },
-    waypoints: [ [ 5472, 5035, 1 ], [ 5482, 5017, 1 ], [ 5465, 5021, 8 ], [ 5482, 5021, 8 ] ],
+    waypoints: [ [ 5751, 5890, 1 ], [ 5755, 5870, 1 ], [ 5738, 5869, 8 ], [ 5742, 5887, 8 ] ],
     schedule: [
         { name: "pub", from: 11, to: 23, movement: "anchor", waypointDir: -1 },
         { name: "room", from: 23, to: 11, movement: "anchor", waypointDir: 1 },
@@ -170,7 +170,7 @@ addNpcDef({
         "regulars": "She points to the upstairs rooms and says: \"I usually have a few longer-term guests staying upstairs. 
         You can ask them about their business, but please don't bother them in their rooms.\""
     },
-    waypoints: [ [ 5467, 5041, 1 ], [ 5472, 5036, 1 ], [ 5481, 5017, 1 ], [ 5465, 5022, 8 ], [ 5468, 5029, 8 ] ],
+    waypoints: [ [ 5740, 5881, 1 ], [ 5755, 5870, 1 ], [ 5738, 5869, 8 ], [ 5761, 5870, 8 ] ],
     schedule: [
         { name: "pub", from: 11, to: 23, movement: "anchor", waypointDir: -1 },
         { name: "room", from: 23, to: 11, movement: "anchor", waypointDir: 1 },
