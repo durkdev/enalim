@@ -204,9 +204,74 @@ addNpcDef({
         "stolen": "\"I didn't see the creature who stole my $jewel, because it was quite dark. All I remember is a 
             strange rattling noise. I was pushed to the ground and my pack, with the jewel inside, was gone!\"",
     },
-    waypoints: [ [ 5382, 5024, 1 ] ],
+    waypoints: [ [ 5450, 5913, 1 ] ],
     schedule: [
         { name: "pub", from: 11, to: 23, movement: "anchor", waypointDir: -1 },
         { name: "room", from: 23, to: 11, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+addNpcDef({
+    name: "North Brother",
+    label: "nobo",
+    creature: "monk-blue",
+    convo: {
+        "": "An old man approaches with a thoughtful expression: \"Welcome traveler, I am $North Brother. My life's goal 
+            is to study the dungeon $Ravenous.\" - he pauses and add: \"Do you have any $new information about the caves? Perhaps 
+            something you learned from my $brother?\"",
+        "North": "\"I am called North Brother simply because I have chosen the correct location from where to study $Ravenous, 
+            unlike my brother.\" - he rolls his eyes and then continues - \"Clearly, being on the north side of this vast cave
+            system will make my $work much easier than anyplace else.\"",
+        "Ravenous": "\"Aye, it is my life's goal to study the cave system known by the locals as 'Ravenous'. I have built my hut 
+            in this location specifically for the purpose of this $work. I have learned much in these past decades but I feel 
+            there is much more to study.\"",
+        "work": "His eyes light up at the chance to talk about his work: \"Yes, yes the  caves are fascinating! Did you know for 
+            example why it came to be known by such a fearsome $name? Or, would you like to know about its past and current $inhabitants?\"",
+        "name": "North Brother raises an index finger: \"The caves were named 'Ravenous' in the Erioan era when a family took shelter here
+            during a storm. Legends say that after spending one night in the caves, they were overcome by an intense hunger. Finally giving in
+            to their infernal desires they butchered and devoured each other. I discovered this gruesome tale during my $work.\"",
+        "inhabitants": "\"During my $work, I read of various local people sheltering in the caves. No one lives here now, but for a $stranger I
+            saw entering here maybe a week ago.\" - he pauses then add: \"Uninhabited does not mean empty, however. Dark places tend to 
+            attract those who prefer the shadows.\"",
+        "stranger": "North Brother squints as if to better recall what he witnessed: \"Yes, about a week ago it was now... I saw a harried man
+            running as if chased by strange fears. He quickly entered the caves and never surfaced since. Perhaps he made it out the other side
+            where my $brother lives?\"",
+        "brother": "North Brother sighs and says: \"Yes it is true: I am not the only one whose life and $work is to observe the caves of $Ravenous. 
+            For to the $south lives my identical twin brother, South Brother. In the name of scientific transparency, I must mention him as another
+            valuable data point in the corpus of work concerning this area.\"",
+        "south": "He points to the cave entrance nearby: \"To reach my $brother, you must travel through the fearsome darknessness of $Ravenous.\" 
+            He smiles wanly and adds: \"And should you learn anything $new, please come back and tell me!\"",
+        "new": () => {
+            if(player.gameState["ravenous_info"] = true) {
+                return "He listens intently then nodding, he says: \"There is an unexplored, new area of the caves, you say?\" - he thinks on it some more
+                    and then: \"I wonder why there is so much more magic in Enalim than ever before? Should you come across any items of magic in the caves, be 
+                    sure to show it $Extandis the Sage. If anyone can explain this resurgance of magic it would be her.\"";                    
+            } else {
+                return "\"Nothing new to report, eh? Be sure to talk to my $brother near the $south entrance - he may know something!\"";
+            }
+        },
+        "Extandis": "He nods knowingly and says: \"Extandis is a wise sage who lives in the distant mountains of Aneil. I would recommend you bring any 
+            magic items you find before her, for her knowledge is vast in such matters. It's all connected somehow,\" - he murmurs - \"magic seems
+            commonplace these days like never before.\""
+    },
+    waypoints: [ [ 5666, 6027, 1 ], [ 5665, 6045, 1 ] ],
+    schedule: [
+        { name: "home", from: 21, to: 8, movement: "anchor", waypointDir: -1 },
+        { name: "outdoors", from: 8, to: 21, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+addNpcDef({
+    name: "South Brother",
+    label: "sobo",
+    creature: "monk-blue",
+    convo: {
+        "": "This old man seems very familiar. \"Welcome traveler, I am $South Brother. I aim to learn all there is
+            to know about the dungeon $Ravenous.\"",
+    },
+    waypoints: [ [ 5516, 6136, 1 ], [ 5519, 6151, 1 ] ],
+    schedule: [
+        { name: "home", from: 21, to: 8, movement: "anchor", waypointDir: -1 },
+        { name: "outdoors", from: 8, to: 21, movement: "anchor", waypointDir: 1 },
     ],    
 });

@@ -119,9 +119,13 @@ def editorInsertCommand() {
         step := 4;
     }
     if(isPressed(Key9)) {
-        drawPath(getPosition());
+        drawPath(getPosition(), "ground.dirt");
         step := 4;
     }
+    if(isPressed(Key0)) {
+        drawPath(getPosition(), "ground.grass");
+        step := 4;
+    }    
     
     if(step != 0 && (editor.dirX != 0 || editor.dirY != 0)) {
         moveViewTo(editor.lastX + editor.dirX * step, editor.lastY + editor.dirY * step);
@@ -706,11 +710,11 @@ def drawEdge(fx) {
     range(0, 1 + int(random() * 3), 1, fx);
 }
 
-def drawPath(pos) {
+def drawPath(pos, ground) {
     x := int(pos[0] / 4) * 4;
     y := int(pos[1] / 4) * 4;
     clearArea(x, y, 4, 4);
-    setShapeEditor(x, y, 0, "ground.dirt");
+    setShapeEditor(x, y, 0, ground);
 }
 
 def drawRiver(pos) {
