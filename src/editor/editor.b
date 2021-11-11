@@ -22,55 +22,28 @@ def editorSectionCommand() {
         drawWater(getPosition(), false);
     }
     if(isPressed(Key3)) {
-        drawGrass(getPosition(), 
-            null,
-            ["rock", "rock.corner", "rock.2", "rock.3", "rock.4", "rock.5", "trunk.y", "plant.bush"],
-            [ "plant.flower.green.large", "plant.flower.yellow.large", "plant.flower.red.large" ],
-            true
-        );
+        drawGrass(getPosition(), false);
     }
     if(isPressed(Key4)) {
-        drawGrass(getPosition(), 
-            null,
-            null,
-            null,
-            true
-        );
+        drawGrass(getPosition(), true);
     }
     if(isPressed(Key5)) {
-        drawGrass(getPosition(), 
-            array_flatten([
-                array_times("plant.oak", 6), 
-                array_times("plant.willow", 2), 
-                array_times("plant.red", 2),
-                "plant.dead"
-            ]), 
-            ["rock", "rock.corner", "rock.2", "rock.3", "rock.4", "rock.5", "trunk.y", "plant.bush"],
-            [ "plant.flower.green.large", "plant.flower.yellow.large", "plant.flower.red.large" ]
-        );
+        drawMountainSection(getPosition());
     }
     if(isPressed(Key6)) {
-        drawGrass(getPosition(), 
-            array_flatten([
-                array_times("plant.pine", 10), 
-                array_times("plant.dead", 1)
-            ]),
-            [ "rock", "rock.corner", "rock.2", "rock.3", "rock.4", "rock.5", "trunk.y" ],
-            [ "plant.flower.green.large", "plant.flower.yellow.large" ]
-        );
+        drawTemplate(getPosition(), "grass");
     }
     if(isPressed(Key7)) {
-        drawGrass(getPosition(), 
-            array_flatten([
-                array_times("plant.pine2", 10), 
-                array_times("plant.dead", 1)
-            ]),
-            [ "rock", "rock.corner", "rock.2", "rock.3", "rock.4", "rock.5", "trunk.y" ],
-            [ "plant.flower.green.large" ]
-        );
+        drawTemplate(getPosition(), "forest1");
     }
     if(isPressed(Key8)) {
-        drawMountainSection(getPosition());
+        drawTemplate(getPosition(), "forest2");
+    }
+    if(isPressed(Key9)) {
+        drawTemplate(getPosition(), "forest3");
+    }
+    if(isPressed(Key0)) {
+        drawTemplate(getPosition(), "swamp");
     }
 }
 
@@ -521,7 +494,7 @@ def drawDungeonCaveBlock(x, y, d) {
     }
 }
 
-const LAND_UNIT = 32;
+const LAND_UNIT = 16;
 
 def isGround(x, y) {
     info := getShape(x, y, 0);
@@ -566,116 +539,25 @@ def drawTree(x, y, z) {
     setShape(x - 1, y - 1, z + 4, choose(TREES));
 }
 
-def cellularExtra(x, y, z, w, h, dx, dy) {
-    range(x + dx, x + w - dx, dx, xx => {
-        range(y + dy, y + h - dy, dy, yy => {
-            a := [];
-            range(-1, 2, 1, xxx => {
-                range(-1, 2, 1, yyy => {
-                    o := getShapeExtra(xx + xxx * dx, yy + yyy * dy, z);
-                    if(len(o) > 0) {
-                        a[len(a)] := o[0];
-                    }
-                });
-            });
-            oo := getShapeExtra(xx, yy, z);
-            if(len(a) > 0) {                    
-                m := array_reduce(a, {}, (d, e) => {
-                    if(d[e] = null) {
-                        d[e] := 1;
-                    } else {
-                        d[e] := d[e] + 1;
-                    }
-                    return d;
-                });
-                if(len(oo) > 0) {
-                    c := m[oo[0]];
-                    if(c = null) {
-                        eraseAllExtras(xx, yy, z);
-                    } else {
-                        if(c < 3) {
-                            eraseAllExtras(xx, yy, z);
-                        }
-                    }
-                } else {
-                    fr := highest_frequency(m);
-                    if(fr[1] > 3) {
-                        setShapeExtra(xx, yy, z, fr[0]);
-                    }
-                }
-            }
-        });
-    });
+def getSectorPos(pos) {
+    x := int(pos[0] / LAND_UNIT) * LAND_UNIT;
+    y := int(pos[1] / LAND_UNIT) * LAND_UNIT;
+    return [x, y];
 }
 
-def drawLandExtras(x, y, w, h, extras) {
-    range(x, x + w, 2, xx => {
-        range(y, y + h, 2, yy => {
-            if(random() < 0.15 * len(extras)) {
-                setShapeExtra(xx, yy, 1, choose(extras));
-            }
-        });
-    });
-    range(0, 5, 1, i => {    
-        cellularExtra(x, y, 1, w, h, 2, 2);
-    });
-    small := {
-        "plant.flower.green.large": "plant.flower.green.small", 
-        "plant.flower.yellow.large": "plant.flower.yellow.small", 
-        "plant.flower.red.large": "plant.flower.red.small"
-    };
-    range(x, x + w, 2, xx => {
-        range(y, y + h, 2, yy => {
-            o := getShapeExtra(xx, yy, 1);
-            if(len(o) > 0 && random() < 0.25) {
-                if(small[o[0]] != null) {
-                    eraseAllExtras(xx, yy, 1);
-                    setShapeExtra(xx, yy, 1, small[o[0]]);
-                }
-            }
-        });
-    });    
-}
-
-def drawLand(x, y, w, h, trees, objects, extras) {
-    if(extras != null) {
-        drawLandExtras(x, y, w, h, extras);
-    }
-    pos := [];
-    range(x, x + w, 4, xx => {
-        range(y, y + h, 4, yy => {
-            pos[len(pos)] := [xx, yy];
-        });
-    });
-    n := len(pos);
-    if(trees != null) {
-        range(0, int(n*0.5), 1, i => {
-            i := int(random() * len(pos));
-            p := pos[i];
-            info := getShape(int(p[0]/4)*4, int(p[1]/4)*4, 0);
-            if(info != null && startsWith(info[0], "ground.grass")) {
-                setShape(p[0] + 1, p[1] + 1, 1, "plant.trunk");
-                setShape(p[0], p[1], 5, choose(trees));
-                del pos[i];
-            }
-        });
-    }
-    if(objects != null) {
-        range(0, int(n*0.15), 1, i => {
-            i := int(random() * len(pos));
-            p := pos[i];
-            info := getShape(int(p[0]/4)*4, int(p[1]/4)*4, 0);
-            if(info != null && startsWith(info[0], "ground.grass")) {
-                setShape(p[0], p[1], 1, choose(objects));
-                del pos[i];
-            }
-        });
-    }
+def drawTemplate(pos, templateName) {
+    sp := getSectorPos(pos);
+    x := sp[0];
+    y := sp[1];
+    clearArea(x, y, LAND_UNIT, LAND_UNIT);
+    fillFloor(x, y, LAND_UNIT, LAND_UNIT, "ground.grass", null);
+    setTemplate(x, y, templateName);
 }
 
 def drawMountainSection(pos) {
-    x := int(pos[0] / LAND_UNIT) * LAND_UNIT;
-    y := int(pos[1] / LAND_UNIT) * LAND_UNIT;
+    sp := getSectorPos(pos);
+    x := sp[0];
+    y := sp[1];
     clearArea(x, y, LAND_UNIT, LAND_UNIT);
     range(0, LAND_UNIT, 4, xx => {
         range(0, LAND_UNIT, 4, yy => {
@@ -685,25 +567,14 @@ def drawMountainSection(pos) {
 
 }
 
-def drawGrass(pos, trees, objects, extras, clearFloor=false) {
-    x := int(pos[0] / LAND_UNIT) * LAND_UNIT;
-    y := int(pos[1] / LAND_UNIT) * LAND_UNIT;
+def drawGrass(pos, clearFloor=false) {
+    sp := getSectorPos(pos);
+    x := sp[0];
+    y := sp[1];
     clearArea(x, y, LAND_UNIT, LAND_UNIT, clearFloor);
-    shape2 := null;
-    if(objects != null) {
-        shape2 := choose([
-            ["ground.grass.2"], 
-            ["ground.marsh", "ground.marsh.2"], 
-            ["ground.grass.3"]
-        ]);
-    }
     if(clearFloor) {
-        fillFloor(x, y, LAND_UNIT, LAND_UNIT, "ground.grass", shape2);
+        fillFloor(x, y, LAND_UNIT, LAND_UNIT, "ground.grass", null);
     }
-    if(clearFloor = false) {
-        extras := null;
-    }
-    drawLand(x, y, LAND_UNIT, LAND_UNIT, trees, objects, extras);
 }
 
 def drawEdge(fx) {
@@ -875,8 +746,9 @@ def getMountain(x, y) {
 }
 
 def drawWater(pos, drawBeach) {
-    x := int(pos[0] / LAND_UNIT) * LAND_UNIT;
-    y := int(pos[1] / LAND_UNIT) * LAND_UNIT;
+    sp := getSectorPos(pos);
+    x := sp[0];
+    y := sp[1];
 
     n := isGround(x + LAND_UNIT/2, y - 1);
     s := isGround(x + LAND_UNIT/2, y + LAND_UNIT);

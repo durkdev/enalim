@@ -236,9 +236,12 @@ addNpcDef({
         "stranger": "North Brother squints as if to better recall what he witnessed: \"Yes, about a week ago it was now... I saw a harried man
             running as if chased by strange fears. He quickly entered the caves and never surfaced since. Perhaps he made it out the other side
             where my $brother lives?\"",
-        "brother": "North Brother sighs and says: \"Yes it is true: I am not the only one whose life and $work is to observe the caves of $Ravenous. 
-            For to the $south lives my identical twin brother, South Brother. In the name of scientific transparency, I must mention him as another
-            valuable data point in the corpus of work concerning this area.\"",
+        "brother": () => {
+            player.gameState["south_brother"] := true;
+            return "North Brother sighs and says: \"Yes it is true: I am not the only one whose life and $work is to observe the caves of $Ravenous. 
+               For to the $south lives my identical twin brother, South Brother. In the name of scientific transparency, I must mention him as another
+                valuable data point in the corpus of work concerning this area.\"";
+        },
         "south": "He points to the cave entrance nearby: \"To reach my $brother, you must travel through the fearsome darknessness of $Ravenous.\" 
             He smiles wanly and adds: \"And should you learn anything $new, please come back and tell me!\"",
         "new": () => {
@@ -267,7 +270,28 @@ addNpcDef({
     creature: "monk-blue",
     convo: {
         "": "This old man seems very familiar. \"Welcome traveler, I am $South Brother. I aim to learn all there is
-            to know about the dungeon $Ravenous.\"",
+            to know about the dungeon $Ravenous. Let me know if you wish to hear of my $work!\"",
+        "South": "\"My name is South Brother because my research station is situated to South of the cave system 
+            known as $Ravenous. My twin $brother has a hut to the north where he is also conducting similar $work.\"",
+        "Ravenous": "He points to the north cave entrance: \"Ravenous is the cave system nearby. It is a large set of 
+            interconnected tunnels, and it is the subject of my scientific $work.\"",
+        "brother": () => {
+            if(player.gameState["south_brother"] = true) {
+                player.gameState["ravenous_info"] := true;
+                return "He smiles and says: \"I see you've met my brother to the north. If he's looking for new information about
+                    $Ravenous, tell him that I have discovered a whole new area! It's been difficult to get there due to a rock slide,
+                    but I believe there may be a $magical way to gain access! It took a lot of $work to complete this research.\"";
+            } else {
+                return "He just shrugs and says: \"Yes, my twin brother is also a researcher of $Ravenous. Although his $work is not as
+                    advanced as mine, it's undeniable that being a scientist runs in the family.\"";
+            }            
+        },
+        "work": "His eyes light up when speaking about his research: \"Aye, the tunnels are ancient! If only I had several more
+            lifetimes to plumb the deepest mysteries of the caves of $Ravenous. Unlike my $brother, I actually venture inside to 
+            learn of its more recent history.\"",
+        "magical": "He nods conspiratorially: \"You feel it also perhaps? There has been more magic in Enalim than ever before! In the 
+            north-east part of the caves I found what appear to be inactive magical teleporters. I belive, if activated, these coule take
+            you to the unexplored areas of $Ravenous!\"",
     },
     waypoints: [ [ 5516, 6136, 1 ], [ 5519, 6151, 1 ] ],
     schedule: [
