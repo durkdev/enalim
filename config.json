@@ -590,7 +590,7 @@
                 { "name": "switch.open", "size": [ 2, 1, 2], "pos": [520, 472], "interactive": true },
                 { "name": "switch.closed", "size": [ 2, 1, 2], "pos": [552, 472], "interactive": true },
                 { "name": "column.iron", "size": [ 1, 1, 6 ], "pos": [584, 448] },
-                { "name": "item.gem.ruby", "size": [ 1, 1, 1], "pos": [240, 208], "drag": true, "extra": true },
+                { "name": "item.gem.ruby", "description": "Ruby gem", "size": [ 1, 1, 1], "pos": [240, 208], "drag": true, "extra": true },
                 { "name": "item.gem.theohadron", "description": "Theohadron Stone", "size": [ 1, 1, 1], "pos": [256, 208], "drag": true, "extra": true },
                 { "name": "floor.stone.4x4", "size": [ 4, 4, 1 ], "pos": [8, 120] },
                 { "name": "streetlamp.base", "size": [ 2, 2, 6 ], "pos": [376, 16], "light": true, "lightZ": 0 },
@@ -602,7 +602,14 @@
                 { "name": "crate", "size": [ 2, 1, 1 ], "pos": [120, 136], "drag": true },
                 { "name": "top.stone.4x4", "size": [ 4, 4, 1 ], "pos": [152, 120] },
                 { "name": "teleport.y", "size": [ 4, 1, 6], "pos": [280, 120], "light": true },
-                { "name": "cot.y", "size": [ 2, 5, 2], "pos": [352, 128] }
+                { "name": "cot.y", "size": [ 2, 5, 2], "pos": [352, 128], "interactive": true },
+                { "name": "smelter.off", "size": [ 6, 6, 8], "pos": [624, 0] },
+                { "name": "mining.machine.1", "size": [ 4, 8, 8], "pos": [728, 8], "animations": [ "mining.machine.2" ] },
+                { "name": "smelter.on", "size": [ 6, 6, 8], "pos": [832, 0], "light": true },
+                { "name": "mining.machine.2", "size": [ 4, 8, 8], "pos": [896, 160] },
+                { "name": "item.mineral.brigo", "description": "Brigo Ore", "size": [ 1, 1, 1], "pos": [272, 208], "drag": true, "extra": true },
+                { "name": "stone.grave.y", "size": [ 1, 2, 2], "pos": [184, 288], "interactive": true },
+                { "name": "stone.grave.x", "size": [ 2, 1, 2], "pos": [208, 288], "interactive": true }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },
@@ -725,7 +732,11 @@
                 { "name": "item.trash.fish.1", "description": "trash", "size": [ 2, 1, 0], "pos": [360, 40], "extra": true, "drag": true },
                 { "name": "item.trash.fish.2", "description": "trash", "size": [ 1, 2, 0], "pos": [384, 40], "extra": true, "drag": true },
                 { "name": "item.trash.peel.1", "description": "trash", "size": [ 2, 1, 0], "pos": [368, 64], "extra": true, "drag": true },
-                { "name": "item.trash.peel.2", "description": "trash", "size": [ 1, 2, 0], "pos": [392, 64], "extra": true, "drag": true }
+                { "name": "item.trash.peel.2", "description": "trash", "size": [ 1, 2, 0], "pos": [392, 64], "extra": true, "drag": true },
+                { "name": "item.tool.pick", "description": "pickaxe", "size": [ 2, 2, 0], "pos": [0, 176], "extra": true, "drag": true },
+                { "name": "item.tool.shovel", "description": "shovel", "size": [ 2, 2, 0], "pos": [32, 176], "extra": true, "drag": true },
+                { "name": "item.tool.tongs", "description": "Forging tongs", "size": [ 2, 2, 0], "pos": [64, 176], "extra": true, "drag": true },
+                { "name": "item.tool.hammer", "description": "hammer", "size": [ 2, 2, 0], "pos": [96, 176], "extra": true, "drag": true }
             ]
         }        
     ],    
@@ -796,6 +807,24 @@
         },        
         { 
             "name": "monk-blue", 
+            "size": [ 2, 2, 4 ], 
+            "dim": [ 32, 64 ], 
+            "breathe": true,
+            "frames": [
+                {
+                    "name": "move",
+                    "steps": 4,
+                    "dirs": [ "w", "sw", "s", "se", "e", "ne", "n", "nw"  ]
+                },
+                {
+                    "name": "stand",
+                    "steps": 1,
+                    "dirs": [ "w", "sw", "s", "se", "e", "ne", "n", "nw"  ]
+                }
+            ]
+        },
+        { 
+            "name": "monk-red", 
             "size": [ 2, 2, 4 ], 
             "dim": [ 32, 64 ], 
             "breathe": true,

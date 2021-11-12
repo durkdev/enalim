@@ -20,6 +20,16 @@ creaturesTemplates := {
         "movement": "anchor",
         "hp": 10,
     },
+    "monk-red": {
+        "shape": "monk-red",
+        "speed": 0.25,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "anchor",
+        "hp": 10,
+    },
     "ghost": {
         "shape": "ghost",
         "speed": 0.2,
