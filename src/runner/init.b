@@ -1,7 +1,4 @@
 # this file is compiled first (before calling main())
-const SCREEN_WIDTH = 1200;
-const SCREEN_HEIGHT = 900;
-
 const LINE_HEIGHT = 40;
 const LINE_HEIGHT_SMALL = 36;
 
@@ -19,8 +16,6 @@ const MESSAGE_B = 30;
 const DAM_R = 255;
 const DAM_G = 30;
 const DAM_B = 30;
-
-const VIEW_SIZE = 64;
 
 const SECTIONS = {};
 

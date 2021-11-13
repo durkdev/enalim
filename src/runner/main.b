@@ -494,7 +494,7 @@ def eventsBook(delta, fadeDir) {
 
     if(didClick()) {
         getClick();
-        if(player.mouseX < SCREEN_WIDTH/2) {
+        if(player.mouseX < getConfigNumber("top.args.width")/2) {
             turnBookPage(-1);
         } else {
             turnBookPage(1);

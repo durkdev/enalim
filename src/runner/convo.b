@@ -364,7 +364,7 @@ def addWord(topic, i, wordStart, d) {
         d.lines[len(d.lines) - 1] := word;
     } else {
         lineLen := messageWidth(lastLine + " " + word, 0);
-        if(lineLen >= SCREEN_WIDTH - 20) {
+        if(lineLen >= getConfigNumber("top.args.width") - 20) {
             d.lines[len(d.lines)] := word;
         } else {
             d.lines[len(d.lines) - 1] := lastLine + " " + word;

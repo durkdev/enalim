@@ -79,7 +79,45 @@ addNpcDef({
     creature: "monk-red",
     convo: {
         "": "An old man greets you: \"Welcome to $Valora, traveler. If you are looking for $potions or want to 
-            learn about the $history of Enalim, you have come to the right place!\"",
+            learn about the $history of Enalim, you have come to the right place! It is interesting\" - he adds - 
+            \"how many $strangers pass through here recently. Maybe the news of $Brigo is what draws them here.\"",
+        "Valora": "He motions about him: \"You are standing in our town of Valora. Although it is mainly known
+            today for the mining of the ore $Brigo, it was once just a quiet farming village. I have lived here
+            for a $long time so let me know if you are interested in the town's $history.\"",
+        "long": () => {
+            if(player.gameState["martyn_dead"] = true) {
+                return "He winks at you and says: \"I can see you have visited the cemetery and seen my grave stone.
+                    I can assure you it's just a bit of planning for the future and I'm not actually deceased. At any
+                    rate it makes for good conversation and helps my $potion sales. Do let me know if you care to hear
+                    the town's $history, since as you can tell, I've been knocking about here for a while now.\"";
+            } else {
+                return "\"I grew up here... my parents lived in this same house so I know all about its $history. In 
+                    fact if you walk about town, you may find other signs from my past.\"";
+            }
+        },
+        "history": "The old man assumes an academic air: \"The history of $Valora, does not in fact begin with the
+            discovery of $Brigo. Many centuries of harmonious coexistance with nature happened before our current
+            era of ore-induced greed. The original founders of Valora were farmers, scholars and adventurers. Now
+            the town is home to miners, the $mayor, the $chancellor and sometimes a few $strangers.\"",
+        "Brigo": "He sighs deeply: \"I can't say I approve of Brigo mining. If you talk to the $mayor or the $chancellor, 
+            they will tell you how wonderful Brigo is for the local economy. However, the tomes say $otherwise. Obliquely,
+            but they do warn of the dangers of mining this ore. Even during my $long lifetime, the mining has created 
+            changes that I can't say I like.\"",
+        "mayor": "\"Mayor Soled if a firm proponent of $Brigo mining. He lives in the stone house near the $Valora town 
+            square.\"",
+        "chancellor": "\"Chancellor Onym supports the $mayor in selling $Brigo. She also lives in the stone house near the $Valora town 
+            square.\"",
+        "otherwise": "He points to the books on his shelf: \"You should read it for yourself. I'm not one gifted with magic,
+            but it feels to me like we're altering something in Enalim's core and not for the better. It is almost as if
+            Brigo were more than just another natural mineral... something more fundamentally connected to the natural
+            cycles of the planet.\" - he trails off thinking - \"I wish someone would talk to $Extandis about this.\"",
+        "Extandis": "He looks at you expectently: \"No she is not found here in $Valora. Extandis is a reclusive sage who
+            dwells in the mountains of Aneil, far to the south-west of here. The journey there is perilous, but if anyone
+            can explain the dangers of $Brigo mining, it would be her.\"",
+        "strangers": "\"Well there is you and before that another by the name of $Fearon passed through here. And in a 
+            great hurry too, I might add. We haven't had this many visitors to $Valora in ages!\"",
+        "Fearon": "\"Yes that was his name, I think. He bought a few $potions and then headed south, into the 
+            forest of Amnadel. You may be able to catch him if you follow the trail out of $Valora to the south.\"",
     },
     waypoints: [ [ 5351, 6407, 1 ], [ 5335, 6407, 1 ] ],
     schedule: [
