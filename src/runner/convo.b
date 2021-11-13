@@ -95,7 +95,7 @@ def setConvoAnswerIndexAt(x, y) {
         return;
     }
     lineCount := len(player.convo.parsed.lines);
-    i := int((y - 20 - (lineCount - 1) * LINE_HEIGHT) / LINE_HEIGHT);
+    i := int((y - LINE_HEIGHT - (lineCount - 1) * LINE_HEIGHT) / LINE_HEIGHT);
     if(i >= 0 && i < len(player.convo.parsed.answers) && i != player.convo.answerIndex) {
         answerLength := messageWidth("" + (i + 1) + ": " + player.convo.parsed.answers[i], 0);
         if(x >= 10 && x < 10 + answerLength) {
@@ -107,13 +107,13 @@ def setConvoAnswerIndexAt(x, y) {
 
 def displayConvoMessages() {
     delConvoMessages();
-    array_foreach(player.convo.parsed.lines, (i, line) => addConvoMessage(10, 20 + i * LINE_HEIGHT, line, CONVO_R, CONVO_G, CONVO_B));
+    array_foreach(player.convo.parsed.lines, (i, line) => addConvoMessage(10, LINE_HEIGHT + i * LINE_HEIGHT, line, CONVO_R, CONVO_G, CONVO_B));
     array_foreach(player.convo.parsed.answers, (i, answer) => {
         fg := 128;
         if(i = player.convo.answerIndex) {
             fg := 255;
         }
-        addConvoMessage(10, 20 + len(player.convo.parsed.lines) * LINE_HEIGHT + i * LINE_HEIGHT, answer, fg, fg, fg);
+        addConvoMessage(10, LINE_HEIGHT + len(player.convo.parsed.lines) * LINE_HEIGHT + i * LINE_HEIGHT, answer, fg, fg, fg);
     });
 }
 

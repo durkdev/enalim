@@ -9,17 +9,18 @@ const SLOT_FEET = 7;
 const SLOT_RING_1 = 8;
 const SLOT_RING_2 = 9;
 
+const SLOT_POS_MUL = 3;
 const SLOT_POS = [
-    [80, 32],
-    [24, 56],
-    [136, 56],
-    [80, 80],
-    [24, 112],
-    [136, 112],
-    [80, 144],
-    [80, 208],
-    [24, 176],
-    [136, 176],
+    [80 * SLOT_POS_MUL, 32 * SLOT_POS_MUL],
+    [24 * SLOT_POS_MUL, 56 * SLOT_POS_MUL],
+    [136 * SLOT_POS_MUL, 56 * SLOT_POS_MUL],
+    [80 * SLOT_POS_MUL, 80 * SLOT_POS_MUL],
+    [24 * SLOT_POS_MUL, 112 * SLOT_POS_MUL],
+    [136 * SLOT_POS_MUL, 112 * SLOT_POS_MUL],
+    [80 * SLOT_POS_MUL, 144 * SLOT_POS_MUL],
+    [80 * SLOT_POS_MUL, 208 * SLOT_POS_MUL],
+    [24 * SLOT_POS_MUL, 176 * SLOT_POS_MUL],
+    [136 * SLOT_POS_MUL, 176 * SLOT_POS_MUL],
 ];
 
 const DEFAULT_EQUIPMENT = [ null, null, null, null, null, null, null, null, null, null ];

@@ -210,11 +210,11 @@
             ]
         },
         "runner": {
-            "pixelRatio": 2.5,
+            "pixelRatio": 1,
             "fonts": [
-                { "font": "Mirza/Mirza-Regular.ttf", "fontSize": 21 },
-                { "font": "bainsley/Bainsley-VGgJ6.ttf", "fontSize": 12, "alphaMin": 135, "alphaDiv": 4 },
-                { "font": "Pirata_One/PirataOne-Regular.ttf", "fontSize": 21 }
+                { "font": "Mirza/Mirza-Regular.ttf", "fontSize": 44 },
+                { "font": "bainsley/Bainsley-VGgJ6.ttf", "fontSize": 36 },
+                { "font": "Pirata_One/PirataOne-Regular.ttf", "fontSize": 44 }
             ],
             "calendar": {
                 "year": 1350,
@@ -609,7 +609,9 @@
                 { "name": "mining.machine.2", "size": [ 4, 8, 8], "pos": [896, 160] },
                 { "name": "item.mineral.brigo", "description": "Brigo Ore", "size": [ 1, 1, 1], "pos": [272, 208], "drag": true, "extra": true },
                 { "name": "stone.grave.y", "size": [ 1, 2, 2], "pos": [184, 288], "interactive": true },
-                { "name": "stone.grave.x", "size": [ 2, 1, 2], "pos": [208, 288], "interactive": true }
+                { "name": "stone.grave.x", "size": [ 2, 1, 2], "pos": [208, 288], "interactive": true },
+                { "name": "item.mineral.brigo.ingot", "description": "Brigo Ingot", "size": [ 1, 1, 1], "pos": [288, 208], "drag": true, "extra": true },
+                { "name": "pedestal.rock", "size": [ 2, 2, 2 ], "pos": [520, 120] }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },

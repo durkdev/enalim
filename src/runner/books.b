@@ -73,15 +73,94 @@ words of his flourishing progeny ever sound their joyful cacophony!
 For such are the ways of lord Vreit, he who vouchsafes his followers the gift of stories, learning and the joy of words.
 ";
 
+const BOOK_BRIGO = "On the mining and processing of Brigo
+by Aruft Shafnil
+
+Chapter 1: About Brigo
+---------------------------
+What is commonly known as 'green-ore', 'wolf-eyes' or sometimes 'ghoul-haze' is actually the naturally occuring ore Brigo. Generally
+occuring in the vicinity of other igneous rocks or sometimes near marine sediment, this light brown rock can be identified by 
+bright green flecks in its crust. It is of medium firmness and weight, cannot be smelt or tasted and, as we shall see, burns at high
+tempratures. Among the native peoples of Enalim there are many legends and traditions that attribute the occurance of Brigo to the
+Earth-Mother, a kind of plantary life-force which permeates all things and whose physical manifestation is this ore. Although perhaps of
+some social importance, this writer chooses to ignore such folklore and instead speak of its more important attribute: profit!
+
+Chapter 2: The extraction process
+---------------------------
+Given that most of the Brigo found in Enalim is near the surface, standard mining excavators, such as those widely available at the
+time of this book's writing, should suffice for the extraction and surfacing of the ore. The more adventurous among you has perhaps
+thought of hiring an artificer who would automate such process with machines fed by Brigo and, of course, as long as said machines don't
+consume more of your goods than produced, is the correct line of thinking.
+
+Chapter 3: Refining the raw ore
+---------------------------
+Before Brigo can be of use (see next chapter) it must first be refined in specifically designed blast furnaces. The construction of
+said furnaces is usually the largest expense that any new mining operation must budget for. Once the raw Brigo ore is heated to a 
+sufficiently high temperature, it will give off a bright green glow. After another few days, this process will culminate in the
+excretion of grayish green, semi-hard lumps which are the refined Brigo, also known as Brigo ingots.
+
+Chapter 4: Uses of and trading of Brigo
+---------------------------
+The meritorious reader may have heard of entire towns subsisting on the mining and selling of Brigo, which is sometimes referred to
+as the 'green gold'. This is correct insofar as that Brigo has many uses from medicine-making to automating machinery as a fuel 
+source and more. The price it is sold for usually depends on the number of customers, their needs and other market variables, such
+as the availability of Brigo from competitors.
+
+Epilogue: A word of caution
+---------------------------
+Dear reader, I hope that by now I have convinced you of the viability of starting your own Brigo-mining venture. It would, however
+be negligent of me to not also tempter such exuberance with a word of caution. This writer has been notified that Brigo-mining 
+does at times give rise to stray magical energies. These magical emanations sometimes cause mischief, most by attracting evil beings 
+near the mining site. People tend to exaggerate these reports however, so this writer for one, does not see this as a reason to 
+abstain from this otherwise wholesome enterprise.";
+
+const BOOK_MAGIC = "On the Nature of Magic
+by Semir Genaufiz
+
+Prologue:
+Once plentiful in Enalim, magic is rarely seen these days. Nobody really understands the reason for this. Perhaps magic was home
+to an era that has passed like so many other wonders of yore. What follows here is an account on the details of the magic that
+once existed in Enalim, now mostly studied by students of arcane lore.
+
+The major houses of magic:
+Magic in enalim consisted of a web of houses, each in its own corner, seemingly detached from the others, yet ethereally near
+and inexorably linked to each other.
+
+The house of Healing: also known as the house of Benevolence, this is an area of magic where healing spells and the creation of 
+helpful constructs belong.
+
+The house of Malignancy: the house of evil sits across from, yet linked to the that of Benevolence. This house is home to death
+charms, corruption and violence.
+
+The house of Light: spells of fire, insight and understanding are at home here.
+
+The house of the Night: spells that bring about darkness, confusion and obscurity lie here. This house sits across from the house of Light.
+
+The minor magical houses:
+
+The house of Analysis: Spells of examination and cold calculation lie here, somewhat attached to the house of the Night.
+
+The house of the Heart: Love potions, peace and fulfillment dwell in this house, attached to the house of Light.
+
+The house of the Spirit: This lesser house near the house of Healing tends to enlightenment and the afterlife.
+
+The house of Death: a dark corner behind the house of Malignancy deals exclusively with the morbid details of the end.
+";
+
 BOOKS := {
     "Raising the dead": RAISE_DEAD,
     "On ghosts and spirits": ON_GHOSTS,
     "Spell reagents": ON_REAGENTS,
     "The book of Vreit": BOOK_VREIT,
+    "Brigo processing": BOOK_BRIGO,
+    "The nature of magic": BOOK_MAGIC,
 };
 
-const PAGE_LINE_COUNT = 15;
-const PAGE_LINE_SIZE = 150;
+const PAGE_LINE_COUNT = 20;
+const PAGE_LINE_SIZE = 450;
+const PAGE_Y_OFFSET = 90;
+const PAGE_1_X_OFFSET = 75;
+const PAGE_2_X_OFFSET = 570;
 
 openBook := {
     "pages": null,
@@ -107,8 +186,8 @@ def updateBookUi(c) {
             texts[len(texts)] := {
                 "type": "uiText",
                 "text": line,
-                "x": 25,
-                "y": 30 + idx * LINE_HEIGHT_SMALL,
+                "x": PAGE_1_X_OFFSET,
+                "y": PAGE_Y_OFFSET + idx * LINE_HEIGHT_SMALL,
                 "fontIndex": 1,
             };
         });
@@ -118,8 +197,8 @@ def updateBookUi(c) {
             texts[len(texts)] := {
                 "type": "uiText",
                 "text": line,
-                "x": 195,
-                "y": 30 + idx * LINE_HEIGHT_SMALL,
+                "x": PAGE_2_X_OFFSET,
+                "y": PAGE_Y_OFFSET + idx * LINE_HEIGHT_SMALL,
                 "fontIndex": 1,
             };
         });

@@ -1,9 +1,9 @@
 # this file is compiled first (before calling main())
-const SCREEN_WIDTH = 400;
-const SCREEN_HEIGHT = 300;
+const SCREEN_WIDTH = 1200;
+const SCREEN_HEIGHT = 900;
 
-const LINE_HEIGHT = 24;
-const LINE_HEIGHT_SMALL = 16;
+const LINE_HEIGHT = 40;
+const LINE_HEIGHT_SMALL = 36;
 
 const ANIM_STAND = "stand";
 const ANIM_MOVE = "move";
