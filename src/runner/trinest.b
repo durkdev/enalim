@@ -68,7 +68,7 @@ addNpcDef({
             Many an $adventurer paid the ultimate price for their curiosity in Ravenous!\"",
         "Fearon": () => {
             if(player.gameState["ender_quest_after"] = true) {
-                return "The man says: \"The last time I saw Fearon, he was hiking to someplace in the forest of Amnadel. Follow the Enalim road to the west and 
+                return "The man says: \"The last time I saw Fearon, he was hiking to someplace in the forest of Amnadel. Follow the Enalim road to the southeast and 
                 after you reach the town of Valora turn south on the forest path. Good luck friend!\" - he backs away from you, clearly not wishing for more 
                 conversation.";
             } else {

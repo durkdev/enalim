@@ -682,7 +682,11 @@
                 { "name": "wall.stone.column.2", "size": [ 1, 1, 6], "pos": [232, 32] },
                 { "name": "wall.stone.column.3", "size": [ 1, 1, 6], "pos": [264, 32] },
                 { "name": "gate.stone.up", "size": [ 1, 4, 6], "pos": [296, 32] },
-                { "name": "gate.stone.down", "size": [ 1, 4, 6], "pos": [344, 32] }
+                { "name": "gate.stone.down", "size": [ 1, 4, 6], "pos": [344, 32] },
+                { "name": "wall.stone.ruins.1.y", "size": [ 1, 2, 6], "pos": [248, 144] },
+                { "name": "wall.stone.ruins.2.y", "size": [ 1, 2, 6], "pos": [280, 160] },
+                { "name": "wall.stone.ruins.1.x", "size": [ 2, 1, 6], "pos": [320, 160] },
+                { "name": "wall.stone.ruins.2.x", "size": [ 2, 1, 6], "pos": [352, 160] }
             ]
         },
         {
