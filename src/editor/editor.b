@@ -248,7 +248,7 @@ def isDungeonFloor(x, y) {
     xx := int(x/4) * 4;
     yy := int(y/4) * 4;
     info := getShape(xx, yy, 0);
-    if(info != null && startsWith(info[0], "ground.cave")) {
+    if(info != null && (startsWith(info[0], "ground.cave") || info[0] = "ground.dirt")) {
         return true;
     }
     return false;

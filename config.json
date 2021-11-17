@@ -204,13 +204,12 @@
     },
     "runtime": {
         "editor": {
-            "pixelRatio": 1,
             "fonts": [
                 { "font": "Mirza/Mirza-Regular.ttf", "fontSize": 32 }
             ]
         },
         "runner": {
-            "pixelRatio": 1,
+            "resolution": [1200, 900],
             "fonts": [
                 { "font": "Mirza/Mirza-Regular.ttf", "fontSize": 44 },
                 { "font": "bainsley/Bainsley-VGgJ6.ttf", "fontSize": 36 },
