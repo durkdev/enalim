@@ -68,6 +68,8 @@ const REPLACE_SHAPES = {
     "door.wood.x": "door.wood.y",
     "door.black.y": "door.black.x",
     "door.black.x": "door.black.y",
+    "door.bars.y": "door.bars.x",
+    "door.bars.x": "door.bars.y",
 };
 
 # called when the hour changes
