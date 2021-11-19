@@ -172,6 +172,26 @@ creaturesTemplates := {
         "attack": [5,10],
         "hp": 37,
     },
+    "beard": {
+        "shape": "beard",
+        "speed": 0.25,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "anchor",
+        "hp": 10,
+    },
+    "beard2": {
+        "shape": "beard2",
+        "speed": 0.25,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "anchor",
+        "hp": 10,
+    },
 };
 
 def initCreatures() {

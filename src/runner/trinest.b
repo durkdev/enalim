@@ -35,7 +35,7 @@ addNpcDef({
 addNpcDef({
     name: "ender",
     label: "Ender",
-    creature: "man-yellow",
+    creature: "beard2",
     convo: {
         "": () => {
             if(player.convo.npc.activeSchedule = 0) {
