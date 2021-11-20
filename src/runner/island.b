@@ -93,13 +93,13 @@ addNpcDef({
             return "\"I never told you about your past - because I don't know it myself.\" " +
                 "- he goes on with a bewildered expression - \"One day you were... just here... \"" +
                 " Secretly, you're pleased hearing about your mysterious past. Before you could get too giddy, the Necromancer continues: " +
-                "\"You must seek out Fearol on the $mainland, perhaps he will know what to do. And beware of the $agents of Vesnu along the way!\"";
+                "\"You must seek out $Fearon on the $mainland, perhaps he will know what to do. And beware of the $agents of Vesnu along the way!\"";
             },
         "mainland": "The Necromancer is back to his old impatient self again: " + 
             "\"Yes, yes, it's all been arranged. I have reconfigured the dimensional portal in the basement. " + 
             "It will now take you to the mainland.\" - That portal gives you the creeps. - " + 
-            "\" Hurry, there is no time to loose! When you arrive seek out $Fearol!\"",
-        "Fearol": ">challenge",
+            "\" Hurry, there is no time to loose! When you arrive seek out $Fearon!\"",
+        "Fearon": ">challenge",
         "agents": "\"Vesnu is quickly becoming be a powerful being of eldritch energy. " + 
             "Because so far he has only partially entered Enalim,\" - he explains - \"you must beware of evil men, " +
             "monsters and other beings in his service. You are our last hope to stop Vesnu, so $hurry!\" " + 
