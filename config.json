@@ -344,7 +344,8 @@
                 { "name": "splat.bones", "size": [ 4, 4, 0], "pos": [ 488, 440 ], "extra": true },
                 { "name": "splat.blood.small", "size": [ 2, 2, 0], "pos": [ 568, 328 ], "extra": true },
                 { "name": "splat.ash.small", "size": [ 2, 2, 0], "pos": [ 568, 280 ], "extra": true },
-                { "name": "ground.planks", "size": [ 4, 4, 1], "pos": [ 920, 440 ] }
+                { "name": "ground.planks", "size": [ 4, 4, 1], "pos": [ 920, 440 ] },
+                { "name": "ground.marble.black", "size": [ 4, 4, 1], "pos": [ 8, 600 ] }
             ]
         },
         {
@@ -630,7 +631,8 @@
                 { "name": "cursor.no", "size": [24, 24], "pos": [360, 720], "cursor": [0, 0] },
                 { "name": "player", "size": [208, 280], "pos": [680, 280] },
                 { "name": "barrel", "size": [155, 196], "pos": [22, 462] },
-                { "name": "crate", "size": [156, 126], "pos": [200, 464] }
+                { "name": "crate", "size": [156, 126], "pos": [200, 464] },
+                { "name": "logo", "size": [118, 63], "pos": [720, 600] }
             ]
         },
         {

@@ -147,6 +147,12 @@ The house of the Spirit: This lesser house near the house of Healing tends to en
 The house of Death: a dark corner behind the house of Malignancy deals exclusively with the morbid details of the end.
 ";
 
+const BOOK_KRYNT = "The Age of Krynt: life in the Just Republic
+by Aroldus Metaremine
+
+
+";
+
 BOOKS := {
     "Raising the dead": RAISE_DEAD,
     "On ghosts and spirits": ON_GHOSTS,
@@ -154,6 +160,7 @@ BOOKS := {
     "The book of Vreit": BOOK_VREIT,
     "Brigo processing": BOOK_BRIGO,
     "The nature of magic": BOOK_MAGIC,
+    "The age of Krynt": BOOK_KRYNT,
 };
 
 const PAGE_LINE_COUNT = 20;

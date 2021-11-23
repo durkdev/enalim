@@ -67,9 +67,7 @@ const REPLACE_SHAPES = {
     "door.wood.y": "door.wood.x",
     "door.wood.x": "door.wood.y",
     "door.black.y": "door.black.x",
-    "door.black.x": "door.black.y",
-    "door.bars.y": "door.bars.x",
-    "door.bars.x": "door.bars.y",
+    "door.black.x": "door.black.y"    
 };
 
 # called when the hour changes
@@ -123,16 +121,16 @@ def eventsConvo(delta, fadeDir) {
 
 def eventsInit(delta, fadeDir) {
     if(fadeDir = 1) {
-        player.mode := MODE_TITLE;
-        addMessage(110, 250, "2021 (c) Gabor Torok", 1, 200, 200, 200);
-        addMessage(110, 275, "Press SPACE to start", 1, 128, 128, 128);
+        player.mode := MODE_TITLE;        
+        addImage(260, 380, "logo");
+        addMessage(610, 450, "2021 (c) Gabor Torok", 1, 200, 200, 200);
+        addMessage(610, 485, "Press SPACE to start", 1, 128, 128, 128);
     }
 }
 
 def eventsTitle(delta, fadeDir) {
     if(isPressed(KeySpace) || didClick()) {
-        getClick();
-        delAllMessages();
+        getClick();        
         player.mode := MODE_TITLE2;
         # all black
         fadeViewTo(500, 500); 
@@ -143,31 +141,41 @@ def eventsTitle(delta, fadeDir) {
 
 def eventsTitle2(delta, fadeDir) {
     if(fadeDir = 1) {
-        player.mode := MODE_TITLE3;
-        addMessage(10, 25, "The story so far...", 0, 200, 200, 200);
-        o := parseTopic("The story so far: ...");
-        array_foreach(o.lines, (index, line) => addMessage(10, 75 + (index * LINE_HEIGHT), line, 0, 128, 128, 128));
-        o := parseTopic("And also: ...");
-        array_foreach(o.lines, (index, line) => addMessage(10, 200 + (index * LINE_HEIGHT), line, 0, 128, 128, 128));
-        addMessage(110, 275, "Press SPACE to continue", 1, 128, 128, 128);
+        delAllMessages();
+        delAllImages();
+        saved := loadMap("savegame.json");
+        if(saved = null) {
+            player.mode := MODE_TITLE3;
+            addMessage(10, 25, "The story so far...", 0, 200, 200, 200);
+            o := parseTopic("The story so far: ...");
+            array_foreach(o.lines, (index, line) => addMessage(10, 75 + (index * LINE_HEIGHT), line, 0, 128, 128, 128));
+            o := parseTopic("And also: ...");
+            array_foreach(o.lines, (index, line) => addMessage(10, 200 + (index * LINE_HEIGHT), line, 0, 128, 128, 128));
+            addMessage(110, 275, "Press SPACE to continue", 1, 128, 128, 128);
+        } else {
+            player.move := newMovement(6070, 5651, 1, PLAYER_X, PLAYER_Y, PLAYER_Z, player.shape, PLAYER_MOVE_SPEED, true, false);        
+            stopCreatures();        
+            load_game(saved);
+            moveViewTo(player.move.x, player.move.y);
+            player.mode := MODE_TITLE4;
+        }
     }
 }
 
 def eventsTitle3(delta, fadeDir) {
     if(isPressed(KeySpace) || didClick()) {
-        getClick();
-        delAllMessages();
+        getClick();        
         player.mode := MODE_TITLE4;
         player.move := newMovement(6070, 5651, 1, PLAYER_X, PLAYER_Y, PLAYER_Z, player.shape, PLAYER_MOVE_SPEED, true, false);        
-        stopCreatures();
-        load_game();
+        stopCreatures();        
         fadeViewTo(player.move.x, player.move.y);
     }
 }
 
 def eventsTitle4(delta, fadeDir) {
     if(fadeDir = 1) {
-        
+        delAllMessages();
+        delAllImages();
         player.move.setShape(player.shape);
         player.move.setAnimation(ANIM_STAND);
         player.mode := MODE_GAME;
@@ -1024,21 +1032,16 @@ def save_game() {
     }
 }
 
-def load_game() {
-    saved := loadMap("savegame.json");
-    if(saved != null) {
-        setCalendarRaw(saved.calendar);
-        player.hp := saved.hp;
-        player.coins := saved.coins;
-        player.gameState := saved.gameState;
-        array_foreach(saved.items, (i, c) => restoreItem(c));
-        player.inventory.decode(saved.inventory);
-        player.move.decode(saved.move);
-        player.equipment.decode(saved.equipment);
-        setShapeFromEquipment();
-        return true;
-    }
-    return false;
+def load_game(saved) {
+    setCalendarRaw(saved.calendar);
+    player.hp := saved.hp;
+    player.coins := saved.coins;
+    player.gameState := saved.gameState;
+    array_foreach(saved.items, (i, c) => restoreItem(c));
+    player.inventory.decode(saved.inventory);
+    player.move.decode(saved.move);
+    player.equipment.decode(saved.equipment);
+    setShapeFromEquipment();
 }
 
 def distanceAndDirToCreature(creature) {

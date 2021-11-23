@@ -60,3 +60,17 @@ addNpcDef({
         { name: "room", from: 0, to: 23, movement: "anchor", waypointDir: -1 },
     ],    
 });
+
+
+addNpcDef({
+    name: "Anton Felnemond",
+    label: "anton",
+    creature: "ghost",
+    convo: {
+        "": "A spectre hovers nearby, dressed in the remnants of a ceremonial armor: \"Welcome to the Hall of the Chalice\" - it rasps.",
+    },
+    waypoints: [ [ 5588, 6620, 1 ] ],
+    schedule: [
+        { name: "room", from: 0, to: 23, movement: "anchor", waypointDir: -1 },
+    ],    
+});

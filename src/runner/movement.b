@@ -184,10 +184,12 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                 if(shape[0] = "switch.open") {
                     player.gameState["switch_" + x + "_" + y + "_" + z] := true;
                     setShape(x, y, z, "switch.closed");
+                    restartActiveSections();
                     return true;
                 } else if(shape[0] = "switch.closed") {
                     player.gameState["switch_" + x + "_" + y + "_" + z] := false;
                     setShape(x, y, z, "switch.open");
+                    restartActiveSections();
                     return true;
                 }
             }
