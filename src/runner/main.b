@@ -775,6 +775,7 @@ def endDrag(pos) {
         }
 
         # dragging is done
+        restartActiveSections();
         player.dragShape := null;
         clearCursorShape();
         updatePlayerLight();

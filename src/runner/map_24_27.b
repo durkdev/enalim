@@ -3,6 +3,7 @@ SECTIONS["24,27"] := {
         setCreature(5811, 6695, 1, creaturesTemplates.spirit);        
         setCreature(5811, 6700, 1, creaturesTemplates.spirit);        
         setCreature(5811, 6705, 1, creaturesTemplates.spirit);        
+        setCreature(5799, 6659, 1, creaturesTemplates.ogre);        
     },
     "start": this => {
         eraseShape(5773, 6701, 1);

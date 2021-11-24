@@ -7,11 +7,11 @@ SECTIONS["23,27"] := {
         setCreature(5716, 6701, 1, creaturesTemplates.spirit);        
         setCreature(5712, 6701, 1, creaturesTemplates.spirit);        
         setCreature(5706, 6701, 1, creaturesTemplates.spirit);        
+        setCreature(5665, 6594, 1, creaturesTemplates.ogre);        
     },
     "start": this => {
         eraseShape(5596, 6643, 1);
-        # todo: needs different switch
-        if(player.gameState["switch_5648_6699_1"] = true) {
+        if(player.gameState["switch_5687_6476_1"] = true) {
             setShape(5596, 6643, 1, "door.bars.y");
         } else {
             setShape(5596, 6643, 1, "door.bars.x");
@@ -47,7 +47,7 @@ SECTIONS["23,27"] := {
             return true;
         }
         if(x = 5646 && y = 6700 && z = 1) {
-            timedMessage(x, y, z, choose([ "Cave access"]), false);
+            timedMessage(x, y, z, "Cave access", false);
             return true;
         }
         return null;

@@ -67,9 +67,45 @@ addNpcDef({
     label: "anton",
     creature: "ghost",
     convo: {
-        "": "A spectre hovers nearby, dressed in the remnants of a ceremonial armor: \"Welcome to the Hall of the Chalice\" - it rasps.",
+        "": "A spectre hovers nearby, dressed in the remnants of a ceremonial armor: \"Welcome to the Hall of the $Chalice\" - it rasps - \"You
+            have proven yourself and are worthy of the $relics of the $Knights of Krynt.\"",
+        "Chalice": "It nods and says: \"The Chalice of Krynt is one of the sacred $relics from the era of the $Knights of Krynt. Since you have
+            defeated the dungeon's traps and opened the door of this room, it is now yours. Wielding these artifacts marks the bearer as one to
+            carry the teachings and lore of the Knights into the current age. I must say,\" - it adds after a pause - \"it has been a rather $long
+            while since anyone sought them out.\"",
+        "relics": "\"Aye the $Knights of Krynt left behind more than just the $Chalice. To fully gain the sacred powers of their order, you will
+            have to find them all.\"",
+        "Knights": "The spectre intones: \"The Knights of Krynt were a group of fighting magicians devoted"
     },
     waypoints: [ [ 5588, 6620, 1 ] ],
+    schedule: [
+        { name: "room", from: 0, to: 23, movement: "anchor", waypointDir: -1 },
+    ],    
+});
+
+
+addNpcDef({
+    name: "Celine Feanen",
+    label: "celine",
+    creature: "ghost",
+    convo: {
+        "": "A spectre approches and bellows: \"Halt mortal! If you value your $life you will turn $back before it's too late! Lest should you spend eternity
+            in these $cursed ruins, like the one who stands before you now!\"",
+        "life": "The apparition shrieks melodramatically: \"Aye, value that which ye still have! Alas, 'tis too late for me. For it was folly and the hubris of
+            youth that bade me to explore the depths of this $place.\" - after some hand wringing, it continues - \"No way back, alas, no return anymore. The 
+            unending dawn of discorporation pervades all! Be not like me and turn $back now!\"",
+        "place": "It rotates dramatically, motioning for you to behold the strange building you are in: \"You think the builders of this $cursed place were sane or 
+            beneficial? Nay!\" - it intones, and glares at you to drive the point home - \"Nay indeed! Vile, putrid things dwell here, rotten since their debased
+            creation in malice and agony. Venture no further and turn $back while you still can! Let the $life I lost persuade you to leave now!\"",
+        "cursed": "\"Aye, and since you won't listen to reason, hear my last warning: many have entered this $place only to meet their doom in the caverns below. 
+            If you wish to survive, you would turn $back now. If you won't, at least remember $two things.\"",
+        "two": "He holds up a bony finger: \"The first is that the switches open the grates. Their arcane and inscrutable logic has been lost in the mysts of time. The 
+            second,\" - he holds up another finger - \"is the weight of the ore. Collect the $brigo ore, you may yet need it.\"",
+        "brigo": "\"Brigo is a bright green ore, sometimes found underground. This $place is near a brigo mine so you may see it scattered about.\"",
+        "back": "The spectre wails again: \"Leave this $place, lest you become another one of its $cursed residents! I warn you, it took my $life and I loathe to
+            see this happen to another.\" After a pause it bellows: \"Leeeaaave this place, for the caverns below are the creation of a mind twisted and fevered!\""
+    },
+    waypoints: [ [ 5698, 6663, 8 ] ],
     schedule: [
         { name: "room", from: 0, to: 23, movement: "anchor", waypointDir: -1 },
     ],    
