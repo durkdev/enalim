@@ -687,7 +687,11 @@
                 { "name": "wall.stone.ruins.1.y", "size": [ 1, 2, 6], "pos": [248, 144] },
                 { "name": "wall.stone.ruins.2.y", "size": [ 1, 2, 6], "pos": [280, 160] },
                 { "name": "wall.stone.ruins.1.x", "size": [ 2, 1, 6], "pos": [320, 160] },
-                { "name": "wall.stone.ruins.2.x", "size": [ 2, 1, 6], "pos": [352, 160] }
+                { "name": "wall.stone.ruins.2.x", "size": [ 2, 1, 6], "pos": [352, 160] },
+                { "name": "wall.stone.small.x", "size": [ 2, 1, 2], "pos": [240, 112] },
+                { "name": "wall.stone.small.y", "size": [ 1, 2, 2], "pos": [280, 112] },
+                { "name": "window.grate.x", "size": [ 4, 1, 4], "pos": [392, 24] },
+                { "name": "window.grate.y", "size": [ 1, 4, 4], "pos": [448, 24] }
             ]
         },
         {

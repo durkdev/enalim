@@ -120,6 +120,9 @@ def moveNpcSchedule(c, delta) {
 
 def npcPathMoveSuccess(c, pos, delta) {
     w := c.npc.waypoints;
+    if(c.npc.activeSchedule < 0 || c.npc.activeSchedule >= len(c.npc.schedule)) {
+        c.npc.activeSchedule := 0;
+    }
     wDir := c.npc.schedule[c.npc.activeSchedule].waypointDir;
     if(w != null && ((wDir = 1 && c.npc.waypointIndex < len(w) - 1) || (wDir = -1 && c.npc.waypointIndex > 0))) {
         # move to next waypoint        

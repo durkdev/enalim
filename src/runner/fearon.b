@@ -68,14 +68,29 @@ addNpcDef({
     creature: "ghost",
     convo: {
         "": "A spectre hovers nearby, dressed in the remnants of a ceremonial armor: \"Welcome to the Hall of the $Chalice\" - it rasps - \"You
-            have proven yourself and are worthy of the $relics of the $Knights of Krynt.\"",
+            have proven yourself worthy to receive the $relics of the $Knights of Krynt.\"",
         "Chalice": "It nods and says: \"The Chalice of Krynt is one of the sacred $relics from the era of the $Knights of Krynt. Since you have
             defeated the dungeon's traps and opened the door of this room, it is now yours. Wielding these artifacts marks the bearer as one to
-            carry the teachings and lore of the Knights into the current age. I must say,\" - it adds after a pause - \"it has been a rather $long
+            carry on the teachings and lore of the Knights into the current age. I must say,\" - it adds after a pause - \"it has been a rather long
             while since anyone sought them out.\"",
-        "relics": "\"Aye the $Knights of Krynt left behind more than just the $Chalice. To fully gain the sacred powers of their order, you will
-            have to find them all.\"",
-        "Knights": "The spectre intones: \"The Knights of Krynt were a group of fighting magicians devoted"
+        "relics": "\"Aye the $Knights of Krynt left behind more than just the $Chalice. To fully attain the sacred powers of their order, you will
+            have to find them all. There are other locations, elsewhere in Enalim, that house other artifacts from the age of Krynt.\"",
+        "Knights": "The spectre intones: \"Members of the sacred order of the Knights of Krynt were devoted to the common good. They were one of the
+            pillars of the Republic of Krynt, ensuring a just and peaceful existance for all. With the disappearance of the Knights, many eons ago, the
+            republic also ceased to be. Today, in our era of greed, wars and barbarity, only remnants of the Krynt republic remain. However it was
+            always the intention of the Knights, that should the need arise, the mantle of their $purpose be taken up by new heros. For this reason
+            they left behind places such as this and the $relics that store their power.\"",
+        "purpose": "The spectre points to you: \"Step up and claim the $Chalice, hero of Krynt! It is said these $relics contain the power of the $Knights of 
+            Krynt and when a time of need is at hand, one\" - he nods to you - \"such as yourself will arise to carry their purpose on. Enalim is in $danger, that
+            I know, but what you should do next, I cannot say. Maybe,\" - he adds, after a pause - \"go forth and find the other
+            artifacts. Perhaps then your purpose will be revealed.\"",
+        "danger": "The apparition sighs and continues: \"The being $Vesnu is intent on destroying the world of Enalim. His malice and vengence is bent on
+            conquering this realm. And this,\" - he says forcefully - \"must not happen. There is a corruption in the fabric of this world that I have not
+            felt since guarding the $Chalice for more than an age. Use the $relics to gain the power of the $Knights and banish Vesnu before it's too late.\"",
+        "Vesnu": "\"Vesnu is an outsider entity, composed entirely of malign energies. His hatred of humanity and all life in Enalim is eternal and 
+            inexhaustible. For many eons Vesnu was bound to another plane of existance but recently - I know not why - he is ever closer to breaching the
+            boundaries of the world of Enalim. If that were to pass it would be the ruin of all.\" - the spectre pauses and quickly add: \"Take the 
+            $Chalice, hero of Krynt and fulfill the $purpose set forth by the $Knights, so long ago.\""
     },
     waypoints: [ [ 5588, 6620, 1 ] ],
     schedule: [
