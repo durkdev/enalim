@@ -304,7 +304,7 @@ const dungeonCave = [
 
 def isDungeonGround(x, y) {
     info := getShape(x, y, 0);
-    if(info != null && startsWith(info[0], "ground.dungeon")) {
+    if(info != null && (startsWith(info[0], "ground.dungeon") || info[0] = "ground.dirt")) {
         return true;
     }
     return false;
