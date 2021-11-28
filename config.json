@@ -691,7 +691,8 @@
                 { "name": "wall.stone.small.x", "size": [ 2, 1, 2], "pos": [240, 112] },
                 { "name": "wall.stone.small.y", "size": [ 1, 2, 2], "pos": [280, 112] },
                 { "name": "window.grate.x", "size": [ 4, 1, 4], "pos": [392, 24] },
-                { "name": "window.grate.y", "size": [ 1, 4, 4], "pos": [448, 24] }
+                { "name": "window.grate.y", "size": [ 1, 4, 4], "pos": [448, 24] },
+                { "name": "wall.stone.block", "size": [ 4, 4, 6], "pos": [496, 0] }
             ]
         },
         {
