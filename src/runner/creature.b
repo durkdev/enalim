@@ -192,6 +192,26 @@ creaturesTemplates := {
         "movement": "anchor",
         "hp": 10,
     },
+    "guard": {
+        "shape": "guard",
+        "speed": 0.25,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "anchor",
+        "hp": 10,
+    },
+    "demon2": {
+        "shape": "demon2",
+        "speed": 0.25,
+        "baseWidth": 3,
+        "baseHeight": 3,
+        "sizeZ": 6,
+        "isFlying": false,
+        "movement": "anchor",
+        "hp": 10,
+    },
 };
 
 def initCreatures() {

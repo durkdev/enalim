@@ -131,15 +131,18 @@ addNpcDef({
             of stomping off in a huff but then you remember that she said something about here $estate. You sense there's
             money to be made and an adventure waiting here.",
         "estate": "She sighs heavily and continues: \"Despite my best efforts at traveling incognito, I'm sure you $recognize me
-            as the Grand Duchess of and Heiress of $Wyntergale. You may refer to me as 'your $Eminance.'\" - she pauses for effect.",
+            as Zanka, the Grand Duchess of and Heiress of $Wyntergale. You may refer to me as 'your $Eminance.'\" - she pauses for effect.",
         "Eminance": "You mock-bow to show you understand. This seems to please her: \"That's better. It's good to see a youth of
             culture and good upbringing. Perhaps you can help me get back to my $estate.\"",
         "Wyntergale": "She nods: \"Aye Wyntergale is my castle along the banks of the Efron river. However its warm hearth is cold now,
             for an evil presence has taken home there. I was forced to go abroad and now dwell in this\" - she motions around you
             \"rather squalid inn. If someone brave and heroic could $vanquish the $demon that dwells in my castle, I'd be 
             forever grateful.\"",
-        "vanquish": "She clutches her pearl necklace and says desperately: \"Oh please, please give it a try! Tell me when I can 
-            safely return home to $Wyntergale and I will be sure to reward you! You can always find me here at the inn.\"",
+        "vanquish": () => {
+            player.gameState["quest.wyntergale"] := true;
+            return "She clutches her pearl necklace and says desperately: \"Oh please, please give it a try! Tell me when I can 
+            safely return home to $Wyntergale and I will be sure to reward you! You can always find me here at the inn.\"";
+        },
         "demon": "\"I don't actually know what manner of beast has taken home in my former $estate. But from the vile smells that
             emanate from the lower levels, I can only assume it must a fiend from the pits! Please do $vanquish it for me!\"",
     },
