@@ -36,9 +36,47 @@ addNpcDef({
     label: "Axurzxu",
     creature: "demon2",
     convo: {
-        "": "ggg",
+        "": () => {
+            if(player.gameState["demon.quest"] = 1) {
+                return "The creature smiles a horrible toothy grim: \"Ah, welcome back good servant! Tell me, have you been able to locate the one who $summoned me?
+                    Have you $delivered him my gift of thanks?\"";
+            } else {
+                return "A large, fearsome creature addresses you: \"Axurzxu, the $Beast of $Wyntergale, at your service.\" Its features distort into a
+                    horrific visage of fangs as it tries to smile. \"You are quite brave to tread here.\" - it continues - \"Are you on some kind of a $quest?\"";
+            }
+        },
+        "Wyntergale": "The creature motions at the castle walls: \"Aye, that is what most of the humans told me. The castle belonged to some kind of
+            nobility, but\" - he tries to smile again and it fills you with dread - \"it belongs to the $Beast now.\"",
+        "Beast": "\"Yes, the Beast of $Wyntergale\" - it seems rather proud of the title - \"is how I have come to be known. I would have preferred
+            the 'Butcher of' or perhaps 'Infernal Majesty of' but alas. It is not often that I'm $summoned Enalim but I will try to make the most of it.\" - it
+            turns to you and asks: \"Before your agonizing doom, why don't you tell me about your $quest?\"",
+        "quest": "Under the creature's watchful stare, you haltingly tell of the Grand Duchess Zanka asking you to investigate the fate of her estate. Axurzxu nods
+            and says: \"Alas, as the $Beast, I cannot let you return to her alive, it's just not in my nature. And lets face it, there is no way you can defeat me. 
+            And yet,\" - it muses - \"perhaps I can spare your life temporarily, in return for your $services.\"",
+        "services": () => {
+            if(player.gameState["demon.quest"] = 1) {
+                return "The creautre motions at the destroyed castle furniture around you: \"As I may have mentioned, I was a tad displeased to be $summoned so
+                needlessly to Enalim. I've had time to reflect however, and I would like to 'thank' the magician with a small token of my gratefulness. 
+                Have you $delivered my gift to him yet? I believe\" - it adds - \"he's somewhere in the castle dungeons.\"";
+            } else {
+                return "\"Yes well, I would like to ...uh 'thank' the mage who $summoned me. As soon as I appeared and the screaming started, he fled\" -it points
+                downstairs - \"into the dungeons below the castle $Wyntergale. It's a nuisance and a waste of my time to go after him. It would be easier if instead
+                my servant\" - he looks at you knowingly - \"delivered my thanks instead. Would you do this $task for me? I promise to delay your demise 
+                for a\" - it clearly struggles with granting you this boon - \"...a time.\"";
+            }
+        },
+        "task": () => {
+            player.gameState["demon.quest"] := 1;
+            player.inventory.add("object.demon.gift", -1, -1);
+            return "\"Excellent!\" - it hands you a small but ornate box - \"Take this gift to the vic... I mean, to the honorable mage who is currently cowering in
+            in the castle dungeons below. Return to me when you have done this and perhaps I'll...\" - it searches for words - \"reward you in some way.\" You take the
+            box with shaking hands and add it to your travel bag.";
+        },
+        "summoned": "An expression of rage flashes across the creature's face: \"Aye, some clueless practitioner of magic kidnapped me from the Abyss to bid me to 
+            stand at his beck and call here in Enalim. I saw him briefly when he realized his mistake and fled to the dungeons below the castle. This is why I
+            require your $services to find him.\"",
     },
-    waypoints: [ [ 5690, 6970, 1 ] ], 
+    waypoints: [ [ 5687, 6999, 8 ] ], 
     schedule: [
         { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
     ],

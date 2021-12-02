@@ -4,6 +4,7 @@ def wyntergale_winch() {
 
 SECTIONS["23,29"] := {
     "init": this => {
+        setContainer("barrel", 5725, 6986, 15, "map", [ "key.wyntergale" ]);
     },
     "start": this => {
         eraseShape(5712, 6981, 1);
@@ -34,6 +35,12 @@ SECTIONS["23,29"] := {
         return null;
     },
     "locked": (this, x, y, z) => {
+        if(x = 5695 && y = 6997 && z = 1) {
+            return "key.wyntergale";
+        }
+        if(x = 5665 && y = 6992 && z = 8) {
+            return "key.wyntergale";
+        }
         return null;
     },
 };

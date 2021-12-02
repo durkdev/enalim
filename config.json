@@ -611,7 +611,9 @@
                 { "name": "stone.grave.y", "size": [ 1, 2, 2], "pos": [184, 288], "interactive": true },
                 { "name": "stone.grave.x", "size": [ 2, 1, 2], "pos": [208, 288], "interactive": true },
                 { "name": "item.mineral.brigo.ingot", "description": "Brigo Ingot", "size": [ 1, 1, 1], "pos": [288, 208], "drag": true, "extra": true },
-                { "name": "pedestal.rock", "size": [ 2, 2, 2 ], "pos": [520, 120] }
+                { "name": "pedestal.rock", "size": [ 2, 2, 2 ], "pos": [520, 120] },
+                { "name": "key.wyntergale", "description": "Wyntergale key", "size": [1, 1, 1], "pos": [64, 208], "drag": true, "extra": true },
+                { "name": "object.demon.gift", "description": "Gift box", "size": [ 1, 1, 1], "pos": [240, 208], "drag": true, "extra": true }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },
