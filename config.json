@@ -762,7 +762,11 @@
                 { "name": "wall.flag.black.y", "size": [0.5, 2, 6], "pos": [524, 0], "extra": true },
                 { "name": "door.bars.y", "size": [ 1, 3, 6], "pos": [552, 0], "interactive": true },
                 { "name": "door.bars.x", "size": [ 3, 1, 6], "pos": [584, 0], "interactive": true },
-                { "name": "item.chalice.krynt", "description": "Chalice of Krynt", "size": [ 2, 2, 2], "pos": [432, 64], "drag": true }
+                { "name": "item.chalice.krynt", "description": "Chalice of Krynt", "size": [ 2, 2, 2], "pos": [432, 64], "drag": true },
+                { "name": "item.corpse.male.x", "description": "Corpse", "size": [ 5, 2, 1], "pos": [344, 96], "drag": true, "extra": true },
+                { "name": "item.corpse.male.y", "description": "Corpse", "size": [ 2, 5, 1], "pos": [464, 160], "drag": true, "extra": true },
+                { "name": "item.corpse.male2.x", "description": "Corpse", "size": [ 5, 2, 1], "pos": [344, 160], "drag": true, "extra": true },
+                { "name": "item.corpse.male2.y", "description": "Corpse", "size": [ 2, 5, 1], "pos": [400, 160], "drag": true, "extra": true }
             ]
         }        
     ],    

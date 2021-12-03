@@ -16,6 +16,43 @@ SECTIONS["23,29"] := {
             setShape(5712, 6981, 1, "door.bars.y");
             setShape(5727, 6981, 1, "door.bars.y");
         }
+
+        eraseShape(5676, 7050, 1);
+        if(player.gameState["switch_5680_7046_1"] = true) {
+            setShape(5676, 7050, 1, "door.bars.y");
+        } else {
+            setShape(5676, 7050, 1, "door.bars.x");
+        }
+        eraseShape(5644, 7050, 1);
+        if(player.gameState["switch_5647_7042_1"] = true) {
+            setShape(5644, 7050, 1, "door.bars.y");
+        } else {
+            setShape(5644, 7050, 1, "door.bars.x");
+        }
+        eraseShape(5716, 7050, 1);
+        if(player.gameState["switch_5720_7042_1"] = true) {
+            setShape(5716, 7050, 1, "door.bars.y");
+        } else {
+            setShape(5716, 7050, 1, "door.bars.x");
+        }        
+        eraseShape(5733, 7081, 1);
+        if(player.gameState["switch_5734_7078_1"] = true) {
+            setShape(5733, 7081, 1, "door.bars.x");
+        } else {
+            setShape(5733, 7081, 1, "door.bars.y");
+        }        
+        eraseShape(5679, 7086, 1);
+        if(player.gameState["switch_5676_7093_1"] = true) {
+            setShape(5679, 7086, 1, "door.bars.x");
+        } else {
+            setShape(5679, 7086, 1, "door.bars.y");
+        }        
+        eraseShape(5664, 7086, 1);
+        if(player.gameState["switch_5665_7093_1"] = true) {
+            setShape(5664, 7086, 1, "door.bars.x");
+        } else {
+            setShape(5664, 7086, 1, "door.bars.y");
+        }        
     },
     "teleport": (this, x, y, z) => {
         return null;
