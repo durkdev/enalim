@@ -82,3 +82,56 @@ addNpcDef({
     ],
 });
 
+addNpcDef({
+    name: "Mertund",
+    label: "Mertund",
+    creature: "monk-red",
+    convo: {
+        "": "A slight man with gray eyes waves to you. He looks around nervously, then says: \"I am Mertund, arch-mage of $Wyntergale, in service of the Grand Duchess Zanka. I don't know how you made it this
+            far, but I require your $help!\"",
+    },
+    waypoints: [ [ 5670, 7089, 1 ] ], 
+    schedule: [
+        { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
+    ],
+});
+
+addNpcDef({
+    name: "Bartos",
+    label: "Bartos",
+    creature: "beard",
+    convo: {
+        "": "A grizzled prisoner greets you: \"Ahoy there stranger! I am Bartos the $mystic, at your service. Please excude my humble $temporary abode.\"",
+    },
+    waypoints: [ [ 5674, 7055, 1 ] ], 
+    schedule: [
+        { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
+    ],
+});
+
+addNpcDef({
+    name: "Grum-oh",
+    label: "Grum-oh",
+    creature: "ogre_npc",
+    convo: {
+        "": "What seems to be a captured ogre hails you: \"I Grum-oh! Grum-oh $friend... $likes human friend. Grum-oh no tear arms from their sockets!\" - he
+            smiles reassuringly. You almost believe him, if it weren't for that fresh corpse in his cell. \"Grum-oh knows big $secret and will tell friend about it!\"",
+    },
+    waypoints: [ [ 5723, 7082, 1 ] ], 
+    schedule: [
+        { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
+    ],
+});
+
+addNpcDef({
+    name: "Denora",
+    label: "Denora",
+    creature: "woman",
+    convo: {
+        "": "A nervous woman eyes you wearily: \"My lot is woe and if you come to mock me like the $others, go right ahead. There is nothing I can do to stop you.\"",
+    },
+    waypoints: [ [ 5659, 7088, 1 ] ], 
+    schedule: [
+        { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
+    ],
+});

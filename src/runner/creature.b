@@ -62,6 +62,16 @@ creaturesTemplates := {
         "attack": [1,3],
         "hp": 20,
     },
+    "goblin_npc": {
+        "shape": "goblin",
+        "speed": 0.25,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "anchor",
+        "hp": 20,
+    },
     "ogre": {
         "shape": "ogre",
         "speed": 0.5,
@@ -72,6 +82,16 @@ creaturesTemplates := {
         "movement": "hunt",
         "attackSteps": 2,
         "attack": [2,5],
+        "hp": 40,
+    },
+    "ogre_npc": {
+        "shape": "ogre",
+        "speed": 0.5,
+        "baseWidth": 4,
+        "baseHeight": 4,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "anchor",
         "hp": 40,
     },
     "spirit": {
