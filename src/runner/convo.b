@@ -9,13 +9,13 @@ const CMD_BUY = "_buy_";
 const CMD_BUY_PRICE = "_buy_price_";
 const CMD_BUY_CONFIRM = "_buy_confirm_";
 
-def startConvo(npc) {
+def startConvo(npc, topic="") {
     player.mode := MODE_CONVO;
     setOverlayBackground(0, 0, 0, 200);
     setCalendarPaused(true);
     player.convo := {
         npc: npc,
-        topic: "",
+        topic: topic,
         update: true,
         indexes: [],
         parsed: null,

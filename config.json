@@ -766,7 +766,10 @@
                 { "name": "item.corpse.male.x", "description": "Corpse", "size": [ 5, 2, 1], "pos": [344, 96], "drag": true, "extra": true },
                 { "name": "item.corpse.male.y", "description": "Corpse", "size": [ 2, 5, 1], "pos": [464, 160], "drag": true, "extra": true },
                 { "name": "item.corpse.male2.x", "description": "Corpse", "size": [ 5, 2, 1], "pos": [344, 160], "drag": true, "extra": true },
-                { "name": "item.corpse.male2.y", "description": "Corpse", "size": [ 2, 5, 1], "pos": [400, 160], "drag": true, "extra": true }
+                { "name": "item.corpse.male2.y", "description": "Corpse", "size": [ 2, 5, 1], "pos": [400, 160], "drag": true, "extra": true },
+                { "name": "item.book.open", "description": "Book", "size": [ 2, 2, 0], "pos": [0, 224], "drag": true, "extra": true },
+                { "name": "switch.open.2", "size": [ 2, 1, 2], "pos": [32, 224], "interactive": true },
+                { "name": "switch.closed.2", "size": [ 2, 1, 2], "pos": [64, 224], "interactive": true }
             ]
         }        
     ],    

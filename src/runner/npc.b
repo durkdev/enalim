@@ -1,3 +1,33 @@
+def convertNpc(x, y, z, name) {
+    # remove the creature
+    id := "c." + x + "." + y + "." + z;
+    c := array_find(creatures, c => c.id = id);
+    if(c = null) {
+        return;
+    }
+
+    ox := c.move.x;
+    oy := c.move.y;
+    oz := c.move.z;
+    c.move.erase();
+    array_remove(creatures, cc => {
+        return cc.id = c.id;
+    });
+
+    # is it an npc?
+    npc := npcDefs[name];
+    if(npc = null) {
+        # convert  to monster
+        c := setCreature(x, y, z, creaturesTemplates[name]);
+    } else {
+        # convert to npc
+        c := setNpc(x, y, z, npc);
+    }
+    c.move.erase();
+    c.move.set(ox, oy, oz);
+    c.move.setShape(c.move.shape);
+}
+
 def registerNpc(npc) {
     npc.creature := creaturesTemplates[npc.creature];
     
@@ -16,6 +46,7 @@ def registerNpc(npc) {
 def setNpc(x, y, z, npc) {
     creature := setCreature(x, y, z, npc.creature);
     creature.npc := npc;
+    return creature;
 }
 
 def getNpc(x, y, z) {

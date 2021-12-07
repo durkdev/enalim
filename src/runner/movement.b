@@ -4,6 +4,11 @@ def decodeMovement(savedMove, width, height, depth, shape, speed, centerView, is
     return move;
 }
 
+const SWITCH = [
+    ["switch.open", "switch.closed"],
+    ["switch.open.2", "switch.closed.2"],
+];
+
 def newMovement(startX, startY, startZ, width, height, depth, shape, speed, centerView, isFlying) {
     return {
         x: startX,
@@ -180,18 +185,23 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
         },
         operateSwitch: (self, x, y, z) => {
             shape := getShape(x, y, z);
-            if(shape != null) {
-                if(shape[0] = "switch.open") {
+            return shape != null && self.operateSwitchShape(shape, x, y, z);
+        },
+        operateSwitchShape: (self, shape, x, y, z) => {
+            i := 0;
+            while(i < len(SWITCH)) {
+                if(shape[0] = SWITCH[i][0]) {
                     player.gameState["switch_" + x + "_" + y + "_" + z] := true;
-                    setShape(x, y, z, "switch.closed");
+                    setShape(x, y, z, SWITCH[i][1]);
                     restartActiveSections();
                     return true;
-                } else if(shape[0] = "switch.closed") {
+                } else if(shape[0] = SWITCH[i][1]) {
                     player.gameState["switch_" + x + "_" + y + "_" + z] := false;
-                    setShape(x, y, z, "switch.open");
+                    setShape(x, y, z, SWITCH[i][0]);
                     restartActiveSections();
                     return true;
                 }
+                i := i + 1;
             }
             return false;
         },

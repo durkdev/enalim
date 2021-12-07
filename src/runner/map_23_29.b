@@ -18,13 +18,13 @@ SECTIONS["23,29"] := {
         }
 
         eraseShape(5676, 7050, 1);
-        if(player.gameState["switch_5680_7046_1"] = true) {
+        if(player.gameState["switch_5690_7042_1"] = true) {
             setShape(5676, 7050, 1, "door.bars.y");
         } else {
             setShape(5676, 7050, 1, "door.bars.x");
         }
         eraseShape(5644, 7050, 1);
-        if(player.gameState["switch_5647_7042_1"] = true) {
+        if(player.gameState["switch_5646_7042_1"] = true) {
             setShape(5644, 7050, 1, "door.bars.y");
         } else {
             setShape(5644, 7050, 1, "door.bars.x");
@@ -36,19 +36,21 @@ SECTIONS["23,29"] := {
             setShape(5716, 7050, 1, "door.bars.x");
         }        
         eraseShape(5733, 7081, 1);
-        if(player.gameState["switch_5734_7078_1"] = true) {
+        if(player.gameState["switch_5732_7074_1"] = true) {
+            convertNpc(5723, 7082, 1, "ogre");
             setShape(5733, 7081, 1, "door.bars.x");
         } else {
+            convertNpc(5723, 7082, 1, "Grum-oh");
             setShape(5733, 7081, 1, "door.bars.y");
         }        
         eraseShape(5679, 7086, 1);
-        if(player.gameState["switch_5676_7093_1"] = true) {
+        if(player.gameState["switch_5679_7094_1"] = true) {
             setShape(5679, 7086, 1, "door.bars.x");
         } else {
             setShape(5679, 7086, 1, "door.bars.y");
         }        
         eraseShape(5664, 7086, 1);
-        if(player.gameState["switch_5665_7093_1"] = true) {
+        if(player.gameState["switch_5663_7094_1"] = true) {
             setShape(5664, 7086, 1, "door.bars.x");
         } else {
             setShape(5664, 7086, 1, "door.bars.y");
@@ -79,5 +81,10 @@ SECTIONS["23,29"] := {
             return "key.wyntergale";
         }
         return null;
+    },
+    "combatWin": (this, creatureId, x, y, z) => {
+        if(creatureId = "c.5723.7082.1") {
+            startConvo(npcDefs["Grum-oh"], "death");
+        }
     },
 };
