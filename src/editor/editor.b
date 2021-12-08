@@ -76,16 +76,18 @@ def editorInsertCommand() {
         step := 4;
     }
     if(isPressed(Key5)) {
-        drawMountain(getPosition(), 0);
+        drawMountain(getPosition());
         step := 4;
     }
     if(isPressed(Key6)) {
-        drawMountain(getPosition(), 1);
-        step := 4;
+        pos := getPosition();
+        x := int(pos[0] / 4) * 4;
+        y := int(pos[1] / 4) * 4;
+        setShape(x, y, 7, choose(ROCK_ROOF));
+        step := 4;        
     }
     if(isPressed(Key7)) {
-        drawMountain(getPosition(), -1);
-        step := 4;
+        
     }
     if(isPressed(Key8)) {
         drawRiver(getPosition());
@@ -618,14 +620,11 @@ def drawRiver(pos) {
     });
 }
 
-def drawMountain(pos, dungeonType) {
+def drawMountain(pos) {
     x := int(pos[0] / 4) * 4;
     y := int(pos[1] / 4) * 4;
     if(isCave(x, y) = false) {
         clearArea(x, y, 4, 4);
-        if(dungeonType > -1) {
-            setShape(x, y, 0, dungeonCave[dungeonType].floor);
-        }
         setShape(x, y, 7, choose(ROCK_ROOF));
         drawMountainEdge(x, y);
 

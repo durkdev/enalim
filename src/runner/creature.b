@@ -156,6 +156,16 @@ creaturesTemplates := {
         "movement": "anchor",
         "hp": 10,
     },
+    "skeleton_npc": {
+        "shape": "skeleton",
+        "speed": 0.3,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "anchor",
+        "hp": 25,
+    },
     "skeleton": {
         "shape": "skeleton",
         "speed": 0.3,

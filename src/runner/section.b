@@ -100,3 +100,24 @@ def combatWin(x, y, creatureId, creatureX, creatureY, creatureZ) {
         }
     }    
 }
+
+def onDrop(x, y, z, shape) {
+    sectionPos := getSectionPos(x, y);
+    section := getSection(sectionPos[0], sectionPos[1]);
+    if(section != null) {
+        if(section["onDrop"] != null) {
+            section.onDrop(x, y, z, shape);
+        }
+    }    
+}
+
+def onPickup(x, y, z, shape) {
+    sectionPos := getSectionPos(x, y);
+    section := getSection(sectionPos[0], sectionPos[1]);
+    if(section != null) {
+        if(section["onPickup"] != null) {
+            return section.onPickup(x, y, z, shape);
+        }
+    }
+    return false;
+}

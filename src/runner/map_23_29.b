@@ -57,6 +57,9 @@ SECTIONS["23,29"] := {
         }        
     },
     "teleport": (this, x, y, z) => {
+        if(x = 5609 && y >= 7076 && y <= 7079 && z = 1) {
+            return [5467, 7057, 1];
+        }
         return null;
     },
     "action": (this, x, y, z) => {
@@ -87,4 +90,54 @@ SECTIONS["23,29"] := {
             startConvo(npcDefs["Grum-oh"], "death");
         }
     },
+    "onDrop": (this, x, y, z, shape) => {
+        if(x >= 5648 && x <= 5651 && y >= 7056 && y <= 7059 && z = 1 && isExtra(shape) = false) {
+            setWyntergaleCave(true);
+        }
+    },
+    "onPickup": (this, x, y, z, shape) => {
+        if(x >= 5648 && x <= 5651 && y >= 7056 && y <= 7059 && z = 1 && isExtra(shape) = false) {
+            setWyntergaleCave(false);
+        }
+        if(x >= 5521 && x <= 5534 && y >= 7137 && y <= 7150 && startsWith(shape, "item.corpse") && player.gameState["library.underworld"] = null) {
+            player.gameState["library.underworld"] := 1;
+            convertNpc(5540, 7138, 1, "skeleton_red");
+            array_foreach(SK_POS, (i, e) => convertNpc(e[0], e[1], e[2], "skeleton_red"));
+            startConvo(npcDefs["Eldric"], "_combat_");
+            return true;
+        }
+        return false;
+    },
 };
+
+def setWyntergaleCave(show) {
+    print("wyntergale cave: " + show);
+    range(5620, 5628, 2, x => {
+        eraseShape(x, 7050, 1);
+    });
+    if(show) {
+        setShape(5620, 7050, 1, "dungeon.nw.inv");
+        setShape(5626, 7050, 1, "dungeon.ne.inv");
+        range(7052, 7068, 4, y => {
+            setShape(5620, y, 0, "ground.dirt");
+            setShape(5624, y, 0, "ground.dirt");
+        });        
+        range(7052, 7068, 2, y => {
+            setShape(5620, y, 1, "dungeon.e");
+            setShape(5626, y, 1, "dungeon.w");
+        });
+    } else {
+        range(5620, 5628, 2, x => {
+            setShape(x, 7050, 1, "dungeon.s");
+        });
+        range(7052, 7068, 2, y => {
+            eraseShape(5620, y, 1);
+            eraseShape(5626, y, 1);
+        });
+        range(7052, 7068, 4, y => {
+            eraseShape(5620, y, 0);
+            eraseShape(5624, y, 0);
+        });        
+    }
+    timedMessage(5650, 7058, 4, "Craaack!", true);
+}

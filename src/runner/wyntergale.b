@@ -32,6 +32,53 @@ addNpcDef({
 });
 
 addNpcDef({
+    name: "Eldric",
+    label: "Eldric the Librarian",
+    creature: "skeleton_npc",
+    convo: {
+        "": "A skeleton regards you peacefully. The macabre creature furthers the feeling of loss you feel in this place. It speaks: \"Be welcome mortal to the
+            $Library of the Underworld. Feel free to read and learn but beware,\" - it exclaims, raising a bony arm - \"touch nothing but the books. Disturbing the
+            honorable $dead will seal your doom.\"",
+        "_combat_": "The librarian turns to address you: \"Have I not warned ye to not disturb the honorable dead? Aye, but mortal ears hear not. You
+            will now witness the cancerous fruit your entitlements bore as you become one of those who lie eternally in this place.\". The enraged skeletons
+            seems to grow in size...",
+    },
+    waypoints: [ [ 5540, 7138, 1 ] ], 
+    schedule: [
+        { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
+    ],
+});
+
+const GENERIC_SKELETON = "The skeleton ignores you and goes about its tasks.";
+const SK_POS = [
+    [ 5542, 7160, 1 ],
+    [ 5550, 7160, 1 ],
+    [ 5543, 7167, 1 ], 
+    [ 5543, 7175, 1 ], 
+    [ 5536, 7191, 1 ], 
+    [ 5524, 7192, 1 ], 
+];
+
+def add_underworld_library_npcs() {
+    i := 0;
+    while(i < len(SK_POS)) {
+        addNpcDef({
+            name: "sk" + i,
+            label: "sk" + i,
+            creature: "skeleton_npc",
+            convo: { "": GENERIC_SKELETON },
+            waypoints: [ SK_POS[i] ], 
+            schedule: [
+                { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
+            ],
+        });
+        i :+ 1;
+    }
+}
+add_underworld_library_npcs();
+
+
+addNpcDef({
     name: "Axurzxu",
     label: "Axurzxu",
     creature: "demon2",
@@ -128,15 +175,18 @@ addNpcDef({
             sound of the Horn of Hekate. If my research is correct, this should compell the demon to return home with haste.\"",
         "ingredients": () => {
             if(player.gameState["mertund.quest"] = 1) {
-                return "\"Thank you again brave adventurer! Return to me when you have acquired three lumps of Brigo ore and some dried cave reeds. Meanwhile I'm 
+                return "\"Thank you again brave adventurer! Return to me when you have acquired three lumps of Brigo ore, some dried cave reeds and the remains of Sir $Aldain. Meanwhile I'm 
                     researching the strengthening of my magic so it's not corrupted like last time.\"";
             } else {
                 player.gameState["mertund.quest"] := 1;
                 return "Mertund looks at you gratefully: \"You are indeed a brave adventurer for accepting this task. In order to open the portal and simulate the sound of the
-                    vile horn, I will need three lumps of Brigo ore and some dried cave reeds. Return to me when you have these items. Meanwhile I will do more research to make
-                    sure my magic won't be corrupted again!\"";
+                    vile horn, I will need three lumps of Brigo ore, some dried cave reeds and the bones of Sir $Aldain. Return to me when you have these items. Meanwhile I will 
+                    do more research to make sure my magic won't be corrupted again!\"";
             }
         },
+        "Aldain": "Mertund nods: \"Aye, Sir Aldain was a great patron of $Wyntergale and a stout member of the Knights of Krynt, an honorable society of old. His bones are
+            said to lie nearby on the shores of a lake. Sir Aldain was such a valorous soul that even his bones will add strength to my spell. That is why his remains are one of
+            the $ingredients I need.\" - he explains.",
     },
     waypoints: [ [ 5670, 7089, 1 ] ], 
     schedule: [

@@ -672,7 +672,7 @@ def startDrag(pos, action, index) {
         updateContainerUi(c);
     } else {
         info := getDraggableShape(pos[0], pos[1], pos[2]);
-        if(info != null) {
+        if(info != null && onPickup(info[1], info[2], info[3], info[0]) != true) {
             # drag from map
             player.dragShape := {
                 "shape": info[0],
@@ -680,7 +680,7 @@ def startDrag(pos, action, index) {
                 "fromUi": "map",
                 "draggedContainer": getItem(info[1], info[2], info[3], "map"),
             };
-            eraseDraggableShape(info[1], info[2], info[3], info[4]);
+            eraseDraggableShape(info[1], info[2], info[3], info[4]);            
         }
     }
     setCursorShape(player.dragShape.shape);
@@ -771,6 +771,7 @@ def endDrag(pos) {
                 if(player.dragShape.draggedContainer != null) {
                     updateItemLocation(player.dragShape.draggedContainer, x, y, z, "map");
                 }
+                onDrop(x, y, z, player.dragShape.shape);
             }
         }
 
@@ -803,6 +804,7 @@ def cancelDrag() {
             if(player.dragShape.draggedContainer != null) {
                 updateItemLocation(player.dragShape.draggedContainer, x, y, z, "map");
             }
+            onDrop(x, y, z, player.dragShape.shape);
         } else {
             # return to container
             c := getItemById(player.dragShape.fromUi);
