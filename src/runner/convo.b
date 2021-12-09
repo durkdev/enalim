@@ -35,6 +35,10 @@ def renderConvo() {
             if(typeof(t) = "function") {
                 t := t();
             }
+            if(t = null) {
+                endConvo();
+                return;
+            }
             if(player.convo.cmd = null) {
                 player.convo.parsed := parseTopic(t);
                 appendConvoCommands(player.convo.parsed.answers);

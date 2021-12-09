@@ -5,6 +5,12 @@ def wyntergale_winch() {
 SECTIONS["23,29"] := {
     "init": this => {
         setContainer("barrel", 5725, 6986, 15, "map", [ "key.wyntergale" ]);
+        setCreature(5524, 7023, 1, creaturesTemplates.ogre);
+        setCreature(5531, 7023, 1, creaturesTemplates.ogre);
+        setCreature(5539, 7023, 1, creaturesTemplates.ogre);
+        setCreature(5610, 7125, 1, creaturesTemplates.ogre);
+        setCreature(5612, 7139, 1, creaturesTemplates.ogre);
+        setCreature(5618, 7141, 1, creaturesTemplates.ogre);
     },
     "start": this => {
         eraseShape(5712, 6981, 1);
@@ -74,6 +80,14 @@ SECTIONS["23,29"] := {
             restartActiveSections();
             return true;
         }
+        if(x = 5755 && y = 6972 && z = 1) {
+            timedMessage(x, y, z, "to Valora", false);
+            return true;
+        }
+        if(x = 5753 && y = 6984 && z = 1) {
+            timedMessage(x, y, z, "Castle Wyntergale", false);
+            return true;
+        }
         return null;
     },
     "locked": (this, x, y, z) => {
@@ -86,7 +100,7 @@ SECTIONS["23,29"] := {
         return null;
     },
     "combatWin": (this, creatureId, x, y, z) => {
-        if(creatureId = "c.5723.7082.1") {
+        if(creatureId = "c.5723.7082.1" && player.gameState["grumoh.secret"] = 1) {
             startConvo(npcDefs["Grum-oh"], "death");
         }
     },

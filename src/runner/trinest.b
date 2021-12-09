@@ -117,14 +117,21 @@ addNpcDef({
     creature: "woman.brown",
     convo: {
         "": () => {
-            if(player.convo.npc.activeSchedule = 0) {
-                return "You see a well dressed woman with a regal air: \"What is it you want $commoner? Can't you see
-                I'm enjoying my privacy? Bother me no longer!\" - she pauses to look at you and adds: \"Unless you
-                have come to bring me news of my $estate.\"";
+            if(player.gameState["quest.wyntergale.done"] = true) {
+                return "You explain to the Grand Duchess that, because of your heroic actions, it is safe to return to Wynterfell castle. She
+                    gazes at your expressionlessly: \"And I suppose now you're looking for a reward?! God save me from the pettiness of 
+                    commoners!\" - she throws her arms up in exasperation and then continues - \"Very well, you may take what you wish from Wynterfell.
+                    And now leave me be! I must make my preparations to return there at once.\"";
             } else {
-                return "The well dressed woman seems alarmed to see you: \"What do you think you're doing bothering me 
-                so late? Away with you!\" - she pauses, then adds: \"But if you have news about my $estate then I suppose
-                I will forgive your intrusion.\"";
+                if(player.convo.npc.activeSchedule = 0) {
+                    return "You see a well dressed woman with a regal air: \"What is it you want $commoner? Can't you see
+                    I'm enjoying my privacy? Bother me no longer!\" - she pauses to look at you and adds: \"Unless you
+                    have come to bring me news of my $estate.\"";
+                } else {
+                    return "The well dressed woman seems alarmed to see you: \"What do you think you're doing bothering me 
+                    so late? Away with you!\" - she pauses, then adds: \"But if you have news about my $estate then I suppose
+                    I will forgive your intrusion.\"";
+                }
             }
         },
         "commoner": "You are not sure what this means but you decide to take offence nonetheless. You entertain the idea
@@ -141,7 +148,7 @@ addNpcDef({
         "vanquish": () => {
             player.gameState["quest.wyntergale"] := true;
             return "She clutches her pearl necklace and says desperately: \"Oh please, please give it a try! Tell me when I can 
-            safely return home to $Wyntergale and I will be sure to reward you! You can always find me here at the inn.\"";
+                safely return home to $Wyntergale and I will be sure to reward you! You can always find me here at the inn.\"";
         },
         "demon": "\"I don't actually know what manner of beast has taken home in my former $estate. But from the vile smells that
             emanate from the lower levels, I can only assume it must a fiend from the pits! Please do $vanquish it for me!\"",

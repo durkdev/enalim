@@ -1,5 +1,11 @@
 SECTIONS["22,29"] := {
     "init": this => {
+        setCreature(5478, 7195, 1, creaturesTemplates.ogre);
+        setCreature(5484, 7190, 1, creaturesTemplates.ogre);
+        setCreature(5494, 7186, 1, creaturesTemplates.ogre);
+        setCreature(5477, 7117, 1, creaturesTemplates.ogre);
+        setCreature(5488, 7114, 1, creaturesTemplates.ogre);
+        setCreature(5493, 7103, 1, creaturesTemplates.ogre);
     },
     "start": this => {
     },

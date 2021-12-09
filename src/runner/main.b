@@ -52,6 +52,8 @@ player := {
     hp: 20,
     equipment: null,
     coins: 100,
+    movie: null,
+    movieState: 0,
 };    
 
 # the player's shape size
@@ -196,6 +198,12 @@ def eventsTeleport(delta, fadeDir) {
 }
 
 def eventsGameplay(delta, fadeDir) {
+    if(player.movie != null) {
+        if(player.movie = "wyntergale") {
+            wyntergale_cutscene(delta, fadeDir);
+        }
+        return;
+    }
     if(fadeDir = 1) {
         setRoofVisiblity();
     }
@@ -1012,11 +1020,11 @@ def unlock_door(x, y, z, isPlayer) {
     return locked;
 }
 
-def timedMessage(x, y, z, message, rise) {
+def timedMessage(x, y, z, message, rise=false) {
     showMessageAt(x, y, z, message, 2, MESSAGE_R, MESSAGE_G, MESSAGE_B, rise);
 }
 
-def timedMessageXY(x, y, message, rise) {
+def timedMessageXY(x, y, message, rise=false) {
     showMessageAtXY(x, y, message, 2, MESSAGE_R, MESSAGE_G, MESSAGE_B, rise);
 }
 

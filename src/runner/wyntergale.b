@@ -3,7 +3,14 @@ addNpcDef({
     label: "Cyric",
     creature: "guard",
     convo: {
-        "": "A gruff guard grunts at you: \"Unless ye have business $inside, best be moving along.\"",
+        "": () => {
+            if(player.gameState["quest.wyntergale.done"] = true) {
+                return "The stout guard addresses you with a modicum of respect: \"I heard what you did in there.\" - he gestures toward the castle - \"Not a bad
+                    job for a civilian. If it weren't for guard duty, I prob'ly could have helped ye out. Now,\" - he adds with his usual warmth - \"ye best be moving along.\"";
+            } else {
+                return "A gruff guard grunts at you: \"Unless ye have business $inside, best be moving along.\"";
+            }
+        },
         "inside": "He squints at you and says: \"Tell me your $business, traveler and then I'll decide if the gates of $Wyntergale will open.\" He squints at you 
             some more and adds: \"Though, by the look of ye, probably not.\"",
         "business": () => {
@@ -175,12 +182,24 @@ addNpcDef({
             sound of the Horn of Hekate. If my research is correct, this should compell the demon to return home with haste.\"",
         "ingredients": () => {
             if(player.gameState["mertund.quest"] = 1) {
-                return "\"Thank you again brave adventurer! Return to me when you have acquired three lumps of Brigo ore, some dried cave reeds and the remains of Sir $Aldain. Meanwhile I'm 
-                    researching the strengthening of my magic so it's not corrupted like last time.\"";
+                idx1 := player.inventory.findIndex("item.mineral.brigo");
+                idx2 := player.inventory.findIndex("item.reeds.dried");
+                idx3 := player.inventory.findIndex("item.corpse.aldain");
+                if(idx1 > -1 && idx2 > -1 && idx3 > -1) {
+                    player.inventory.remove(idx1, "inventory");
+                    player.inventory.remove(idx2, "inventory");
+                    player.inventory.remove(idx3, "inventory");
+                    player.movie := "wyntergale";
+                    player.movieState := 0;
+                    return null;
+                } else {
+                    return "\"Thank you again brave adventurer! Return to me when you have acquired a lump of Brigo ore, some dried cave reeds and the remains of Sir $Aldain. Meanwhile I'm 
+                        researching the strengthening of my magic so it's not corrupted like last time.\"";
+                }
             } else {
                 player.gameState["mertund.quest"] := 1;
                 return "Mertund looks at you gratefully: \"You are indeed a brave adventurer for accepting this task. In order to open the portal and simulate the sound of the
-                    vile horn, I will need three lumps of Brigo ore, some dried cave reeds and the bones of Sir $Aldain. Return to me when you have these items. Meanwhile I will 
+                    vile horn, I will need a lump of Brigo ore, some dried cave reeds and the bones of Sir $Aldain. Return to me when you have these items. Meanwhile I will 
                     do more research to make sure my magic won't be corrupted again!\"";
             }
         },
@@ -189,6 +208,25 @@ addNpcDef({
             the $ingredients I need.\" - he explains.",
     },
     waypoints: [ [ 5670, 7089, 1 ] ], 
+    schedule: [
+        { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
+    ],
+});
+
+addNpcDef({
+    name: "Mertund2",
+    label: "Mertund",
+    creature: "monk-red",
+    convo: {
+        "": "Mertund greets you like an old friend: \"Welcome back, brave adventuter! As usual, stay as long as you want and help yourself to anything the castle
+            has to offer. I must be off. There is a lot to do to clean up the destruction the demon left behind.\" - with that he shuffles off.",
+        "_complete_": "As the dust settles Mertund turns and addresses you: \"Thanks to you brave adventurer my spell was a success. I was able to conjure up a 
+            portal to the Abyss and send the demon home.\" - he beams with excitement - \"I will remain here to undo the destruction but if you could get word
+            to the Grand Duchess Zanka that it's safe to return to Wyntergale, it would be much appreciated. Of course,\" - he quickly adds -\"feel free to rest
+            here as long as you want. And take anything you find in the fortress as your reward!\"",
+    },
+    addByScript: true,
+    waypoints: [ [ 5683, 7000, 8 ] ], 
     schedule: [
         { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
     ],
@@ -232,8 +270,11 @@ addNpcDef({
         "like": "Grum-oh becomes thoughtful: \"Yes, Grum-oh think long time. Grum-oh decide to like all living beings. Eat only plants now. Love plant. Looove 
             plant!\" - it shouts, then after some thinking, it adds: \"Love plant, but also eat, yes. You open cage now and Grum-oh tell you big $secret only few
             others know.\"",
-        "secret": "Grum-oh waggles a finger: \"You $friend try trick Grum-oh, but\" - he taps his head with his club. It sounds like a boulder falling - \"Grum-oh 
-            smart and not trick. You open cage first, let Grum-oh go free. Then Grum-oh explain big $secret.\" What could possibly go wrong?, you think to yourself.",
+        "secret": () => {
+            player.gameState["grumoh.secret"] := 1;
+            return "Grum-oh waggles a finger: \"You $friend try trick Grum-oh, but\" - he taps his head with his club. It sounds like a boulder falling - \"Grum-oh 
+               smart and not trick. You open cage first, let Grum-oh go free. Then Grum-oh explain big $secret.\" What could possibly go wrong?, you think to yourself.";
+        },
         "death": "You finally defeat Grum-oh and with the realization of the moment's finality, a peaceful expression crosses his face: \"Grum-oh sorry, really Grum-oh 
             tried to be friend, but\" - he searches for words - \"maybe Ogre friend not yet coded.\" He must mean the great creator in the sky, in charge of the world's 
             source code. Before you can think too deeply about this intriguing philosophical quandary, Grum-oh says: \"But Grum-oh promise tell secret about $machine.\"",
@@ -258,3 +299,64 @@ addNpcDef({
         { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
     ],
 });
+
+def wyntergale_cutscene(delta, fadeDir) {
+    if(player.movieState = 0) {
+        # remove Mertund
+        removeCreatureById("c.5670.7089.1");
+        player.move.erase();
+
+        # transition to beast
+        fadeViewTo(5683, 6997);
+        player.movieState := 1;
+    } else if(player.movieState = 1) {
+        if(fadeDir = 1) {
+            # add Mertund
+            setNpc(5683, 7000, 8, npcDefs["Mertund2"]);
+            beast := array_find(creatures, c => c.id = "c.5687.6999.8");
+            mertund := array_find(creatures, c => c.id = "c.5683.7000.8");
+
+            # move the Beast
+            beast.move.erase();
+            beast.move.set(5689, 6998, 8);
+
+            # move the player
+            player.move.set(5683, 6997, 8);
+
+            # face everyone correctly
+            player.move.dir := DIR_W;
+            mertund.move.dir := DIR_W;
+            beast.move.dir := DIR_E;
+            
+            # draw everyone
+            beast.move.setShape(beast.move.shape);
+            mertund.move.setShape(mertund.move.shape);
+            player.move.setShape(player.move.shape);
+
+            # stop animation for all
+            player.move.setAnimation(ANIM_STAND);
+            stopCreatures();
+
+            # hide roof        
+            setRoofVisiblity();
+
+            player.movieState := 2;
+        }
+    } else if(player.movieState < 3) {
+        player.movieState :+ delta;
+    } else if(player.movieState < 4) {
+        timedMessage(5683, 7000, 8, "Arak Set Finiel!");
+        player.movieState := 5;
+    } else if(player.movieState < 6) {
+        player.movieState :+ delta;
+    } else if(player.movieState < 7) {
+        # todo: spell effect on demon
+        removeCreatureById("c.5687.6999.8");
+        player.movieState := 8;
+    } else {
+        # end movie
+        player.gameState["quest.wyntergale.done"] := true;
+        player.movie := null;
+        startConvo(npcDefs["Mertund2"], "_complete_");
+    }
+}

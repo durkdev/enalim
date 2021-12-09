@@ -425,3 +425,12 @@ def takeDamage(c, dam, onDeath) {
         }
     }
 }
+
+def removeCreatureById(id) {
+    c := array_find(creatures, c => c.id = id);
+    if(c = null) {
+        return;
+    }
+    c.move.erase();
+    array_remove(creatures, cc => cc.id = c.id);
+}
