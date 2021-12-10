@@ -780,7 +780,9 @@
                 { "name": "plant.reeds", "size": [ 2, 2, 4], "pos": [8, 280], "sway": true, "extra": true },
                 { "name": "item.reeds.basket", "description": "Reed basket", "size": [ 2, 2, 0], "pos": [128, 176], "extra": true, "drag": true },
                 { "name": "item.reeds.dried", "description": "Dried reeds", "size": [ 2, 2, 0], "pos": [160, 176], "extra": true, "drag": true },
-                { "name": "firepit", "size": [ 4, 4, 2], "pos": [104, 216], "light": true }
+                { "name": "firepit", "size": [ 4, 4, 2], "pos": [104, 216], "light": true },
+                { "name": "item.shelf.x", "size": [ 2, 1, 1], "pos": [192, 176] },
+                { "name": "item.shelf.y", "size": [ 1, 2, 1], "pos": [216, 176] }
             ]
         }        
     ],    
