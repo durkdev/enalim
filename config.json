@@ -2,6 +2,12 @@
     "title": "Enalim",
     "name": "enalim",
     "version": 0.1,
+    "print": {
+        "size": [ 512, 512 ],
+        "rotate": 45,
+        "crop": [ 266, 266 ],
+        "maxZ": 7
+    },
     "generator": {
         "width": 3200,
         "height": 3200,
