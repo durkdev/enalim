@@ -64,7 +64,12 @@ const COMBAT_MESSAGES = [
 ];
 
 # item categories
-const CAT_WEAPON = "weapon";
+const CAT_SWORD = "sword";
+const CAT_DAGGER = "dagger";
+const CAT_AXE = "axe";
+const CAT_STAFF = "staff";
+const CAT_LANCE = "lance";
+const CAT_BOW = "bow";
 const CAT_ARMOR = "armor";
 const CAT_CLOTHES = "clothes";
 const CAT_MISC = "misc";

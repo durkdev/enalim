@@ -2,7 +2,7 @@ addNpcDef({
     name: "ennid",
     label: "Ennid",
     creature: "woman",
-    trade: CAT_WEAPON,
+    trade: [CAT_SWORD, CAT_DAGGER],
     convo: {
         "": "You see sharp-eyed woman before you. \"I am Ennid and run he weapons shop here in $Trinest.\"",
         "Trinest": "\"Trinest is the east-most town on the Enalim mainland. East of us is just the ocean and some $insignificant small islands.\"",
@@ -20,7 +20,7 @@ addNpcDef({
     name: "hamid",
     label: "Hamid",
     creature: "man-blue",
-    trade: CAT_ARMOR,
+    trade: [CAT_ARMOR],
     convo: {
         "": "A man with a warm smile says: \"Be welcome in Trinest wanderer. I buy and sell armor at my shop. Our $town may be small but rest assured my shop is well equipped. Just ask if you need anything.\"",
         "town": "\"Trinest is the last town on the east side of the Enalim mainland. My name is Hamid and I trade in high quality armor.\"",

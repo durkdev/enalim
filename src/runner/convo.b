@@ -35,7 +35,7 @@ def renderConvo() {
             if(typeof(t) = "function") {
                 t := t();
             }
-            if(t = null) {
+            if(t = "_end_convo_") {
                 endConvo();
                 return;
             }
@@ -165,6 +165,7 @@ def startConvoCommand(cmd, cat, scheduleIndex=0) {
     if(player.convo.npc.activeSchedule = scheduleIndex) {
         player.convo.cmd := cmd;
         player.convo.context := cat;
+        print("startConvoCommand " + cmd + " cat=" + cat);
         return;
     } else {
         return "\"My store is closed. Please come back later.\"";
@@ -172,6 +173,7 @@ def startConvoCommand(cmd, cat, scheduleIndex=0) {
 }
 
 def parseConvoCommand(cmd, topic) {
+    print("parseConvoCommand " + cmd);
     if(cmd = CMD_BUY) {
         return parseConvoCommandBuy(topic);
     } else if(cmd = CMD_BUY_PRICE) {
@@ -179,6 +181,7 @@ def parseConvoCommand(cmd, topic) {
     } else if(cmd = CMD_BUY_CONFIRM) {
         return parseConvoCommandBuyConfirm(topic);
     } else if(cmd = CMD_SELL) {
+        print("SELL 0");
         return parseConvoCommandSell(topic);
     } else if(cmd = CMD_SELL_PRICE) {
         return parseConvoCommandSellPrice(topic);
@@ -194,13 +197,16 @@ def parseConvoCommand(cmd, topic) {
 }
 
 def parseConvoCommandSell(topic) {
+    print("SELL 1");
     names := array_filter(array_map(player.inventory.items, item => {
         obj := array_find(OBJECTS, o => o.shape = item.shape);
-        if(obj = null || obj.cat != player.convo.context) {
+        print("SELL 2 context=" + player.convo.context);
+        if(obj = null || array_find(player.convo.context, c => c = obj.cat) = null) {
             return null;
         }
         return obj.name;
     }), name => name != null);
+    print("SELL 3 names=" + names);
     if(len(names) = 0) {
         return {
             lines: ["\"Alas, you have nothing that interests me!\""],

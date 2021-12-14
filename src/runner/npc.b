@@ -171,14 +171,18 @@ def npcPathMoveSuccess(c, pos, delta) {
 }
 
 def getTraderInventory(npc, cat) {
-    if(npc.tradeInv = null) {
-        npc.tradeInv := [];
-        items := array_filter(OBJECTS, o => o.cat = cat);
+    print("filtering for: " + cat);
+    if(npc.tradeInv = null || len(npc.tradeInv) > 0) {
+        print("\tfiltering");
+        npc.tradeInv := [];        
+        items := array_filter(OBJECTS, o => array_find(cat, c => o.cat = c) != null);
         while(len(npc.tradeInv) < 5 && len(items) > 0) {
             idx := random() * len(items);
             npc.tradeInv[len(npc.tradeInv)] := items[idx];
             del items[idx];
         }
+    } else {
+        print("\talready has tradeInv: " + npc.tradeInv);
     }
     return npc.tradeInv;
 }

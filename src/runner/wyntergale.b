@@ -191,7 +191,7 @@ addNpcDef({
                     player.inventory.remove(idx3, "inventory");
                     player.movie := "wyntergale";
                     player.movieState := 0;
-                    return null;
+                    return "_end_convo_";
                 } else {
                     return "\"Thank you again brave adventurer! Return to me when you have acquired a lump of Brigo ore, some dried cave reeds and the remains of Sir $Aldain. Meanwhile I'm 
                         researching the strengthening of my magic so it's not corrupted like last time.\"";
