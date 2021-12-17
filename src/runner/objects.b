@@ -4,26 +4,28 @@ const SLOT_AMULET = 2;
 const SLOT_ARMOR = 3;
 const SLOT_RIGHT_HAND = 4;
 const SLOT_LEFT_HAND = 5;
-const SLOT_BELT = 6;
+const SLOT_LEGS = 6;
 const SLOT_FEET = 7;
-const SLOT_RING_1 = 8;
-const SLOT_RING_2 = 9;
+const SLOT_BELT = 8;
+const SLOT_RING = 9;
+const SLOT_GLOVES = 10;
 
 const SLOT_POS_MUL = 3;
 const SLOT_POS = [
-    [80 * SLOT_POS_MUL, 32 * SLOT_POS_MUL],
-    [24 * SLOT_POS_MUL, 56 * SLOT_POS_MUL],
-    [136 * SLOT_POS_MUL, 56 * SLOT_POS_MUL],
-    [80 * SLOT_POS_MUL, 80 * SLOT_POS_MUL],
-    [24 * SLOT_POS_MUL, 112 * SLOT_POS_MUL],
-    [136 * SLOT_POS_MUL, 112 * SLOT_POS_MUL],
-    [80 * SLOT_POS_MUL, 144 * SLOT_POS_MUL],
-    [80 * SLOT_POS_MUL, 208 * SLOT_POS_MUL],
-    [24 * SLOT_POS_MUL, 176 * SLOT_POS_MUL],
-    [136 * SLOT_POS_MUL, 176 * SLOT_POS_MUL],
+    [54 * SLOT_POS_MUL, 21 * SLOT_POS_MUL],
+    [0 * SLOT_POS_MUL, 44 * SLOT_POS_MUL],
+    [108 * SLOT_POS_MUL, 44 * SLOT_POS_MUL],
+    [54 * SLOT_POS_MUL, 80 * SLOT_POS_MUL],
+    [0 * SLOT_POS_MUL, 104 * SLOT_POS_MUL],
+    [108 * SLOT_POS_MUL, 104 * SLOT_POS_MUL],
+    [54 * SLOT_POS_MUL, 134 * SLOT_POS_MUL],
+    [54 * SLOT_POS_MUL, 194 * SLOT_POS_MUL],
+    [0 * SLOT_POS_MUL, 160 * SLOT_POS_MUL],
+    [108 * SLOT_POS_MUL, 160 * SLOT_POS_MUL],
+    [0 * SLOT_POS_MUL, 210 * SLOT_POS_MUL],
 ];
 
-const DEFAULT_EQUIPMENT = [ null, null, null, null, null, null, null, null, null, null ];
+const DEFAULT_EQUIPMENT = [ null, null, null, null, null, null, null, null, null, null, null ];
 
 const OBJECTS = [
     { name: "Broadsword", slot: SLOT_RIGHT_HAND, variation: "sword", shape: "item.sword", cat: CAT_SWORD, price: 150 },
@@ -72,6 +74,38 @@ const OBJECTS = [
     { name: "Jambiya", slot: SLOT_RIGHT_HAND, variation: "dagger", shape: "item.dagger.jambiya", cat: CAT_DAGGER, price: 70 },
     { name: "Assassin dagger", slot: SLOT_RIGHT_HAND, variation: "dagger", shape: "item.dagger.assassins", cat: CAT_DAGGER, price: 80 },
     { name: "Military dagger", slot: SLOT_RIGHT_HAND, variation: "dagger", shape: "item.dagger.military", cat: CAT_DAGGER, price: 90 },
+
+    { name: "Steel Helm", slot: SLOT_HEAD, shape: "item.helm.steel", cat: CAT_HELMET, price: 140 },
+    { name: "Hard Leather Helm", slot: SLOT_HEAD, shape: "item.helm.hard", cat: CAT_HELMET, price: 90 },
+    { name: "Battle Helm", slot: SLOT_HEAD, shape: "item.helm.horned", cat: CAT_HELMET, price: 150 },
+    { name: "Champion Helm", slot: SLOT_HEAD, shape: "item.helm.winged", cat: CAT_HELMET, price: 180 },
+    { name: "Tempered Helm", slot: SLOT_HEAD, shape: "item.helm.tempered", cat: CAT_HELMET, price: 200 },
+    { name: "Magic Helm", slot: SLOT_HEAD, shape: "item.helm.magic", cat: CAT_HELMET, price: 350 },
+
+    { name: "Leather Armor", slot: SLOT_ARMOR, shape: "item.armor.leather", cat: CAT_ARMOR, price: 300 },
+    { name: "Banded Leather Armor", slot: SLOT_ARMOR, shape: "item.armor.banded", cat: CAT_ARMOR, price: 320 },
+    { name: "Plate Mail Armor", slot: SLOT_ARMOR, shape: "item.armor.platemail", cat: CAT_ARMOR, price: 500 },
+    { name: "Chain Mail Armor", slot: SLOT_ARMOR, shape: "item.armor.chainmail", cat: CAT_ARMOR, price: 450 },
+    { name: "Magic Armor", slot: SLOT_ARMOR, shape: "item.armor.magic", cat: CAT_ARMOR, price: 680 },
+
+    { name: "Leather Leggings", slot: SLOT_LEGS, shape: "item.legging.leather", cat: CAT_LEGGING, price: 200 },
+    { name: "Chain Mail Leggings", slot: SLOT_LEGS, shape: "item.legging.chainmail", cat: CAT_LEGGING, price: 320 },
+    { name: "Plate Mail Leggings", slot: SLOT_LEGS, shape: "item.legging.platemail", cat: CAT_LEGGING, price: 450 },
+    { name: "Magic Armor Leggings", slot: SLOT_LEGS, shape: "item.legging.magic", cat: CAT_LEGGING, price: 580 },
+
+    { name: "Leather boots", slot: SLOT_FEET, shape: "item.boots.leather", cat: CAT_BOOTS, price: 250 },
+    { name: "Steel boots", slot: SLOT_FEET, shape: "item.boots.steel", cat: CAT_BOOTS, price: 360 },
+    { name: "Magic boots", slot: SLOT_FEET, shape: "item.boots.magic", cat: CAT_BOOTS, price: 520 },
+
+    { name: "Leather gloves", slot: SLOT_GLOVES, shape: "item.gloves.leather", cat: CAT_GLOVE, price: 60 },
+    { name: "Steel gauntlet", slot: SLOT_GLOVES, shape: "item.gloves.steel", cat: CAT_GLOVE, price: 110 },
+    { name: "Magic gauntlet", slot: SLOT_GLOVES, shape: "item.gloves.magic", cat: CAT_GLOVE, price: 320 },
+
+    { name: "Wooden Shield", slot: SLOT_LEFT_HAND, shape: "item.shield.wood", cat: CAT_SHIELD, price: 25 },
+    { name: "Kite Shield", slot: SLOT_LEFT_HAND, shape: "item.shield.kite", cat: CAT_SHIELD, price: 60 },
+    { name: "Steel Shield", slot: SLOT_LEFT_HAND, shape: "item.shield.steel", cat: CAT_SHIELD, price: 110 },
+    { name: "Dueling Shield", slot: SLOT_LEFT_HAND, shape: "item.shield.duel", cat: CAT_SHIELD, price: 200 },
+    { name: "Magic Shield", slot: SLOT_LEFT_HAND, shape: "item.shield.magic", cat: CAT_SHIELD, price: 400 },
 ];
 
 const OBJECTS_BY_SHAPE = {};

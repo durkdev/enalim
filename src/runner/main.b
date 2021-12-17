@@ -319,7 +319,7 @@ def handleGameClick() {
             } else if(panel[0] = "player") {
                 raisePanel("player", "player");
                 updateEquipmentPanel();
-                if(panel[1] >= 144 * SLOT_POS_MUL && panel[1] < 200 * SLOT_POS_MUL && panel[2] >= 218 * SLOT_POS_MUL && panel[2] < 272 * SLOT_POS_MUL) {
+                if(panel[1] >= 104 * SLOT_POS_MUL && panel[1] < 150 * SLOT_POS_MUL && panel[2] >= 208 * SLOT_POS_MUL && panel[2] < 251 * SLOT_POS_MUL) {
                     openInventory();
                 }
             } else {

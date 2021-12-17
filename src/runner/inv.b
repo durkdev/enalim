@@ -191,8 +191,8 @@ def newInventory() {
         items: [],
         add: (self, shape, xpos=-1, ypos=-1) => {
             if(xpos < 0) {
-                xpos := int(50 + random() * 100);
-                ypos := int(30 + random() * 60);
+                xpos := int(40 + random() * 400);
+                ypos := int(20 + random() * 440);
             }
             self.items[len(self.items)] := {
                 shape: shape,

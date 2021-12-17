@@ -8,13 +8,16 @@ SECTIONS["23,24"] := {
         setCreature(5696, 5886, 1, creaturesTemplates.cow);
     },
     "teleport": (this, x, y, z) => {
-        # if(x = 5955 && y >= 5686  && y <= 5689 && z = 1) {
-        #     return [6051, 5660, 1];
-        # }
+        if(x = 5741 && y >= 5872  && y <= 5875 && z = 1) {
+            return [5875, 5893, 1];
+        }
+        if(x = 5708 && y >= 5834  && y <= 5837 && z = 1) {
+            return [5843, 5847, 1];
+        }
         return null;
     },
     "action": (this, x, y, z) => {
-        if(x = 5673 && y = 5850 && z = 1) {
+        if(x = 5674 && y = 5850 && z = 1) {
             timedMessage(x, y, z, "Trinest", false);
             return true;
         }

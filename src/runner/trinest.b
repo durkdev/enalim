@@ -20,7 +20,7 @@ addNpcDef({
     name: "hamid",
     label: "Hamid",
     creature: "man-blue",
-    trade: [CAT_ARMOR],
+    trade: [CAT_ARMOR, CAT_HELMET],
     convo: {
         "": "A man with a warm smile says: \"Be welcome in Trinest wanderer. I buy and sell armor at my shop. Our $town may be small but rest assured my shop is well equipped. Just ask if you need anything.\"",
         "town": "\"Trinest is the last town on the east side of the Enalim mainland. My name is Hamid and I trade in high quality armor.\"",

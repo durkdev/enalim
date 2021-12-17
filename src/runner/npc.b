@@ -175,11 +175,11 @@ def getTraderInventory(npc, cat) {
     if(npc.tradeInv = null || len(npc.tradeInv) > 0) {
         print("\tfiltering");
         npc.tradeInv := [];        
-        items := array_filter(OBJECTS, o => array_find(cat, c => o.cat = c) != null);
-        while(len(npc.tradeInv) < 5 && len(items) > 0) {
-            idx := random() * len(items);
-            npc.tradeInv[len(npc.tradeInv)] := items[idx];
-            del items[idx];
+        availableItems := array_filter(OBJECTS, o => endsWith(o.shape, ".magic") = false && array_find(cat, c => o.cat = c) != null);
+        while(len(npc.tradeInv) < 5 && len(availableItems) > 0) {
+            idx := random() * len(availableItems);
+            npc.tradeInv[len(npc.tradeInv)] := availableItems[idx];
+            del availableItems[idx];
         }
     } else {
         print("\talready has tradeInv: " + npc.tradeInv);

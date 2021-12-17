@@ -125,3 +125,20 @@ addNpcDef({
         { name: "office", from: 8, to: 21, movement: "anchor", waypointDir: 1 },
     ],    
 });
+
+addNpcDef({
+    name: "ramida",
+    label: "Ramida",
+    creature: "woman",
+    trade: [CAT_BOW],
+    convo: {
+        "": "You see a woman with dark hair in an imposing bun. \"My name is Ramida, welcome to my archery shop at $Valora.\"",
+        "Valora": "\"We're a small mining town at the edge of the continent. The town is jointly managed by our mayor and the chancellor. 
+            You can find them in the hall of Justice, just next door.\"",
+    },
+    waypoints: [ [ 5271, 6438, 1 ], [ 5273, 6453, 1 ] ], 
+    schedule: [
+        { name: "store", from: 8, to: 18, movement: "anchor", waypointDir: -1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: 1 }
+    ],
+});
