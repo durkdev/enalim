@@ -715,7 +715,15 @@
                 { "name": "roof.stone.border.x", "size": [ 4, 4, 1 ], "pos": [488, 120] },
                 { "name": "item.winch.off", "description": "Gate winch", "size": [ 4, 2, 3 ], "pos": [568, 120], "interactive": true },
                 { "name": "item.winch.on.1", "description": "Gate winch", "size": [ 4, 2, 3 ], "pos": [568, 120], "animations": [ "item.winch.on.2" ] },
-                { "name": "item.winch.on.2", "description": "Gate winch", "size": [ 4, 2, 3 ], "pos": [632, 120] }
+                { "name": "item.winch.on.2", "description": "Gate winch", "size": [ 4, 2, 3 ], "pos": [632, 120] },
+                { "name": "wall.brick.ew", "size": [ 2, 1, 6], "pos": [288, 256] },
+                { "name": "wall.brick.ns", "size": [ 1, 2, 6], "pos": [328, 256] },
+                { "name": "wall.brick.column", "size": [ 1, 1, 6], "pos": [368, 264] },
+                { "name": "wall.brick.column.1", "size": [ 1, 1, 6], "pos": [400, 264] },
+                { "name": "wall.brick.column.2", "size": [ 1, 1, 6], "pos": [432, 264] },
+                { "name": "wall.brick.low.ew", "size": [ 4, 1, 2], "pos": [272, 336] },
+                { "name": "wall.brick.low.ns", "size": [ 1, 4, 2], "pos": [328, 336] }
+
             ]
         },
         {
@@ -846,7 +854,28 @@
                 { "name": "item.shield.kite", "size": [ 2, 2, 0], "pos": [32, 704], "drag": true, "extra": true },
                 { "name": "item.shield.steel", "size": [ 2, 2, 0], "pos": [64, 704], "drag": true, "extra": true },
                 { "name": "item.shield.magic", "size": [ 2, 2, 0], "pos": [96, 704], "drag": true, "extra": true },
-                { "name": "item.shield.duel", "size": [ 2, 2, 0], "pos": [128, 704], "drag": true, "extra": true }
+                { "name": "item.shield.duel", "size": [ 2, 2, 0], "pos": [128, 704], "drag": true, "extra": true },
+                { "name": "item.niche.empty.x", "size": [ 4, 0.2, 3], "pos": [184, 224], "extra": true },
+                { "name": "item.niche.empty.y", "size": [ 0.2, 4, 3], "pos": [224, 224], "extra": true },
+                { "name": "item.niche.corpse.x", "size": [ 4, 0.2, 3], "pos": [184, 280], "extra": true },
+                { "name": "item.niche.corpse.y", "size": [ 0.2, 4, 3], "pos": [224, 280], "extra": true },
+                { "name": "item.sarcophagus.y", "size": [ 3, 5, 3], "pos": [272, 216] },
+                { "name": "item.sarcophagus.x", "size": [ 5, 3, 3], "pos": [344, 224] },
+                { "name": "item.candle.1", "size": [ 2, 2, 0], "pos": [264, 312], "extra": true, "light": true },
+                { "name": "item.candle.2", "size": [ 2, 2, 0], "pos": [296, 312], "extra": true, "light": true },
+                { "name": "item.desk.writing.y", "size": [ 3, 4, 3], "pos": [416, 232] },
+                { "name": "item.desk.writing.x", "size": [ 4, 3, 3], "pos": [488, 232] },
+                { "name": "item.desk.dining.y", "size": [ 3, 5, 2], "pos": [328, 320] },
+                { "name": "item.desk.dining.x", "size": [ 5, 3, 2], "pos": [400, 328] },
+                { "name": "item.bed.blue.y", "size": [ 3, 6, 2], "pos": [472, 320] },
+                { "name": "item.bed.blue.x", "size": [ 6, 3, 2], "pos": [552, 328] },
+                { "name": "item.bed.purple.y", "size": [ 3, 6, 2], "pos": [464, 408] },
+                { "name": "item.bed.purple.x", "size": [ 6, 3, 2], "pos": [544, 416] },
+                { "name": "item.table.round", "size": [ 2, 2, 2], "pos": [560, 248] },
+                { "name": "item.picture.ship.x", "size": [ 3, 0.25, 3], "pos": [600, 224], "extra": true },
+                { "name": "item.picture.ship.y", "size": [ 0.25, 3, 3], "pos": [640, 224], "extra": true },
+                { "name": "item.picture.figure.x", "size": [ 3, 0.25, 3], "pos": [600, 272], "extra": true },
+                { "name": "item.picture.figure.y", "size": [ 0.25, 3, 3], "pos": [640, 272], "extra": true }
             ]
         }        
     ],    
