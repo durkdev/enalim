@@ -875,7 +875,9 @@
                 { "name": "item.picture.ship.x", "size": [ 3, 0.25, 3], "pos": [600, 224], "extra": true },
                 { "name": "item.picture.ship.y", "size": [ 0.25, 3, 3], "pos": [640, 224], "extra": true },
                 { "name": "item.picture.figure.x", "size": [ 3, 0.25, 3], "pos": [600, 272], "extra": true },
-                { "name": "item.picture.figure.y", "size": [ 0.25, 3, 3], "pos": [640, 272], "extra": true }
+                { "name": "item.picture.figure.y", "size": [ 0.25, 3, 3], "pos": [640, 272], "extra": true },
+                { "name": "item.bellows.x", "size": [ 4, 2, 2], "pos": [48, 272] },
+                { "name": "item.anvil.x", "size": [ 2, 1, 2], "pos": [104, 296] }
             ]
         }        
     ],    
