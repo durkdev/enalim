@@ -26,9 +26,48 @@ addNpcDef({
         "university": "\"You have reached the fabled Avined University of Enalim.\" - he says, sighing - \"Once home to science, research and learning, but
             not anymore, sadly. We're dealing with a $crisis, and\" - he adds with a serious tone - \"there is a chance this could undo all the good work we have
             done over the years. I need someone to $investigate what happened, so we can clear our name and get back to teaching!\"",
-        "crisis": ""
+        "crisis": "The dean's expression hardens: \"This is possibly the worst crisis to ever happen here at Avined
+            $university. There is a real chance that the damage to the institution's image is quite unrepairable.\" - he looks
+            down, clearly dismayed. After a pause he continues: \"You see something happened here that never has before: a
+            $murder.\"",
+        "murder": "Dean Fabrianted nods: \"Aye, we have preserved the scene of the $crime over\" - he motions to the south east - \"at
+            the entrance of the $catacombs. The victim was Professor Fenzeri, a renowned teacher of magic. If you could unravel
+            this mystery and figure out what happened, I would be most grateful.\" - he rubs his hands nervously - \"This business of 
+            the dead professor is very bad for us. We had to close the place down and send the students home until it's resolved. Please
+            feel free to $talk to my $staff and if you piece together what happened, report back to me.\"",
+        "crime": "The dean sadly recounts: \"A few days ago a student came to me, reporting that the instructor for their class on the
+            history of magic, a Dr. Fenzeri, never showed up to class. Since professors essentially live next door to their classrooms, this
+            seemed odd. After a campus-wide search for the missing instructor, we found his corpse, covered in blood, as he is to this day,
+            in the tower of the $catacombs. Please figure out what happened! You have my permission to $talk to and interogate my staff in order to unravel
+            who committed this $murder.\"",
+        "staff": "Dean Fabriantes spreads his hands: \"I cannot understand who could have committed such a serious $crime.  Here, at Avined 
+            $university, we only hire the best. That was also how Dr. Fenzeri came to work here.\" - he pauses sighing, then continues - \"I now
+            have four professors working for me: Dr. Asteni, Dr. Hyle, Dr. Junto and Dr. Mosten. Besides them there are a few craftsmen who
+            ply their trade here for additional income for the university.\"",
+        "talk": "Dean Fabriantes looks squarly at you: \"Yes, ask my $staff about their whereabouts during the night of the $crime. As for me,
+            after my last class in the afternoon, I went out for a walk around Lake Ennid,\" - he points to the East -\"after that I was in my
+            chambers. I'm a deep sleeper and heard nothing during the night.\"",
+        "catacombs": "\"You should really ask Dr. Hyle, the historian among my $staff, about the catacombs. My understanding is that it houses
+            the final resting place of knights of some old order. The tower is mostly used for storage nowadays which makes it odd that the 
+            body of Dr. Fenzeri would have ended up there. Such a horrible $crime\" - he muses - \"and what ghastly business this makes for 
+            the reputation of the $univesity.\"",
     },
-    waypoints: [ [ 6070, 7796, 1 ], [ 6084, 7796, 1 ], [ 6084, 7780, 1 ], [ 6072, 7775, 1 ], [ 6066, 7762, 1 ] ], 
+    waypoints: [ [ 6070, 7796, 1 ], [ 6084, 7796, 1 ], [ 6084, 7780, 1 ], [ 6072, 7775, 1 ], [ 6066, 7763, 1 ] ], 
+    schedule: [
+        { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 }
+    ],
+});
+
+addNpcDef({
+    name: "Asteni",
+    label: "Asteni",
+    creature: "woman2",
+    convo: {
+        "": "You meet middle-aged woman with a serious expression: \"Welcome traveler, I am Dr Asteni, professor of $myth and lore. I suppose
+            you have come to ask me about poor Dr. $Fenzeri?\"",
+    },
+    waypoints: [ [ 6070, 7732, 1 ], [ 6068, 7748, 1 ], [ 6084, 7749, 1 ], [ 6085, 7732, 1 ], [ 6102, 7731, 1 ] ], 
     schedule: [
         { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
         { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 }
