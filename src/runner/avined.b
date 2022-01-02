@@ -2,7 +2,7 @@ addNpcDef({
     name: "Akhim",
     label: "Akhim",
     creature: "beard",
-    trade: [ CAT_SWORD, CAT_DAGGER, CAT_AXE, CAT_LANCE, CAT_ARMOR, CAT_HELMET, CAT_LEGGING, CAT_GLOVE, CAT_SHIELD, CAT_BOOTS],
+    trade: [ CAT_AXE, CAT_ARMOR, CAT_HELMET, CAT_LEGGING, CAT_GLOVE, CAT_SHIELD, CAT_BOOTS],
     convo: {
         "": "The large man in front of you is obviously a blacksmith. \"Greetings traveler, I am Akhim the smith of $Avined University. Thanks to 
             the research conducted here, I produce the finest weapons and armor in all of Enalim!\"",
@@ -68,6 +68,68 @@ addNpcDef({
             you have come to ask me about poor Dr. $Fenzeri?\"",
     },
     waypoints: [ [ 6070, 7732, 1 ], [ 6068, 7748, 1 ], [ 6084, 7749, 1 ], [ 6085, 7732, 1 ], [ 6102, 7731, 1 ] ], 
+    schedule: [
+        { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 }
+    ],
+});
+
+addNpcDef({
+    name: "Hyle",
+    label: "Hyle",
+    creature: "monk-blue",
+    convo: {
+        "": "You see a frail man, peering up at you from under his robes: \"Well met traveler, I'm Dr. Hyle. I teach $history here at the $university.
+            Although what a horrible business... this $murder has us all shaken up.\" - he adds, his voice trailing off oddly.",
+    },
+    waypoints: [ [  6038, 7763, 1 ] ], 
+    schedule: [
+        { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 }
+    ],
+});
+
+addNpcDef({
+    name: "Enner",
+    label: "Enner",
+    creature: "man-yellow",
+    trade: [ CAT_SWORD, CAT_DAGGER, CAT_LANCE ],
+    convo: {
+        "": "A large, smiling man greets you: \"Ah welcome treasured customer! Welcome to Enner's $weapon shop! Please take your time and browse
+            my wares. Let me know if you have questions, for I am also a $researcher of antique daggers, besides working in sales.\"",
+    },
+    waypoints: [ [  6038, 7780, 1 ], [  6038, 7792, 1 ] ], 
+    schedule: [
+        { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 }
+    ],
+});
+
+
+addNpcDef({
+    name: "Junto",
+    label: "Junto",
+    creature: "beard2",
+    convo: {
+        "": "An owlish man looks up, with a surprised expression: \"Ahem, well met stranger. I am Professor Junto, teacher of $geometry, physics and
+            engineering here at the $univesity.\" - he shakes his head and adds - \"Poor Fenzeri, he deserved better than $this.\"",
+    },
+    waypoints: [ [  6104, 7795, 1 ], [ 6118, 7795, 1 ], [ 6118, 7817, 1 ], [ 6102, 7811, 1 ] ], 
+    schedule: [
+        { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: -1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: 1 }
+    ],
+});
+
+addNpcDef({
+    name: "Mosten",
+    label: "Mosten",
+    creature: "monk",
+    convo: {
+        "": "You see an older woman, wearing the robes of academia: \"Hello there, I am Professor Mosten, teacher of music and $languages here at the
+            $univesity. Although\" - she adds slowly - \"I must confess I have not been able to focus on my $studies since learning of Fenzeri's $fate...\"",
+    },
+    waypoints: [ [  6071, 7829, 1 ] ], 
     schedule: [
         { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
         { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 }

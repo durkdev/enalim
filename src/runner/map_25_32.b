@@ -21,6 +21,10 @@ SECTIONS["25,32"] := {
             timedMessage(x, y, z, "University Catacombs", false);
             return true;
         }
+        if(x = 6053 && y = 7749 && z = 1) {
+            timedMessage(x, y, z, "Memory trail", false);
+            return true;
+        }
         return null;
     }
 };
