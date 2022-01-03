@@ -25,6 +25,28 @@ SECTIONS["25,32"] := {
             timedMessage(x, y, z, "Memory trail", false);
             return true;
         }
+        if(x = 6228 && y = 7830 && z = 1) {
+            timedMessage(x, y, z, "Secten Erd", false);
+            return true;
+        }
+        if(x = 6206 && y = 7830 && z = 1) {
+            timedMessage(x, y, z, "Firdn Mos", false);
+            return true;
+        }
+        if(x = 6206 && y = 7806 && z = 1) {
+            timedMessage(x, y, z, "Mossdu Ust", false);
+            return true;
+        }
+        if(x = 6228 && y = 7806 && z = 1) {
+            timedMessage(x, y, z, "Unnen Flr", false);
+            return true;
+        }
         return null;
-    }
+    },
+    "locked": (this, x, y, z) => {
+        if(x = 6216 && y = 7844 && z = 1) {
+            return "key.avined";
+        }
+        return null;
+    },
 };

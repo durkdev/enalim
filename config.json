@@ -629,7 +629,8 @@
                 { "name": "sign.shop.archery.y", "size": [ 1, 2, 5], "pos": [560, 168], "extra": true },
                 { "name": "sign.shop.archery.x", "size": [ 2, 1, 5], "pos": [584, 168], "extra": true },
                 { "name": "sign.shop.potions.y", "size": [ 1, 2, 5], "pos": [608, 168], "extra": true },
-                { "name": "sign.shop.potions.x", "size": [ 2, 1, 5], "pos": [632, 168], "extra": true }
+                { "name": "sign.shop.potions.x", "size": [ 2, 1, 5], "pos": [632, 168], "extra": true },
+                { "name": "key.avined", "description": "Avined catacombs key", "size": [1, 1, 1], "pos": [112, 208], "drag": true, "extra": true }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },
@@ -877,7 +878,8 @@
                 { "name": "item.picture.figure.x", "size": [ 3, 0.25, 3], "pos": [600, 272], "extra": true },
                 { "name": "item.picture.figure.y", "size": [ 0.25, 3, 3], "pos": [640, 272], "extra": true },
                 { "name": "item.bellows.x", "size": [ 4, 2, 2], "pos": [48, 272] },
-                { "name": "item.anvil.x", "size": [ 2, 1, 2], "pos": [104, 296] }
+                { "name": "item.anvil.x", "size": [ 2, 1, 2], "pos": [104, 296] },
+                { "name": "item.dagger.vesnu", "size": [ 2, 2, 0], "pos": [96, 544], "drag": true, "extra": true }
             ]
         }        
     ],    
