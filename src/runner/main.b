@@ -386,7 +386,7 @@ def handleGameClick() {
 
             print("MAP click: mouseOnInteractive=" + player.mouseOnInteractive);
             if(player.mouseOnInteractive = 1) {
-                timedMessage(shape[1], shape[2], shape[3], getShapeDescription(shape[0]), false);
+                timedMessage(shape[1], shape[2], shape[3], getObjectDescription(shape[0]), false);
             }
         }
     } else {
@@ -394,7 +394,7 @@ def handleGameClick() {
             return 1;
         }
         
-        desc := getShapeDescription(getContainedShape(dragAction, dragIndex));
+        desc := getObjectDescription(getContainedShape(dragAction, dragIndex));
         timedMessageXY(player.mouseX, player.mouseY, desc, false);
     }
 }
@@ -402,6 +402,8 @@ def handleGameClick() {
 def getContainedShape(location, index) {
     if(location = "inventory") {
         return player.inventory.items[index].shape;
+    } else if (location = "player") {
+        return player.equipment.getDescription(index);
     } else {
         c := getItemById(location);
         return c.items.items[index].shape;
@@ -491,9 +493,7 @@ def eventsExit(delta, fadeDir) {
 
 # called by golang on exit
 def exitEvent() {
-    print("+++ exitEvent start");
     saveGame();
-    print("+++ exitEvent done");
 }
 
 def eventsBook(delta, fadeDir) {
@@ -1013,7 +1013,7 @@ def unlock_door(x, y, z, isPlayer) {
             # does the player have the key?
             locked := false;
             player.gameState.unlocked[len(player.gameState.unlocked)] := { "x": x, "y": y, "z": z };
-            print("Player unlocks the door with " + key);
+            #print("Player unlocks the door with " + key);
             timedMessage(x, y, z, "Door is unlocked!", false);
         }        
     }

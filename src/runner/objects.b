@@ -115,3 +115,11 @@ def initObjects() {
         OBJECTS_BY_SHAPE[e.shape] := e;
     });
 }
+
+def getObjectDescription(shape) {
+    o := OBJECTS_BY_SHAPE[shape];
+    if(o != null) {
+        return o.name;
+    }
+    return getShapeDescription(shape);
+}

@@ -279,6 +279,11 @@ def newEquipment() {
             });
             return uis;
         },
+        getDescription: (self, index) => {
+            # index is the index into the rendered list of items
+            a := array_filter(self.equipment, e => e != null);
+            return getObjectDescription(a[index]);
+        },
         encode: self => self.equipment,
         decode: (self, saved) => {
             if(saved = null) {
