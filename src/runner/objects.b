@@ -106,6 +106,8 @@ const OBJECTS = [
     { name: "Steel Shield", slot: SLOT_LEFT_HAND, shape: "item.shield.steel", cat: CAT_SHIELD, price: 110 },
     { name: "Dueling Shield", slot: SLOT_LEFT_HAND, shape: "item.shield.duel", cat: CAT_SHIELD, price: 200 },
     { name: "Magic Shield", slot: SLOT_LEFT_HAND, shape: "item.shield.magic", cat: CAT_SHIELD, price: 400 },
+
+    { name: "Dagger of Vesnu", slot: SLOT_RIGHT_HAND, variation: "dagger", shape: "item.dagger.vesnu", cat: CAT_MISC, price: 0 },
 ];
 
 const OBJECTS_BY_SHAPE = {};

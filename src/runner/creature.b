@@ -242,6 +242,18 @@ creaturesTemplates := {
         "movement": "anchor",
         "hp": 10,
     },
+    "FabriantesBoss": {
+        "shape": "monk",
+        "speed": 0.25,
+        "baseWidth": 2,
+        "baseHeight": 2,
+        "sizeZ": 4,
+        "isFlying": false,
+        "movement": "hunt",
+        "attackSteps": 2,
+        "attack": [6,11],
+        "hp": 45,
+    },
 };
 
 def initCreatures() {

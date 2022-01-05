@@ -52,10 +52,60 @@ addNpcDef({
             body of Dr. Fenzeri would have ended up there. Such a horrible $crime\" - he muses - \"and what ghastly business this makes for 
             the reputation of the $univesity.\"",
     },
-    waypoints: [ [ 6070, 7796, 1 ], [ 6084, 7796, 1 ], [ 6084, 7780, 1 ], [ 6072, 7775, 1 ], [ 6066, 7763, 1 ] ], 
+    waypoints: [ [ 6066, 7763, 1 ] ], 
     schedule: [
         { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
         { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 }
+    ],
+});
+
+addNpcDef({
+    name: "Fabriantes2",
+    label: "Fabriantes",
+    creature: "monk",
+    convo: {
+        "": "You are not completely surprised to see dean Fabriantes here, afterall he's one of the only other people with access to the catacombs. The dean hails
+            you: \"I had hoped to keep you out of this, traveler... believe me when I say, it gives me no pleasure to contemplate $murder yet again...\"",
+        "murder": "The dean nods and continues in a melancholy voice: \"Yes, you see I had to do away with Fenzeri. That old fool with his obsession with geomancy 
+            was getting too $close to figuring out everything. Still, I believe I had a solid $plan... or at least until you started to put the pieces together, anyway.\" -
+            he wipes is forehead and continues - \"I suppose one more crime will not taint my legacy in the cabal, so if we're $done talking, I suppose we can proceed...\"",
+        "plan": "The dean spreads his hands: \"I might as well come clean since you won't walk out of here alive anyway. As you know the being Vesnu is
+            poised to enter our reality. Aiding this is the Cabal of Vesnu, a collection of superior minds, with yours truly leading its local efforts. 
+            We believe that Lord Vesnu's arrival will herald a new age of abyssal power, one from which we stand to benefit greatly. To this end, we
+            constructed this $device.\" - he points to the mechanism in the center of the room - \"Alas Fenzeri spotted our movements in the magics of Enalim 
+            and so he had to be... uh... 'removed' before he could get $close to ringing the alarm.\"",
+        "close": "\"Since Lord Vesnu is a being of pure magical energy, his entrance into Enalim is bound to cause some disturbance in the realms of magic. Part of
+            my work in the Cabal of Vesnu is to smooth over these waves of errant magic using illusions and other means. Oh, the general population may notice an
+            increase of monsters here or there, but it took someone like Fenzeri to see the truth.\" - he sighs and adds - \"So naturally, his $murder was a consequence of
+            just him being nosy, the poor fool.\"",
+        "device": "Dean Fabriantes looks proudly at the fruits of his insanity, a whirring contraption exuding a magical miasma you can practically feel: \"This device
+            is called the Orb of Confusion. Its main purpose is to smooth over the bumps in the magical ether caused by Lord Vesnu's movements as he gets $close to Enalim.
+            I involved nearly $everyone building this, not that the fools noticed...\" - he trails off snickering evilly - \"This is what Fenzeri nearly uncovered and what 
+            caused his $murder.\" - he scratches his forhead and adds - \"Of course now that you have seen it, perhaps we're $done talking and can proceed with your demise?\"",
+        "everyone": "The dean waves his hand: \"Ay yes, of course I already knew how to enter the catacombs, but I needed engineering help from Junto, a few pearls from Asteni,
+            and some general language and history primers from the others. So you see, even without their consent, all of us here at the univesity did our part to welcome
+            Lord Vesnu. Of course, only I will benefit from his powers. It is only fair since I was also the one carrying out the mission's unpleasent part: the $murder of
+            professor Fenzeri.\"",
+        "done": () => {
+            # start combat
+            player.gameState["avenid.boss.fight"] := 1;
+
+            # Fabriantes becomes enraged
+            convertNpc(6216, 7741, 1, "FabriantesBoss");
+            
+            # and calls for help
+            setCreature(6203, 7749, 1, creaturesTemplates.spirit);
+            setCreature(6203, 7757, 1, creaturesTemplates.spirit);
+            setCreature(6231, 7749, 1, creaturesTemplates.spirit);
+            setCreature(6231, 7757, 1, creaturesTemplates.spirit);
+
+            return "_end_convo_";
+        }
+    },
+    addByScript: true,
+    waypoints: [ [ 6216, 7741, 1 ] ], 
+    schedule: [
+        { name: "store", from: 0, to: 24, movement: "anchor", waypointDir: -1 },
     ],
 });
 
@@ -64,8 +114,14 @@ addNpcDef({
     label: "Asteni",
     creature: "woman2",
     convo: {
-        "": "You meet middle-aged woman with a serious expression: \"Welcome traveler, I am Dr Asteni, professor of $myth and lore. I suppose
-            you have come to ask me about poor Dr. $Fenzeri?\"",
+        "": () => {
+            if(player.gameState["avined.quest"] = 1) {
+                return "Professor Asteni shakes her head: \"I just can't believe that Dean Fabriantes killed my dear friend, professor Fenzeri. You'll have
+                    to excuse me, but I must sort out my thoughts about all this.\". She moves away clearly not wishing to talk anymore.";
+            }
+            return "You meet middle-aged woman with a serious expression: \"Welcome traveler, I am Dr Asteni, professor of $myth and lore. I suppose
+                you have come to ask me about poor Dr. $Fenzeri?\"";
+        },
         "myth": "Dr. Asteni gestures around to indicate the univesity: \"My area of study is the myths and lore of Enalim. I have been working
             here at Avined University for the last few years. Before this unfortunate event involving Professor $Fenzeri it was a rather 
             pleasent place to work. I still remember when Dean $Fabriantes hired me...\" - she reminisces.",
@@ -102,8 +158,14 @@ addNpcDef({
     label: "Hyle",
     creature: "monk-blue",
     convo: {
-        "": "You see a frail man, peering up at you from under his robes: \"Well met traveler, I'm Dr. Hyle. I teach $history here at the university.
-            Although what a horrible business... this $murder has us all shaken up.\" - he adds, his voice trailing off oddly.",
+        "": () => {
+            if(player.gameState["avined.quest"] = 1) {
+                return "Professor Hyle shakes your hand: \"I am grateful to you for unraveling the mystery of Fenzeri's murder. However, I must now 
+                    return to my studies.\". With that he dismisses you.";
+            }        
+            return "You see a frail man, peering up at you from under his robes: \"Well met traveler, I'm Dr. Hyle. I teach $history here at the university.
+            Although what a horrible business... this $murder has us all shaken up.\" - he adds, his voice trailing off oddly.";
+        },
         "history": "Dr. Hyle inspects you carefully before continuing: \"Yes, I teach and research the history of Enalim. Specifically, I'm
              an expert in the history of the republic of $Krynt.\" - he seems to peer at you more intensely - \"I believe the past can 
              teach us many things, don't you? Anyway, my work is on hold until this $murder is cleared up.\"",
@@ -173,8 +235,31 @@ addNpcDef({
     label: "Junto",
     creature: "beard2",
     convo: {
-        "": "An owlish man looks up, with a surprised expression: \"Ahem, well met stranger. I am Professor Junto, teacher of $geometry, physics and
-            engineering here at the $univesity.\" - he shakes his head and adds - \"Poor Fenzeri, he deserved better than $this.\"",
+        "": () => {
+            if(player.gameState["avined.quest"] = 1) {
+                return "Professor Junto stares at you: \"And so it was Dean Fabriantes who murdered Professor Fenzeri? I just can't believe it...\" He
+                    keeps staring while you slowly back away...";
+            }        
+            return "An owlish man looks up, with a surprised expression: \"Ahem, well met stranger. I am Professor Junto, teacher of geometry, physics and
+            $engineering here at the univesity.\" - he shakes his head and adds - \"Poor Fenzeri, he deserved better than $this.\"";
+        },
+        "engineering": "Professor Junto motions around you: \"Ah yes, I teach the maths and related subjects. Interestingly I end up helping people with all
+            kinds of projects around campus because of my field. Why just the other day Professor Mosten - or wait, was it Dean Fabriantes?\" - he pauses trying
+            to remember - \"Well I can't recall who it was. At any rate, I helped someone with what seemed like a kinetic scuplture project. You would not believe
+            the types of things engineering is useful for! Of course none of $this will help poor Professor Fenzeri... It is so tragic...\" - he adds sadly.",
+        "this": "Professor Junto is clearly saddened by the murder: \"Oh yeah, it's tragic what happened to Fenzeri. He and I were close $friends actually. He always
+            took an active interest in my field, especially in $engineering. Which just shows what an open-minded soul he was, it being the opposite of his interests...\" - he
+            pauses, then adds - \"...Magics, you know.\"",
+        "friends": () => {
+            if(player.gameState["avined.clue.paper"] = 1) {
+                return "Upon hearing they were friends, you remember about Fenzeri's unfinished paper and mention it to Professor Junto. He nods and says: \"Oh yes, he showed it to me a while back. Of 
+                    course, none of it made any sense to me, but I do remember one line that stood out:\" - he pauses then recites from memory - \"'Deformed waves of magical energy clearly indicate some
+                    foreign being, trying to enter our world from another dimension. The deformations hint at a vast malign intelligence...'\" - he pauses again then adds: \"Now, I wonder what that means?\"";
+            } else {
+                return "He nods again saying: \"Oh yes we spent a lot of time together. I was fascinated by his magical research and he was kind enough to feign an interest in $engineering. Or maybe he
+                    truly was interested - who can say now?!\" - He seems on the verge of sobbing.";
+            }
+        }
     },
     waypoints: [ [  6104, 7795, 1 ], [ 6118, 7795, 1 ], [ 6118, 7817, 1 ], [ 6102, 7811, 1 ] ], 
     schedule: [
@@ -188,8 +273,46 @@ addNpcDef({
     label: "Mosten",
     creature: "monk",
     convo: {
-        "": "You see an older woman, wearing the robes of academia: \"Hello there, I am Professor Mosten, teacher of music and $languages here at the
-            $univesity. Although\" - she adds slowly - \"I must confess I have not been able to focus on my $studies since learning of Fenzeri's $fate...\"",
+        "": () => {
+            if(player.gameState["avined.quest"] = 1) {
+                return "Professor Mosten speaks slowly: \"I never would have thought that Dean Fabriantes is capable of such a monstrous deed... You must
+                    excuse me but I need to consider this matter in privacy.\". She motions for you to be on your way.";
+            }        
+            return "You see an older woman, wearing the robes of academia: \"Hello there, I am Professor Mosten, teacher of music and $languages here at the
+                univesity. Although\" - she adds slowly - \"I must confess I have not been able to focus on my studies since learning of Fenzeri's $murder...\"";
+        },
+        "languages": "She nods and says: \"Yes, in fact dead languages of Enalim are my speciality. Did you know for example,\" - she continues, clearly 
+            engaged by the subject - \"that there are examples of an old tongue here at the univesity? I don't have access to the $catacombs, but I believe
+            there may be ancient phrases down there worth studying.\"",
+        "catacombs": () => {
+            if(player.gameState["avined.catacombs.key"] = 1) {
+                if(player.gameState["avenid.sign.1"] = 1 && player.gameState["avenid.sign.2"] = 1 && player.gameState["avenid.sign.3"] = 1 && player.gameState["avenid.sign.4"] = 1) {
+                    return "You recite the four strange phrases you found in the catacombs. Professor Mosten listens intently and after some thinking finally says: \"It
+                        seems to me that the four texts are part of a single phrase in Fenlen, an ancient language from the Krynt era of Enalim. I believe that putting
+                        the four $together results in an example of a command phrase - one known to operate ancient machinery!\"";
+                } else {
+                    return "Professor Mosten smiles and says: \"Professor Hyle tells me he gave you access to the catacombs. This is very good news! Finally I
+                        can learn about the use of old $languages down there. If you see old written text, be sure to note them all down and come back to me. Once
+                        you have seen all such texts, I will try to decode their meaning.\"";
+                }
+            } else {
+                return "Professor Mosten points to the east: \"The university catacombs lie under the stone tower to the south east of here. Access to it is 
+                    controlled by Professor Hyle, who, I must say, is excessively protective of the place. He claims that access by non-experts on the history of
+                    Krynt would cause permanent damage.\" - she shrugs, continuing - \"I guess he's right but still... I would like to know if there are examples
+                    of old $languages down there.\"";
+            }
+        },
+        "together": () => {
+            player.gameState["avined.catacombs.open"] := 1;
+            restartActiveSections();
+            return "Professor Mosten recites: \"Secten erd firdn mos mosdu ust a unnen flr!\" - she pauses drammatically. For a short time nothing happens, but after
+            a minute or so of silence, you hear a ^loud grating noise^ that seems to emanate from underground. Professor Mosten nods as if she was expecting this: \"I
+            think you should head back to the catacombs to see if anything has changed. I believe the Fenlen command phrase I recited has just caused something to
+            activate. Something that has lain dormant for many eons.\"";
+        },
+        "murder": "She sighs and says: \"Professor Fenzeri was a wonderful researcher of magics. He and I often worked together, especially when he stumbled upon a 
+            spell in one of the ancient $languages of Enalim. I don't know what he was working on prior to his death, but I remember him telling me that his new project
+            involved something beyond the borders of Enalim. I hope you figure out who did this. I fear this university will not be able to function until you do.\"",
     },
     waypoints: [ [  6071, 7829, 1 ] ], 
     schedule: [

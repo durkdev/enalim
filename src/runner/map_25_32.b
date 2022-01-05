@@ -2,6 +2,22 @@ SECTIONS["25,32"] := {
     "init": this => {
     },
     "start": this => {
+        eraseShape(6216, 7791, 1);
+        if(player.gameState["avined.catacombs.open"] = 1) {
+            setShape(6216, 7791, 1, "door.bars.y");            
+            fab := array_find(creatures, c => c.id = "c.6066.7763.1");
+            if(fab != null) {
+                removeCreatureById("c.6066.7763.1");
+            }
+            if(player.gameState["avenid.boss.fight"] != 1) {
+                fab := array_find(creatures, c => c.id = "c.6216.7741.1");
+                if(fab = null) {
+                    setNpc(6216, 7741, 1, npcDefs["Fabriantes2"]);
+                }
+            }
+        } else {
+            setShape(6216, 7791, 1, "door.bars.x");
+        }
     },
     "teleport": (this, x, y, z) => {
         if(x = 6036 && y >= 7832  && y <= 7835 && z = 1) {
@@ -26,18 +42,22 @@ SECTIONS["25,32"] := {
             return true;
         }
         if(x = 6228 && y = 7830 && z = 1) {
+            player.gameState["avenid.sign.1"] := 1;
             timedMessage(x, y, z, "Secten Erd", false);
             return true;
         }
         if(x = 6206 && y = 7830 && z = 1) {
+            player.gameState["avenid.sign.2"] := 1;
             timedMessage(x, y, z, "Firdn Mos", false);
             return true;
         }
         if(x = 6206 && y = 7806 && z = 1) {
+            player.gameState["avenid.sign.3"] := 1;
             timedMessage(x, y, z, "Mossdu Ust", false);
             return true;
         }
         if(x = 6228 && y = 7806 && z = 1) {
+            player.gameState["avenid.sign.4"] := 1;
             timedMessage(x, y, z, "Unnen Flr", false);
             return true;
         }
@@ -48,5 +68,11 @@ SECTIONS["25,32"] := {
             return "key.avined";
         }
         return null;
+    },
+    "combatWin": (this, creatureId, x, y, z) => {
+        # fabriantes killed
+        if(creatureId = "c.6216.7741.1") {
+            player.gameState["avined.quest"] := 1;
+        }
     },
 };
