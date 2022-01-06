@@ -879,7 +879,20 @@
                 { "name": "item.picture.figure.y", "size": [ 0.25, 3, 3], "pos": [640, 272], "extra": true },
                 { "name": "item.bellows.x", "size": [ 4, 2, 2], "pos": [48, 272] },
                 { "name": "item.anvil.x", "size": [ 2, 1, 2], "pos": [104, 296] },
-                { "name": "item.dagger.vesnu", "size": [ 2, 2, 0], "pos": [96, 544], "drag": true, "extra": true }
+                { "name": "item.dagger.vesnu", "size": [ 2, 2, 0], "pos": [96, 544], "drag": true, "extra": true },
+                { "name": "item.orb.confusion", "description": "Orb of confusion", "size": [ 4, 4, 4], "pos": [320, 400], "animations": [ "item.orb.confusion.2" ], "interactive": true },
+                { "name": "item.orb.confusion.2", "description": "Orb of confusion", "size": [ 4, 4, 4], "pos": [392, 408], "interactive": true },
+                { "name": "item.necklace.ruby", "size": [ 2, 2, 0], "pos": [0, 736], "extra": true, "drag": true },
+                { "name": "item.necklace.quartz", "size": [ 2, 2, 0], "pos": [32, 736], "extra": true, "drag": true },
+                { "name": "item.necklace.emerald", "size": [ 2, 2, 0], "pos": [64, 736], "extra": true, "drag": true },
+                { "name": "item.necklace.pearl", "size": [ 2, 2, 0], "pos": [96, 736], "extra": true, "drag": true },
+                { "name": "item.necklace.pearl.avined", "size": [ 2, 2, 0], "pos": [96, 736], "extra": true, "drag": true },
+                { "name": "item.necklace.opal", "size": [ 2, 2, 0], "pos": [128, 736], "extra": true, "drag": true },
+                { "name": "item.ring.gold", "size": [ 1, 1, 0], "pos": [8, 768], "extra": true, "drag": true },
+                { "name": "item.ring.silver", "size": [ 1, 1, 0], "pos": [24, 768], "extra": true, "drag": true },
+                { "name": "item.ring.turquise", "size": [ 1, 1, 0], "pos": [40, 768], "extra": true, "drag": true },
+                { "name": "item.ring.azure", "size": [ 1, 1, 0], "pos": [56, 768], "extra": true, "drag": true },
+                { "name": "item.ring.ruby", "size": [ 1, 1, 0], "pos": [72, 768], "extra": true, "drag": true }
             ]
         }        
     ],    

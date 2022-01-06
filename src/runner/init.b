@@ -80,3 +80,4 @@ const CAT_FOOD = "food";
 const CAT_DRINK = "drink";
 const CAT_CLOTHES = "clothes";
 const CAT_MISC = "misc";
+const CAT_JEWELRY = "jewelry";

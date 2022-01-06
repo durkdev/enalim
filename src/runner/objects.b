@@ -108,6 +108,17 @@ const OBJECTS = [
     { name: "Magic Shield", slot: SLOT_LEFT_HAND, shape: "item.shield.magic", cat: CAT_SHIELD, price: 400 },
 
     { name: "Dagger of Vesnu", slot: SLOT_RIGHT_HAND, variation: "dagger", shape: "item.dagger.vesnu", cat: CAT_MISC, price: 0 },
+
+    { name: "Ruby Necklace", slot: SLOT_AMULET, shape: "item.necklace.ruby", cat: CAT_JEWELRY, price: 150 },
+    { name: "Emerald Necklace", slot: SLOT_AMULET, shape: "item.necklace.emerald", cat: CAT_JEWELRY, price: 150 },
+    { name: "Pearl Necklace", slot: SLOT_AMULET, shape: "item.necklace.pearl", cat: CAT_JEWELRY, price: 150 },
+    { name: "Asteni's Necklace", slot: SLOT_AMULET, shape: "item.necklace.pearl.avined", cat: CAT_JEWELRY, price: 150 },
+    { name: "Opal Necklace", slot: SLOT_AMULET, shape: "item.necklace.opal", cat: CAT_JEWELRY, price: 150 },
+    { name: "Gold Ring", slot: SLOT_RING, shape: "item.ring.gold", cat: CAT_JEWELRY, price: 120 },
+    { name: "Silver Ring", slot: SLOT_RING, shape: "item.ring.silver", cat: CAT_JEWELRY, price: 120 },
+    { name: "Turquise Ring", slot: SLOT_RING, shape: "item.ring.turquise", cat: CAT_JEWELRY, price: 120 },
+    { name: "Azure Ring", slot: SLOT_RING, shape: "item.ring.azure", cat: CAT_JEWELRY, price: 120 },
+    { name: "Ruby Ring", slot: SLOT_RING, shape: "item.ring.ruby", cat: CAT_JEWELRY, price: 120 },
 ];
 
 const OBJECTS_BY_SHAPE = {};

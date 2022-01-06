@@ -380,6 +380,7 @@ def handleGameClick() {
             }
 
             if(creature != null && creature.npc != null) {
+                print("convo with creature: " + creature.id);
                 startConvo(creature.npc);
                 return 1;
             }

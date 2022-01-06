@@ -1,14 +1,31 @@
 SECTIONS["25,32"] := {
     "init": this => {
+        setBook(6102, 7809, 3, "map", "The nature of magic");
+        setBook(6074, 7825, 4, "map", "Fenlen grammar primer");
+        setBook(6039, 7777, 4, "map", "Guide to arms and armor");
+        setBook(6040, 7777, 4, "map", "Guide to arms and armor");
+        setBook(6043, 7777, 4, "map", "Raising the dead");
+        setBook(6038, 7761, 4, "map", "On ghosts and spirits");
+        setBook(6073, 7767, 3, "map", "Spell reagents");
+        setBook(6066, 7771, 3, "map", "Spell reagents");
+        setBook(6068, 7790, 4, "map", "The nature of magic");
+        setBook(6069, 7790, 4, "map", "Spell reagents");
+        setBook(6066, 7793, 4, "map", "Fenlen grammar primer");
+        setBook(6066, 7730, 3, "map", "The age of Krynt");
+        setBook(6091, 7736, 3, "map", "The age of Krynt");
+        setBook(6104, 7740, 3, "map", "The age of Krynt");
+
+        setContainer("chest", 6065, 7737, 1, "map", [ "item.ring.silver" ]);
+        setContainer("barrel", 6065, 7783, 1, "map", [ "item.boots.leather" ]);
+        setContainer("barrel", 6082, 7825, 1, "map", [ "item.staff.yew" ]);
+        setContainer("barrel", 6043, 7825, 8, "map", [ "item.bow.shortbow" ]);
     },
     "start": this => {
+        print("START 25,32");
         eraseShape(6216, 7791, 1);
         if(player.gameState["avined.catacombs.open"] = 1) {
             setShape(6216, 7791, 1, "door.bars.y");            
-            fab := array_find(creatures, c => c.id = "c.6066.7763.1");
-            if(fab != null) {
-                removeCreatureById("c.6066.7763.1");
-            }
+            removeCreatureById("c.6066.7763.1");
             if(player.gameState["avenid.boss.fight"] != 1) {
                 fab := array_find(creatures, c => c.id = "c.6216.7741.1");
                 if(fab = null) {
@@ -18,6 +35,7 @@ SECTIONS["25,32"] := {
         } else {
             setShape(6216, 7791, 1, "door.bars.x");
         }
+        print("START 25,32 DONE");
     },
     "teleport": (this, x, y, z) => {
         if(x = 6036 && y >= 7832  && y <= 7835 && z = 1) {
@@ -60,6 +78,10 @@ SECTIONS["25,32"] := {
             player.gameState["avenid.sign.4"] := 1;
             timedMessage(x, y, z, "Unnen Flr", false);
             return true;
+        }
+        if(x = 6214 && y = 7748 && z = 2 && player.gameState["avined.quest"] = 1) {
+            eraseShape(6214, 7748, 2);
+            setShape(6214, 7748, 2, "item.orb.confusion.2");
         }
         return null;
     },

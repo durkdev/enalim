@@ -153,6 +153,25 @@ by Aroldus Metaremine
 
 ";
 
+const BOOK_ARMS = "Guide to arms and armor
+by Helen Hierileous
+
+
+";
+
+const BOOK_FENLEN = "Fenlen Grammar Primer
+by Herald Boorminus the Fifth
+
+Second abridged edition
+
+Introduction:
+May this short treatise on the grammar of Fenlen serve the seeker well in their journey of the toungue's mastery. Although Fenlen is
+not used as much now as it has been in the past, many valuable lessons may be learned by delving deeper into its arcane grammatical
+structures.
+
+
+";
+
 BOOKS := {
     "Raising the dead": RAISE_DEAD,
     "On ghosts and spirits": ON_GHOSTS,
@@ -161,6 +180,8 @@ BOOKS := {
     "Brigo processing": BOOK_BRIGO,
     "The nature of magic": BOOK_MAGIC,
     "The age of Krynt": BOOK_KRYNT,
+    "Fenlen grammar primer": BOOK_FENLEN,
+    "Guide to arms and armor": BOOK_ARMS,
 };
 
 const PAGE_LINE_COUNT = 20;

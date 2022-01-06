@@ -115,6 +115,12 @@ addNpcDef({
     creature: "woman2",
     convo: {
         "": () => {
+            idx := player.inventory.findIndex("item.necklace.pearl.avined");
+            if(idx > -1) {
+                player.inventory.remove(idx, "inventory");
+                return "You give Professor Asteni back her lost necklace. She thanks you profusely, saying: \"Thank you for recovering this! It's strange though... a few pearls are missing. Oh
+                    well, it was my mother's so I mainly keep it for sentimental reasons. Thanks you again!\"";
+            }
             if(player.gameState["avined.quest"] = 1) {
                 return "Professor Asteni shakes her head: \"I just can't believe that Dean Fabriantes killed my dear friend, professor Fenzeri. You'll have
                     to excuse me, but I must sort out my thoughts about all this.\". She moves away clearly not wishing to talk anymore.";
@@ -221,6 +227,18 @@ addNpcDef({
     convo: {
         "": "A large, smiling man greets you: \"Ah welcome treasured customer! Welcome to Enner's $weapon shop! Please take your time and browse
             my wares. Let me know if you have questions, for I am also a $researcher of antique daggers, besides working in sales.\"",
+        "researcher": () => {
+            idx := player.inventory.findIndex("item.dagger.vesnu");
+            if(idx > -1) {
+                player.gameState["avined.dagger"] := 1;
+                return "You show Enner the dagger you found next to Professor Fenzeri's body. Enner inspects the weapon with a thoughtful expression: \"Hmm, I can't say I've seen
+                    a one like it before. The inscriptions on the blade\" - something you completely failed to notice - \"are in an ancient language I'm not familiar with. Oh well,
+                    if you feel like parting with it, let me know!\"";
+            } else {
+                return "Enner waves his hands to indicate a vast knowledge antique tools: \"Ah yes, I'm quite the expert on daggers, you know. Even the grand duchess Zanka, had
+                    once entreated me in her castle at Wyntergale for the sole purpose of showing me her collection of old knives. If you should come across any... let me know!\"";
+            }
+        }
     },
     waypoints: [ [  6038, 7780, 1 ], [  6038, 7792, 1 ] ], 
     schedule: [
@@ -274,12 +292,19 @@ addNpcDef({
     creature: "monk",
     convo: {
         "": () => {
-            if(player.gameState["avined.quest"] = 1) {
-                return "Professor Mosten speaks slowly: \"I never would have thought that Dean Fabriantes is capable of such a monstrous deed... You must
-                    excuse me but I need to consider this matter in privacy.\". She motions for you to be on your way.";
-            }        
-            return "You see an older woman, wearing the robes of academia: \"Hello there, I am Professor Mosten, teacher of music and $languages here at the
-                univesity. Although\" - she adds slowly - \"I must confess I have not been able to focus on my studies since learning of Fenzeri's $murder...\"";
+            if(player.gameState["avined.dagger"] = 1) {
+                player.gameState["avined.dagger"] := 2;
+                return "You show professor Mosten the dagger you recovered from Fenzeri's body. She inspects the writing on the blade and nods: \"It is old allright. That dagger is from the Krynt period, but
+                    it was not used by the knights. The inscription on the blade is in Fenlen, an ancient language, and it reads: 'Come ye faithful to the cloud fortress of Utaglo to witness (or maybe 'aid'?)
+                    the coming of Lord Vesnu'.\" - she shakes her head - \"It is an evil thing, that knife. I would get rid of it, and quickly!\"";
+            } else {
+                if(player.gameState["avined.quest"] = 1) {
+                    return "Professor Mosten speaks slowly: \"I never would have thought that Dean Fabriantes is capable of such a monstrous deed... You must
+                        excuse me but I need to consider this matter in privacy.\". She motions for you to be on your way.";
+                }        
+                return "You see an older woman, wearing the robes of academia: \"Hello there, I am Professor Mosten, teacher of music and $languages here at the
+                    univesity. Although\" - she adds slowly - \"I must confess I have not been able to focus on my studies since learning of Fenzeri's $murder...\"";
+            }
         },
         "languages": "She nods and says: \"Yes, in fact dead languages of Enalim are my speciality. Did you know for example,\" - she continues, clearly 
             engaged by the subject - \"that there are examples of an old tongue here at the univesity? I don't have access to the $catacombs, but I believe
