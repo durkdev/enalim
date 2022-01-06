@@ -439,14 +439,11 @@ def takeDamage(c, dam, onDeath) {
 }
 
 def removeCreatureById(id) {
-    print("removeCreatureById: id=" + id);
     idx := array_find_index(creatures, c => c.id = id);
     if(idx < 0) {
-        print("\tremoveCreatureById: not found");
         return;
     }
     m := creatures[idx].move;
-    print("\tremoving it! index=" + idx + " pos=" + m.x + "," + m.y + "," + m.z);
     creatures[idx].move.erase();
     del creatures[idx];
 }
