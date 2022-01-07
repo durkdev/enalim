@@ -240,20 +240,9 @@ def eventsGameplay(delta, fadeDir) {
             player.mouseDrive := true;
         }
 
-        dx := 0;
-        dy := 0;
-        if(isDown(KeyA) || isDown(KeyLeft)) {
-            dx := 1;
-        }
-        if(isDown(KeyD) || isDown(KeyRight)) {
-            dx := -1;
-        }
-        if(isDown(KeyW) || isDown(KeyUp)) {
-            dy := -1;
-        }
-        if(isDown(KeyS) || isDown(KeyDown)) {
-            dy := 1;
-        }
+        d := playerKeyMoveDir();
+        dx := d[0];
+        dy := d[1];
 
         if(dx != 0 || dy != 0) {
             animationType := ANIM_MOVE;
@@ -295,6 +284,43 @@ def eventsGameplay(delta, fadeDir) {
 
     player.move.setAnimation(animationType);
     moveCreatures(delta);
+}
+
+const LEFT_DIR_INDEX = 1;
+const RIGHT_DIR_INDEX = 2;
+const UP_DIR_INDEX = 4;
+const DOWN_DIR_INDEX = 8;
+const DIR_INDEX_MAP = [
+    [0,0], [0,0], [0,0], [0,0], 
+    [0,0], [0,0], [0,0], [0,0], 
+    [0,0], [0,0], [0,0], [0,0], 
+    [0,0], [0,0], [0,0], [0,0], 
+];
+
+DIR_INDEX_MAP[LEFT_DIR_INDEX] := [1, -1];
+DIR_INDEX_MAP[RIGHT_DIR_INDEX] := [-1, 1];
+DIR_INDEX_MAP[UP_DIR_INDEX] := [-1, -1];
+DIR_INDEX_MAP[DOWN_DIR_INDEX] := [1, 1];
+DIR_INDEX_MAP[LEFT_DIR_INDEX + UP_DIR_INDEX] := [0, -1];
+DIR_INDEX_MAP[RIGHT_DIR_INDEX + DOWN_DIR_INDEX] := [0, 1];
+DIR_INDEX_MAP[LEFT_DIR_INDEX + DOWN_DIR_INDEX] := [1, 0];
+DIR_INDEX_MAP[RIGHT_DIR_INDEX + UP_DIR_INDEX] := [-1, 0];
+
+def playerKeyMoveDir() {
+    dirIndex := 0;
+    if(isDown(KeyA) || isDown(KeyLeft)) {
+        dirIndex :+ LEFT_DIR_INDEX;
+    }
+    if(isDown(KeyD) || isDown(KeyRight)) {
+        dirIndex :+ RIGHT_DIR_INDEX;
+    }
+    if(isDown(KeyW) || isDown(KeyUp)) {
+        dirIndex :+ UP_DIR_INDEX;
+    }
+    if(isDown(KeyS) || isDown(KeyDown)) {
+        dirIndex :+ DOWN_DIR_INDEX;
+    }
+    return DIR_INDEX_MAP[dirIndex];
 }
 
 def handleGameClick() {

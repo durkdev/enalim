@@ -279,10 +279,10 @@ addNpcDef({
             }
         }
     },
-    waypoints: [ [  6104, 7795, 1 ], [ 6118, 7795, 1 ], [ 6118, 7817, 1 ], [ 6102, 7811, 1 ] ], 
+    waypoints: [ [  6104, 7795, 1 ], [ 6118, 7795, 1 ], [ 6118, 7817, 1 ], [ 6102, 7812, 1 ] ], 
     schedule: [
-        { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: -1 },
-        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: 1 }
+        { name: "class", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 }
     ],
 });
 

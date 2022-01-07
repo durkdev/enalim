@@ -186,3 +186,24 @@ def getTraderInventory(npc, cat) {
     }
     return npc.tradeInv;
 }
+
+def npcScatter(x, y, z, shape) {
+    array_foreach(creatures, (i, c) => {
+        if(c.npc != null && intersectsShapes(x, y, z, shape, c.move.x, c.move.y, c.move.z, c.move.shape)) {
+            tryNpcScatter(c);
+        }
+    });
+}
+
+def tryNpcScatter(c) {
+    moves := [ [0, 1], [0, -1], [1, 0], [-1, 0] ];
+    success := false;
+    while(success || len(moves) > 0) {
+        idx := int(random() * len(moves));
+        d := moves[idx];
+        if(c.move.moveInDir(d[0], d[1], c.move.speed, null, null)) {
+            success := true;
+        }
+        del moves[idx];
+    }
+}

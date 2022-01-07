@@ -63,6 +63,9 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                         onPosChange(newX, newY, newZ);
                     }
                 } else {
+                    if(move.centerView) {
+                        npcScatter(newX, newY, move.z, move.shape);
+                    }
                     # player is blocked
                     moved := false;
                 }
@@ -175,7 +178,7 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                     setShape(x, y, z, newShape);
                     return 1;
                 }
-                d := d + 1;                        
+                d := d + 1;
                 if(move.moveInDir(dx, dy, move.speed, null, null) = false) {
                     print("door is blocked!");
                     return 1;

@@ -8,6 +8,8 @@ SECTIONS["23,27"] := {
         setCreature(5712, 6701, 1, creaturesTemplates.spirit);        
         setCreature(5706, 6701, 1, creaturesTemplates.spirit);        
         setCreature(5665, 6594, 1, creaturesTemplates.ogre);        
+        setContainer("barrel", 5586, 6701, 1, "map", [ "item.ring.gold" ]);
+        setContainer("barrel", 5715, 6516, 1, "map", [ "item.spear.spiked" ]);
     },
     "start": this => {
         eraseShape(5596, 6643, 1);
