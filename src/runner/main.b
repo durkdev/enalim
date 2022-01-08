@@ -132,7 +132,7 @@ def eventsConvo(delta, fadeDir) {
 }
 
 def eventsInit(delta, fadeDir) {
-    if(fadeDir = 1) {
+    if(fadeDir > -1) {
         player.mode := MODE_TITLE;        
         addImage(260, 380, "logo");
         addMessage(610, 450, "2021 (c) Gabor Torok", 1, 200, 200, 200);
@@ -152,7 +152,7 @@ def eventsTitle(delta, fadeDir) {
 }
 
 def eventsTitle2(delta, fadeDir) {
-    if(fadeDir = 1) {
+    if(fadeDir > -1) {
         delAllMessages();
         delAllImages();
         saved := loadMap("savegame.json");
@@ -185,20 +185,21 @@ def eventsTitle3(delta, fadeDir) {
 }
 
 def eventsTitle4(delta, fadeDir) {
-    if(fadeDir = 1) {
+    if(fadeDir > -1) {
         delAllMessages();
         delAllImages();
         player.move.setShape(player.shape);
         player.move.setAnimation(ANIM_STAND);
         array_foreach(player.party, (i, pc) => {
             pc.move.setShape(pc.move.shape);
+            pc.move.setAnimation(ANIM_STAND);
         });
         player.mode := MODE_GAME;
     }
 }
 
 def eventsTeleport(delta, fadeDir) {
-    if(fadeDir = 1) {
+    if(fadeDir > -1) {
         player.move.erase();
         player.move.set(player.teleportPos[0], player.teleportPos[1], player.teleportPos[2]);
         player.move.setShape(player.shape);
@@ -217,7 +218,7 @@ def eventsGameplay(delta, fadeDir) {
         }
         return;
     }
-    if(fadeDir = 1) {
+    if(fadeDir > -1) {
         setRoofVisiblity();
     }
 

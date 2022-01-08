@@ -54,7 +54,7 @@ def pathMove(c, delta, opts) {
     # try to get there via astar
     # print("+++ " + c.pathMove.name + " calling findPath!");
     path := c.move.findPath(opts.dest.x, opts.dest.y, opts.dest.z, c.template.baseWidth, opts.nearDistance);
-    #print("+++ " + c.pathMove.name + " path finder: " + path);
+    print("+++ " + printPathDelta(path));
     if(path != null) {
         #print("+++ " + c.pathMove.name + " has path: ");
         #s := "";
@@ -81,6 +81,22 @@ def pathMove(c, delta, opts) {
         c.pathMove.nextCheck := pathFindSmallBreak(opts);
     }
     return pathFindTempMove(c, delta, opts);
+}
+
+def printPathDelta(path) {
+    if(path = null) {
+        return "null";
+    } else {
+        i := 3;
+        s := "";
+        while(i < len(path)) {
+            s :+ " " + (path[i] - path[i - 3]);
+            i :+ 1;
+            s :+ "," + (path[i] - path[i - 3]);
+            i :+ 2;
+        }
+        return s;
+    }
 }
 
 def pathFindTempMove(c, delta, opts) {

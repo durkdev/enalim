@@ -21,7 +21,6 @@ SECTIONS["25,32"] := {
         setContainer("barrel", 6043, 7825, 8, "map", [ "item.bow.shortbow" ]);
     },
     "start": this => {
-        print("START 25,32");
         eraseShape(6216, 7791, 1);
         if(player.gameState["avined.catacombs.open"] = 1) {
             setShape(6216, 7791, 1, "door.bars.y");            
@@ -35,7 +34,6 @@ SECTIONS["25,32"] := {
         } else {
             setShape(6216, 7791, 1, "door.bars.x");
         }
-        print("START 25,32 DONE");
     },
     "teleport": (this, x, y, z) => {
         if(x = 6036 && y >= 7832  && y <= 7835 && z = 1) {
