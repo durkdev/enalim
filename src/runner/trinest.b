@@ -33,6 +33,40 @@ addNpcDef({
 });
 
 addNpcDef({
+    name: "Enandil",
+    label: "Enandil",
+    creature: "beard",
+    convo: {
+        "": () => {
+            if(player.convo.npc.partyIndex = null) {
+                return "You meet a gray-haired man with a sharp expression: \"Well met stranger, my name is Enandil. How can I be of $service?\"";
+            }
+            return "Elandil, your faithful companion greets you: \"Hail Lydell! Where in the wide lands of Enalim shall we $journey next?\"";
+        },
+        "service": "Before you can help it, you blurt out the story of your travel from the Necromancer's island. Enandil listens attentively and
+            then says: \"It seems to me that you could use help on your adventure. If you'll have me, I would gladly $join you on your journeys 
+            throught Enalim. It may not look it but back in my youth I knew my way around the sword...\" - he trails off, reminiscing over his
+            younger years.",
+        "join": () => {
+            joinParty(findCreatureByName("Enandil"));
+            return "_end_convo_";
+        },
+        "journey": () =>  {
+            return choose([
+                "\"If you want my opinion, I have heard rumors of a strange beast in Wyntergale castle. Perhaps we should investigate it!\"",
+                "\"I have always wanted to see the campus of Avined University! Perhaps it's worthy of road trip there?\"",
+                "\"I would explore the islands of the bay of Trinest! I've heard that pirates buried treasure on some of them!\""
+            ]);
+        }
+    },
+    waypoints: [ [ 5743, 5839, 1 ], [ 5759, 5839, 1 ], [ 5751, 5822, 1] ],
+    schedule: [
+        { name: "work", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 },
+    ],
+});
+
+addNpcDef({
     name: "ender",
     label: "Ender",
     creature: "beard2",

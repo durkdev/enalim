@@ -14,6 +14,15 @@ const MODE_EXIT = "exit";
 
 const PLAYER_SHAPE = "lydell";
 
+# party formation
+const PARTY_DELTA = [
+    [-2, 0],
+    [-2, 2],
+    [0, 2],
+    [2, 2],
+    [2, 0]
+];
+
 #const PLAYER_SHAPES = [
 #"",
 #"-sword",
@@ -54,6 +63,7 @@ player := {
     coins: 100,
     movie: null,
     movieState: 0,
+    party: [],
 };    
 
 # the player's shape size
@@ -180,6 +190,9 @@ def eventsTitle4(delta, fadeDir) {
         delAllImages();
         player.move.setShape(player.shape);
         player.move.setAnimation(ANIM_STAND);
+        array_foreach(player.party, (i, pc) => {
+            pc.move.setShape(pc.move.shape);
+        });
         player.mode := MODE_GAME;
     }
 }
@@ -1066,6 +1079,7 @@ def save_game() {
             "move": player.move.encode(),
             "hp": player.hp,
             "coins": player.coins,
+            "party": array_map(player.party, pc => encodeCreature(pc)),
         });
     }
 }
@@ -1079,6 +1093,15 @@ def load_game(saved) {
     player.inventory.decode(saved.inventory);
     player.move.decode(saved.move);
     player.equipment.decode(saved.equipment);
+    player.party := array_map(saved.party, pc => {
+        c := restoreCreature(pc);
+        print("Restored pc: " + c.npc.name);
+        return c;
+    });
+    array_foreach(player.party, (i, pc) => {
+        pc.npc.partyIndex := i;
+        pc.move.speed := PLAYER_MOVE_SPEED;
+    });
     setShapeFromEquipment();
 }
 
@@ -1146,6 +1169,12 @@ def setShapeNearby(targetX, targetY, targetZ, shape, isExtra) {
     } else {
         setShape(pos[0], pos[1], pos[2], shape);
     }
+}
+
+def joinParty(pc) {
+    pc.npc.partyIndex := len(player.party);    
+    player.party[len(player.party)] := pc;
+    timedMessage(player.move.x, player.move.y, player.move.z, pc.npc.name + " joins the party!", true);
 }
 
 def main() {

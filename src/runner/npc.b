@@ -87,7 +87,7 @@ def decodeNpc(savedNpc) {
 
 def evalNpcSchedules(hour) {
     array_foreach(creatures, (i, c) => {
-        if(c.npc != null) {
+        if(c.npc != null && c.npc.partyIndex = null) {
             if(c.npc["schedule"] != null) {
                 index := array_find_index(c.npc.schedule, sched => {
                     if(sched.from < sched.to) {
@@ -100,7 +100,7 @@ def evalNpcSchedules(hour) {
                     c.npc["activeSchedule"] := index;
                     c.npc["activeScheduleChange"] := true;
                     c.npc["waypointIndex"] := getClosestWaypointIndex(c);
-                    print(c.npc.name + " active schedule is now:" + c.npc.activeSchedule);
+                    #print(c.npc.name + " active schedule is now:" + c.npc.activeSchedule);
                 }
             }
         }
@@ -123,11 +123,41 @@ def getClosestWaypointIndex(c) {
 }
 
 def moveNpc(c, delta) {
-    animation := moveNpcSchedule(c, delta);
-    if(animation != null) {
-        return animation;
+    if(c.npc.partyIndex != null) {
+        return moveNpcNearPlayer(c, delta);
+    } else {
+        animation := moveNpcSchedule(c, delta);
+        if(animation != null) {
+            return animation;
+        }
+        return moveCreatureRandom(c, delta);
     }
-    return moveCreatureRandom(c, delta);
+}
+
+def moveNpcNearPlayer(c, delta) {
+    partyDx := 0;
+    partyDy := 0;
+    if(c.npc.partyIndex < len(PARTY_DELTA)) {
+        partyDx := PARTY_DELTA[c.npc.partyIndex][0];
+        partyDy := PARTY_DELTA[c.npc.partyIndex][1];
+    }
+    return pathMove(c, delta, {
+        name: c.npc.name, 
+        dest: { "x": player.move.x + partyDx, "y": player.move.y + partyDy, "z": player.move.z }, 
+        nearDistance: 2,
+        farDistance: 0,
+        largeBreak: self => random(),
+        smallBreak: self => random() * 0.25,
+        tempMove: (self, c, delta) => ANIM_STAND,
+        onDistance: (self, d) => {
+            if(d >= 8) {
+                c.move.speed := PLAYER_MOVE_SPEED * 0.25;
+            } else {
+                c.move.speed := PLAYER_MOVE_SPEED;
+            }
+        },
+        onSuccess: self => ANIM_STAND,
+    });
 }
 
 def moveNpcSchedule(c, delta) {
@@ -158,9 +188,9 @@ def npcPathMoveSuccess(c, pos, delta) {
     if(w != null && ((wDir = 1 && c.npc.waypointIndex < len(w) - 1) || (wDir = -1 && c.npc.waypointIndex > 0))) {
         # move to next waypoint        
         c.npc.waypointIndex :+ wDir;
-        print(c.npc.name + " moving to waypoint " + c.npc.waypointIndex);
+        #print(c.npc.name + " moving to waypoint " + c.npc.waypointIndex);
     } else {
-        print(c.npc.name + " arrived at destination.");
+        #print(c.npc.name + " arrived at destination.");
         del c.npc["activeScheduleChange"];
         c["anchor"][0] := pos[0];
         c["anchor"][1] := pos[1];
@@ -171,9 +201,7 @@ def npcPathMoveSuccess(c, pos, delta) {
 }
 
 def getTraderInventory(npc, cat) {
-    print("filtering for: " + cat);
     if(npc.tradeInv = null || len(npc.tradeInv) > 0) {
-        print("\tfiltering");
         npc.tradeInv := [];        
         availableItems := array_filter(OBJECTS, o => endsWith(o.shape, ".magic") = false && array_find(cat, c => o.cat = c) != null);
         while(len(npc.tradeInv) < 5 && len(availableItems) > 0) {
@@ -181,8 +209,6 @@ def getTraderInventory(npc, cat) {
             npc.tradeInv[len(npc.tradeInv)] := availableItems[idx];
             del availableItems[idx];
         }
-    } else {
-        print("\talready has tradeInv: " + npc.tradeInv);
     }
     return npc.tradeInv;
 }

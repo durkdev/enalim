@@ -5,8 +5,22 @@ def getCreature(x, y, z) {
     return array_find(creatures, c => c.move.x = x && c.move.y = y && c.move.z = z);
 }
 
+def findCreatureByName(name) {
+    return array_find(creatures, c => c.npc != null && c.npc.name = name);
+}
+
+def encodeCreature(c) {
+    return {
+        "id": c.id,
+        "name": c.template.name,
+        "move": c.move.encode(),
+        "npc": encodeNpc(c.npc),
+        "movement": c.movement,
+        "hp": c.hp,
+    };
+}
+
 def pruneCreatures(sectionX, sectionY) {
-    # print("pruneCreatures: " + sectionX + "," + sectionY);
     removes := [];
     array_remove(creatures, c => {
         sectionPos := getSectionPos(c.move.x, c.move.y);
@@ -14,19 +28,13 @@ def pruneCreatures(sectionX, sectionY) {
         if(b) {
             # not needed: shapes with animations are marked IsSave=false
             # c.move.erase();
-            removes[len(removes)] := {
-                "id": c.id,
-                "name": c.template.name,
-                "move": c.move.encode(),
-                "npc": encodeNpc(c.npc),
-                "movement": c.movement,
-                "hp": c.hp,
-            };
-            # print("* Pruning creature: " + c.template.shape + " " + c.id);
+            if(c.npc = null || c.npc.partyIndex = null) {
+                # remove the creature but don't save it if it's a party member (they're saved in savegame.json)
+                removes[len(removes)] := encodeCreature(c);
+            }
         }
         return b;
     });
-    #debugCreatures();
     return removes;
 }
 
@@ -35,7 +43,7 @@ def restoreCreature(savedCreature) {
     # print("* Restoring creature " + tmpl.shape + " " + savedCreature.id);
     move := decodeMovement(savedCreature.move, tmpl.baseWidth, tmpl.baseHeight, tmpl.sizeZ, tmpl.shape, tmpl.speed, false, tmpl.isFlying);
     move.setShape(tmpl.shape);
-    creatures[len(creatures)] := {
+    c := {
         "id": savedCreature.id,
         "template": tmpl,
         "move": move,
@@ -46,6 +54,8 @@ def restoreCreature(savedCreature) {
         "movement": savedCreature.movement,
         "hp": savedCreature.hp,
     };
+    creatures[len(creatures)] := c;
+    return c;
 }
 
 def setCreature(x, y, z, creature) {
