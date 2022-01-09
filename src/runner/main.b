@@ -14,15 +14,6 @@ const MODE_EXIT = "exit";
 
 const PLAYER_SHAPE = "lydell";
 
-# party formation
-const PARTY_DELTA = [
-    [-2, 0],
-    [-2, 2],
-    [0, 2],
-    [2, 2],
-    [2, 0]
-];
-
 #const PLAYER_SHAPES = [
 #"",
 #"-sword",

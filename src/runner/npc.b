@@ -137,9 +137,26 @@ def moveNpc(c, delta) {
 def moveNpcNearPlayer(c, delta) {
     partyDx := 0;
     partyDy := 0;
-    if(c.npc.partyIndex < len(PARTY_DELTA)) {
-        partyDx := PARTY_DELTA[c.npc.partyIndex][0];
-        partyDy := PARTY_DELTA[c.npc.partyIndex][1];
+    if(player.move.dir = DIR_W) {
+        partyDx := -2;
+    } else if(player.move.dir = DIR_E) {
+        partyDx := 3;
+    } else if(player.move.dir = DIR_N) {
+        partyDy := 3;
+    } else if(player.move.dir = DIR_S) {
+        partyDy := -2;
+    } else if(player.move.dir = DIR_NW) {
+        partyDx := -2;
+        partyDy := 3;
+    } else if(player.move.dir = DIR_NE) {
+        partyDx := 3;
+        partyDy := 3;
+    } else if(player.move.dir = DIR_SW) {
+        partyDx := -2;
+        partyDy := -2;
+    } else if(player.move.dir = DIR_SE) {
+        partyDx := 3;
+        partyDy := -2;
     }
     return pathMove(c, delta, {
         name: c.npc.name, 

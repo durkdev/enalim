@@ -54,7 +54,7 @@ def pathMove(c, delta, opts) {
     # try to get there via astar
     # print("+++ " + c.pathMove.name + " calling findPath!");
     path := c.move.findPath(opts.dest.x, opts.dest.y, opts.dest.z, c.template.baseWidth, opts.nearDistance);
-    print("+++ " + printPathDelta(path));
+    # print("+++ [" + c.move.x + "," + c.move.y + "]-[" + opts.dest.x + "," + opts.dest.y + "] " + printPathDelta(path));
     if(path != null) {
         #print("+++ " + c.pathMove.name + " has path: ");
         #s := "";
@@ -95,7 +95,7 @@ def printPathDelta(path) {
             s :+ "," + (path[i] - path[i - 3]);
             i :+ 2;
         }
-        return s;
+        return s + " " + path;
     }
 }
 
