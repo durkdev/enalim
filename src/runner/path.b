@@ -54,7 +54,13 @@ def pathMove(c, delta, opts) {
     # try to get there via astar
     # print("+++ " + c.pathMove.name + " calling findPath!");
     path := c.move.findPath(opts.dest.x, opts.dest.y, opts.dest.z, c.template.baseWidth, opts.nearDistance);
-    # print("+++ [" + c.move.x + "," + c.move.y + "]-[" + opts.dest.x + "," + opts.dest.y + "] " + printPathDelta(path));
+    # if(opts.name = "Enandil" && path != null && len(path) > 12) {
+    #     print("---------------------------------------");
+    #     print("player=" + player.move.x + "," + player.move.y);
+    #     print("shape at c=" + getShape(c.move.x, c.move.y, c.move.z));
+    #     print("len=" + len(path)/3);
+    #     print("+++ [" + c.move.x + "," + c.move.y + "]-[" + opts.dest.x + "," + opts.dest.y + "] " + printPathDelta(path));
+    # }
     if(path != null) {
         #print("+++ " + c.pathMove.name + " has path: ");
         #s := "";

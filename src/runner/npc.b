@@ -134,7 +134,7 @@ def moveNpc(c, delta) {
     }
 }
 
-def moveNpcNearPlayer(c, delta) {
+def getNpcPartyOffset(c) {
     partyDx := 0;
     partyDy := 0;
     if(player.move.dir = DIR_W) {
@@ -158,23 +158,71 @@ def moveNpcNearPlayer(c, delta) {
         partyDx := 3;
         partyDy := -2;
     }
-    return pathMove(c, delta, {
-        name: c.npc.name, 
-        dest: { "x": player.move.x + partyDx, "y": player.move.y + partyDy, "z": player.move.z }, 
-        nearDistance: 2,
-        farDistance: 0,
-        largeBreak: self => random(),
-        smallBreak: self => random() * 0.25,
-        tempMove: (self, c, delta) => ANIM_STAND,
-        onDistance: (self, d) => {
-            if(d >= 8) {
-                c.move.speed := PLAYER_MOVE_SPEED * 0.25;
-            } else {
-                c.move.speed := PLAYER_MOVE_SPEED;
+    return [ partyDx, partyDy ];
+}
+
+def moveNpcNearPlayer(c, delta) {
+    partyOffset := getNpcPartyOffset(c);
+    destX := player.move.x + partyOffset[0];
+    destY := player.move.y + partyOffset[1];
+    destZ := player.move.z;
+
+    if(c.onPath = true) {
+        return pathMove(c, delta, {
+            name: c.npc.name, 
+            dest: { "x": destX, "y": destY, "z": destZ }, 
+            nearDistance: 2,
+            farDistance: 0,
+            largeBreak: self => random(),
+            smallBreak: self => random() * 0.25,
+            tempMove: (self, c, delta) => {
+                c.onPath := false;
+                return ANIM_STAND;
+            },
+            onDistance: (self, d) => {
+                if(d >= 8) {
+                    c.move.speed := PLAYER_MOVE_SPEED * 0.5;
+                } else {
+                    c.move.speed := PLAYER_MOVE_SPEED;
+                }
+            },
+            onSuccess: self => {
+                c.onPath := false;
+                return ANIM_STAND;
+            },
+        });
+    }
+    
+    dx := destX - c.move.x;
+    dy := destY - c.move.y;
+
+    if(c.move.z = destZ && abs(dx) <= 3 && abs(dy) <= 3) {
+        return ANIM_STAND;
+    }
+
+    # if(isEmpty(destX, destY, destZ, c.move.shape) = false) {
+    #     # print("wont fit");
+    #     return ANIM_STAND;
+    # }
+
+    # if close enough, just move there
+    if(c.move.z = destZ && abs(dx) < 8 && abs(dy) < 8) {
+        c.move.speed := PLAYER_MOVE_SPEED;
+        if(c.move.moveInDir(normalize(dx), normalize(dy), delta, null, null)) {
+            # print("move");
+
+            # cancel astar if any
+            if(c.pathMove != null) {
+                c.pathMove.path := null;
+                c.pathMove.step := 0;
             }
-        },
-        onSuccess: self => ANIM_STAND,
-    });
+            return ANIM_MOVE;
+        }
+    }
+    
+    # print("astar");
+    c.onPath := true;
+    return ANIM_MOVE;
 }
 
 def moveNpcSchedule(c, delta) {
