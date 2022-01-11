@@ -892,7 +892,15 @@
                 { "name": "item.ring.silver", "size": [ 1, 1, 0], "pos": [24, 768], "extra": true, "drag": true },
                 { "name": "item.ring.turquise", "size": [ 1, 1, 0], "pos": [40, 768], "extra": true, "drag": true },
                 { "name": "item.ring.azure", "size": [ 1, 1, 0], "pos": [56, 768], "extra": true, "drag": true },
-                { "name": "item.ring.ruby", "size": [ 1, 1, 0], "pos": [72, 768], "extra": true, "drag": true }
+                { "name": "item.ring.ruby", "size": [ 1, 1, 0], "pos": [72, 768], "extra": true, "drag": true },
+                { "name": "item.food.chicken", "size": [ 2, 2, 0], "pos": [0, 784], "extra": true, "drag": true },
+                { "name": "item.food.steak", "size": [ 2, 2, 0], "pos": [32, 784], "extra": true, "drag": true },
+                { "name": "item.food.fish", "size": [ 2, 2, 0], "pos": [64, 784], "extra": true, "drag": true },
+                { "name": "item.food.mutton", "size": [ 2, 2, 0], "pos": [96, 784], "extra": true, "drag": true },
+                { "name": "item.food.bread", "size": [ 2, 2, 0], "pos": [128, 784], "extra": true, "drag": true },
+                { "name": "item.food.grapes", "size": [ 2, 2, 0], "pos": [160, 784], "extra": true, "drag": true },
+                { "name": "item.food.wine", "size": [ 1, 1, 1], "pos": [8, 848], "extra": true, "drag": true },
+                { "name": "item.food.glass", "size": [ 1, 1, 1], "pos": [24, 848], "extra": true, "drag": true }
             ]
         }        
     ],    
