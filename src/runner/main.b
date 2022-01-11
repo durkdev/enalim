@@ -55,6 +55,7 @@ player := {
     movie: null,
     movieState: 0,
     party: [],
+    partyFormationIndex: 0,
 };    
 
 # the player's shape size
@@ -287,6 +288,7 @@ def eventsGameplay(delta, fadeDir) {
         }
     }
 
+    player.lastAnimation := animationType;
     player.move.setAnimation(animationType);
     moveCreatures(delta);
 }
@@ -349,10 +351,18 @@ def handleGameClick() {
                 openInventory();
             } else if(panel[0] = "player") {
                 raisePanel("player", "player");
+                px := panel[1];
+                py := panel[2];
+                index := array_find_index(PARTY_FORMATION_INDEX_UI, b => {
+                    return b[0] <= px && b[1] <= py && b[2] > px && b[3] > py;
+                });
+                if(index > -1) {
+                    player.partyFormationIndex := index;
+                }
                 updateEquipmentPanel();
                 if(panel[1] >= 104 * SLOT_POS_MUL && panel[1] < 150 * SLOT_POS_MUL && panel[2] >= 208 * SLOT_POS_MUL && panel[2] < 251 * SLOT_POS_MUL) {
                     openInventory();
-                }
+                }                
             } else {
                 c := getItemById(panel[0]);
                 raisePanel(c.id, c.uiImage);

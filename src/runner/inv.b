@@ -277,6 +277,20 @@ def newEquipment() {
                     };
                 }
             });
+            b := PARTY_FORMATION_INDEX_UI[player.partyFormationIndex];
+            print(b);
+            uis[len(uis)] := {
+                type: "uiOutline",
+                x: b[0],
+                y: b[1],
+                x2: b[2],
+                y2: b[3],
+                w: 3,
+                fgr: 120,
+                fgg: 33,
+                fgb: 33,
+                fga: 255,
+            };
             return uis;
         },
         getDescription: (self, index) => {

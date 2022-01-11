@@ -32,6 +32,20 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
             move.set(saved.x, saved.y, saved.z);
             move.dir := saved.dir;
         },
+        moveTo: (move, newX, newY, sx, sy) => {
+            if(newX != move.x || newY != move.y) {
+                newZ := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying);
+                if(newZ < 0) {
+                    return false;
+                } else {
+                    move.set(newX, newY, newZ);
+                }
+            }
+            move.scrollOffsetX := sx;
+            move.scrollOffsetY := sy;
+            setOffset(move.x, move.y, move.z, move.scrollOffsetX, move.scrollOffsetY);
+            return true;
+        },
         moveInDir: (move, dx, dy, delta, interceptMove, onPosChange) => {
             move.dir := getDir(dx, dy);
             moved := true;

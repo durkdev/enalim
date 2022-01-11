@@ -134,95 +134,72 @@ def moveNpc(c, delta) {
     }
 }
 
-def getNpcPartyOffset(c) {
-    partyDx := 0;
-    partyDy := 0;
-    if(player.move.dir = DIR_W) {
-        partyDx := -2;
-    } else if(player.move.dir = DIR_E) {
-        partyDx := 3;
-    } else if(player.move.dir = DIR_N) {
-        partyDy := 3;
-    } else if(player.move.dir = DIR_S) {
-        partyDy := -2;
-    } else if(player.move.dir = DIR_NW) {
-        partyDx := -2;
-        partyDy := 3;
-    } else if(player.move.dir = DIR_NE) {
-        partyDx := 3;
-        partyDy := 3;
-    } else if(player.move.dir = DIR_SW) {
-        partyDx := -2;
-        partyDy := -2;
-    } else if(player.move.dir = DIR_SE) {
-        partyDx := 3;
-        partyDy := -2;
-    }
-    return [ partyDx, partyDy ];
-}
+# order: w, sw, s, se, e, ne, n, nw
+const PARTY_FORMATION = [
+    [
+        [ [0, 2], [-2, 0], [-2, 0], [0, -2], [0, -2], [2, 0], [2, 0], [0, 2] ],
+        [ [-2, 2], [-2, -2], [-2, -2], [2, -2], [2, -2], [2, 2], [2, 2], [-2, 2] ],
+        [ [-2, 0], [0, -2], [0, -2], [2, 0], [2, 0], [0, 2], [0, 2], [-2, 0] ],
+    ],
+    [
+        [ [-2, 0], [-2, -2], [0, -2], [2, -2], [2, 0], [2, 2], [0, 2], [-2, 2] ],
+        [ [-4, 0], [-4, -4], [0, -4], [4, -4], [4, 0], [4, 4], [0, 4], [-4, 4] ],
+        [ [-6, 0], [-6, -6], [0, -6], [6, -6], [6, 0], [6, 6], [0, 6], [-6, 6] ],
+    ],
+    [
+        [ [-2, -2], [0, -4], [2, -2], [4, 0], [2, 2], [0, 4], [-2, 2], [-4, 0] ],
+        [ [-2, 0], [-2, -2], [0, -2], [2, -2], [2, 0], [2, 2], [0, 2], [-2, 2] ],
+        [ [-2, 2], [-4, 0], [-2, -2], [0, -4], [2, -2], [4, 0], [2, 2], [0, 4] ]
+    ],
+];
+
+const PARTY_FORMATION_INDEX_UI = [
+    [120, 704, 164, 747],
+    [192, 704, 236, 747],
+    [260, 704, 304, 747],
+];
 
 def moveNpcNearPlayer(c, delta) {
-    partyOffset := getNpcPartyOffset(c);
+    partyOffset := PARTY_FORMATION[player.partyFormationIndex][c.npc.partyIndex][player.move.dir];
     destX := player.move.x + partyOffset[0];
     destY := player.move.y + partyOffset[1];
     destZ := player.move.z;
-
-    if(c.onPath = true) {
-        return pathMove(c, delta, {
-            name: c.npc.name, 
-            dest: { "x": destX, "y": destY, "z": destZ }, 
-            nearDistance: 2,
-            farDistance: 0,
-            largeBreak: self => random(),
-            smallBreak: self => random() * 0.25,
-            tempMove: (self, c, delta) => {
-                c.onPath := false;
-                return ANIM_STAND;
-            },
-            onDistance: (self, d) => {
-                if(d >= 8) {
-                    c.move.speed := PLAYER_MOVE_SPEED * 0.5;
-                } else {
-                    c.move.speed := PLAYER_MOVE_SPEED;
-                }
-            },
-            onSuccess: self => {
-                c.onPath := false;
-                return ANIM_STAND;
-            },
-        });
-    }
-    
     dx := destX - c.move.x;
     dy := destY - c.move.y;
+    dz := destZ - c.move.z;
 
-    if(c.move.z = destZ && abs(dx) <= 3 && abs(dy) <= 3) {
-        return ANIM_STAND;
-    }
-
-    # if(isEmpty(destX, destY, destZ, c.move.shape) = false) {
-    #     # print("wont fit");
-    #     return ANIM_STAND;
-    # }
-
-    # if close enough, just move there
-    if(c.move.z = destZ && abs(dx) < 8 && abs(dy) < 8) {
+    # if close and can fit, move there
+    if(dz = 0 && abs(dx) < 4 && abs(dy) < 4) {
         c.move.speed := PLAYER_MOVE_SPEED;
-        if(c.move.moveInDir(normalize(dx), normalize(dy), delta, null, null)) {
-            # print("move");
-
-            # cancel astar if any
-            if(c.pathMove != null) {
-                c.pathMove.path := null;
-                c.pathMove.step := 0;
-            }
-            return ANIM_MOVE;
+        if(c.move.moveTo(destX, destY, player.move.scrollOffsetX, player.move.scrollOffsetY)) {
+            c.move.dir := player.move.dir;
+            cancelPathFind(c);
+            return player.lastAnimation;
         }
     }
     
-    # print("astar");
-    c.onPath := true;
-    return ANIM_MOVE;
+    # fallback to pathfind as last resort. Note: use nearDistance=2 because at that point player will be moved. Pathfind  is hard with nearDistance=0.
+    return pathMove(c, delta, {
+        name: c.npc.name, 
+        dest: { "x": destX, "y": destY, "z": destZ }, 
+        nearDistance: 2,
+        farDistance: 0,
+        largeBreak: self => random(),
+        smallBreak: self => random() * 0.25,
+        tempMove: (self, c, delta) => {
+            return ANIM_STAND;
+        },
+        onDistance: (self, d) => {
+            if(d >= 2) {
+                c.move.speed := PLAYER_MOVE_SPEED * 0.25;
+            } else {
+                c.move.speed := PLAYER_MOVE_SPEED;
+            }
+        },
+        onSuccess: self => {
+            return ANIM_STAND;
+        },
+    });
 }
 
 def moveNpcSchedule(c, delta) {

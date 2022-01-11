@@ -67,6 +67,43 @@ addNpcDef({
 });
 
 addNpcDef({
+    name: "Enandil2",
+    label: "Enandil2",
+    creature: "beard2",
+    convo: {
+        "": "can I $join?",
+        "join": () => {
+            joinParty(findCreatureByName("Enandil2"));
+            return "_end_convo_";
+        },
+    },
+    waypoints: [ [ 5770, 5831, 1] ],
+    schedule: [
+        { name: "work", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 },
+    ],
+});
+
+addNpcDef({
+    name: "Enandil3",
+    label: "Enandil3",
+    creature: "woman",
+    convo: {
+        "": "can I $join?",
+        "join": () => {
+            joinParty(findCreatureByName("Enandil3"));
+            return "_end_convo_";
+        },
+    },
+    waypoints: [ [ 5775, 5840, 1] ],
+    schedule: [
+        { name: "work", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 },
+    ],
+});
+
+
+addNpcDef({
     name: "ender",
     label: "Ender",
     creature: "beard2",

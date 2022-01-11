@@ -177,3 +177,11 @@ def pathFindLargeBreak(opts) {
         return 3 + random() * 2;
     }
 }
+
+def cancelPathFind(c) {
+    # cancel astar if any
+    if(c.pathMove != null) {
+        c.pathMove.path := null;
+        c.pathMove.step := 0;
+    }
+}
