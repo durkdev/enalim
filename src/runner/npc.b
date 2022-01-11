@@ -169,7 +169,7 @@ def moveNpcNearPlayer(c, delta) {
     dz := destZ - c.move.z;
 
     # if close and can fit, move there
-    if(dz = 0 && abs(dx) < 4 && abs(dy) < 4) {
+    if(dz < 2 && abs(dx) < 4 && abs(dy) < 4) {
         c.move.speed := PLAYER_MOVE_SPEED;
         if(c.move.moveTo(destX, destY, player.move.scrollOffsetX, player.move.scrollOffsetY)) {
             c.move.dir := player.move.dir;
@@ -191,7 +191,7 @@ def moveNpcNearPlayer(c, delta) {
         },
         onDistance: (self, d) => {
             if(d >= 2) {
-                c.move.speed := PLAYER_MOVE_SPEED * 0.25;
+                c.move.speed := PLAYER_MOVE_SPEED * 0.5;
             } else {
                 c.move.speed := PLAYER_MOVE_SPEED;
             }
