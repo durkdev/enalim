@@ -135,6 +135,7 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
         setAnimation: (move, animation) => setAnimation(move.x, move.y, move.z, animation, move.dir),
         erase: move => eraseShapeExact(move.x, move.y, move.z),
         setShape: (move, shape) => setShape(move.x, move.y, move.z, shape),
+        distanceToMove: (move, otherMove) => distance(move.x, move.y, move.z, otherMove.x, otherMove.y, otherMove.z),
         distanceTo: (move, nx, ny, nz) => distance(move.x, move.y, move.z, nx, ny, nz),
         distanceXyTo: (move, nx, ny) => distance(move.x, move.y, move.z, nx, ny, move.z),
         findPath: (move, destX, destY, destZ, dSrc, dDst, maxSteps) => findPath(move.x, move.y, move.z, destX, destY, destZ, move.isFlying, dSrc, dDst, maxSteps),

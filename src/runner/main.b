@@ -26,6 +26,7 @@ const PLAYER_SHAPE = "lydell";
 
 # the global player state
 player := {
+    id: "player",
     shape: PLAYER_SHAPE,
     shapeIndex: 0,
     mode: MODE_INIT,
@@ -227,7 +228,7 @@ def eventsGameplay(delta, fadeDir) {
         animationType := ANIM_ATTACK;
     } else if(player.coolTimer > 0) {
         if(player.attackTarget != null) {
-            attackDamage();
+            attackDamage(player);
         }
         player.coolTimer := player.coolTimer - delta;
     } else if(player.mouseDrive) {
@@ -290,7 +291,7 @@ def eventsGameplay(delta, fadeDir) {
         }
 
         if(player.combatMode) {
-            continueCombat();
+            continueCombat(player);
         }
     }
 
@@ -383,7 +384,7 @@ def handleGameClick() {
 
             creature := getCreature(pos[0], pos[1], pos[2]);
             if(creature != null && creature.template.movement = "hunt") {
-                startAttack(creature);
+                startAttack(creature, player);
                 return 1;
             }
 
@@ -1114,26 +1115,6 @@ def load_game(saved) {
         pc.move.speed := PLAYER_MOVE_SPEED;
     });
     setShapeFromEquipment();
-}
-
-def distanceAndDirToCreature(creature) {
-    cx := creature.move.x + creature.template.baseWidth/2;
-    cy := creature.move.y + creature.template.baseHeight/2;
-    px := player.move.x + 1;
-    py := player.move.y + 1;
-    dx := (cx - px);
-    if(dx != 0) {
-        dx := dx / abs(dx);
-    }
-    dy := (cy - py);
-    if(dy != 0) {
-        dy := dy / abs(dy);
-    }
-    dir := getDir(dx, dy);
-    d := distance(
-        cx, cy, creature.move.z, 
-        px, py, player.move.z);
-    return [d, dir];
 }
 
 def setShapeNearby(targetX, targetY, targetZ, shape, isExtra) {

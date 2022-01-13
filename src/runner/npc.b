@@ -39,7 +39,7 @@ def registerNpc(npc) {
         } else {
             npc.schedule[0].pos := w[0];
         }
-    }
+    }    
     npcDefs[npc.name] := npc;
 }
 
@@ -160,91 +160,125 @@ const PARTY_FORMATION_INDEX_UI = [
 ];
 
 def moveNpcNearPlayer(c, delta) {
-    #  don't move if we're scattering
-    if(player.scatter = true) {
+    #  don't move if we're scattering or fighting
+    print(c.npc.name + " combat=" + c.combatMode);
+    if(c.attackTimer > 0) {
+        c.attackTimer :- delta;
+        return ANIM_ATTACK;
+    } else if(c.coolTimer > 0) {
+        if(c.attackTarget != null) {
+            attackDamage(c);
+        }
+        c.coolTimer :- delta;
+    } else if(player.scatter = true) {
         return ANIM_STAND;
     }
-    partyOffset := PARTY_FORMATION[player.partyFormationIndex][c.npc.partyIndex][player.move.dir];
-    destX := player.move.x + partyOffset[0];
-    destY := player.move.y + partyOffset[1];
-    destZ := player.move.z;
-    dx := destX - c.move.x;
-    dy := destY - c.move.y;
-    dz := destZ - c.move.z;
+    print(c.npc.name + " b");
 
-    # if close and can fit, move there (most party movement uses this)
-    if(dz < 2 && abs(dx) <= 4 && abs(dy) <= 4) {
-        c.move.speed := PLAYER_MOVE_SPEED;
-        if(c.move.moveTo(destX, destY, player.move.scrollOffsetX, player.move.scrollOffsetY)) {
-            c.move.dir := player.move.dir;
-            c.lastDestX := null;
-            cancelPathFind(c);
-            return player.lastAnimation;
-        }
-    }
+    continueCombat(c);
+    print(c.npc.name + " c combat=" + c.combatMode);
 
-    # if the pc can't get to the destination, select another spot around the player
-    if(dz = 0 && isReachable(destX, destY, destZ, c.move.shape) = false) {
-        if(c.lastDestX != null && abs(c.lastDestX - destX) <= 4 && abs(c.lastDestY - destY) <= 4 && isReachable(c.lastDestX, c.lastDestY, destZ, c.move.shape)) {
-            destX := c.lastDestX;
-            destY := c.lastDestY;
-            destZ := c.lastDestZ;
+    if(c.combatMode) {
+        print(c.npc.name + " combat mode!");
+        if(c.attackTarget != null) {
+            print(c.npc.name + " targets " + c.attackTarget.id);
+            return pathMove(c, delta, {
+                name: c.npc.name, 
+                dest: c.attackTarget.move, 
+                nearDistance: 2,
+                farDistance: 20,
+                onSuccess: self => {
+                    return ANIM_ATTACK;
+                },
+            });
         } else {
-            pos := getNpcPositionNear(c, destX, destY, destZ);
-            if(pos != null) {
-                c.lastDestX := pos[0];
-                c.lastDestY := pos[1];
-                c.lastDestZ := pos[2];
+            print(c.npc.name + " has no target");
+            return ANIM_STAND;
+        }
+    } else {
+        print(c.npc.name + " regular movement");
+        partyOffset := PARTY_FORMATION[player.partyFormationIndex][c.npc.partyIndex][player.move.dir];
+        destX := player.move.x + partyOffset[0];
+        destY := player.move.y + partyOffset[1];
+        destZ := player.move.z;
+        dx := destX - c.move.x;
+        dy := destY - c.move.y;
+        dz := destZ - c.move.z;
+
+        # if close and can fit, move there (most party movement uses this)
+        if(dz < 2 && abs(dx) <= 4 && abs(dy) <= 4) {
+            c.move.speed := PLAYER_MOVE_SPEED;
+            if(c.move.moveTo(destX, destY, player.move.scrollOffsetX, player.move.scrollOffsetY)) {
+                c.move.dir := player.move.dir;
+                c.lastDestX := null;
+                cancelPathFind(c);
+                return player.lastAnimation;
+            }
+        }
+
+        # if the pc can't get to the destination, select another spot around the player
+        if(dz = 0 && isReachable(destX, destY, destZ, c.move.shape) = false) {
+            if(c.lastDestX != null && abs(c.lastDestX - destX) <= 4 && abs(c.lastDestY - destY) <= 4 && isReachable(c.lastDestX, c.lastDestY, destZ, c.move.shape)) {
                 destX := c.lastDestX;
                 destY := c.lastDestY;
                 destZ := c.lastDestZ;
             } else {
-                c.lastDestX := null;
+                pos := getNpcPositionNear(c, destX, destY, destZ);
+                if(pos != null) {
+                    c.lastDestX := pos[0];
+                    c.lastDestY := pos[1];
+                    c.lastDestZ := pos[2];
+                    destX := c.lastDestX;
+                    destY := c.lastDestY;
+                    destZ := c.lastDestZ;
+                } else {
+                    c.lastDestX := null;
+                }
             }
         }
-    }
 
-    # check for and rescue "lost" pc-s
-    dd := c.move.distanceTo(destX, destY, destZ);
-    if(dd > 20) {
-        r := getRescuePosition(destX, destY, destZ, c.move.shape, 20);
-        if(r != null) {
-            c.move.forceTo(r[0], r[1], r[2]);
-            cancelPathFind(c);
-            return player.lastAnimation;
-        } else {
-            # bad news bears... hopefully as player keeps moving this is fixed
-            print(c.npc.name + " no rescue position found");
-        }
-    }
-
-    # limit steps based on distance to avoid crazy paths for small movements
-    maxSteps := min(20, dd * 1.5);
-
-    # fallback to pathfind as last resort. Note: use nearDistance=4 because at that point player will be moved. 
-    # Pathfind  is hard with nearDistance=0.
-    return pathMove(c, delta, {
-        name: c.npc.name, 
-        dest: { "x": destX, "y": destY, "z": destZ }, 
-        nearDistance: 4,
-        farDistance: 0,
-        maxSteps: maxSteps,
-        largeBreak: self => random(),
-        smallBreak: self => random() * 0.25,
-        tempMove: (self, c, delta) => {
-            return ANIM_STAND;
-        },
-        onDistance: (self, d) => {
-            if(d >= 2) {
-                c.move.speed := PLAYER_MOVE_SPEED * 0.5;
+        # check for and rescue "lost" pc-s
+        dd := c.move.distanceTo(destX, destY, destZ);
+        if(dd > 20) {
+            r := getRescuePosition(destX, destY, destZ, c.move.shape, 20);
+            if(r != null) {
+                c.move.forceTo(r[0], r[1], r[2]);
+                cancelPathFind(c);
+                return player.lastAnimation;
             } else {
-                c.move.speed := PLAYER_MOVE_SPEED;
+                # bad news bears... hopefully as player keeps moving this is fixed
+                print(c.npc.name + " no rescue position found");
             }
-        },
-        onSuccess: self => {
-            return ANIM_STAND;
-        },
-    });
+        }
+
+        # limit steps based on distance to avoid crazy paths for small movements
+        maxSteps := min(20, dd * 1.5);
+
+        # fallback to pathfind as last resort. Note: use nearDistance=4 because at that point player will be moved. 
+        # Pathfind  is hard with nearDistance=0.
+        return pathMove(c, delta, {
+            name: c.npc.name, 
+            dest: { "x": destX, "y": destY, "z": destZ }, 
+            nearDistance: 4,
+            farDistance: 0,
+            maxSteps: maxSteps,
+            largeBreak: self => random(),
+            smallBreak: self => random() * 0.25,
+            tempMove: (self, c, delta) => {
+                return ANIM_STAND;
+            },
+            onDistance: (self, d) => {
+                if(d >= 2) {
+                    c.move.speed := PLAYER_MOVE_SPEED * 0.5;
+                } else {
+                    c.move.speed := PLAYER_MOVE_SPEED;
+                }
+            },
+            onSuccess: self => {
+                return ANIM_STAND;
+            },
+        });
+    }
 }
 
 def getNpcPositionNear(c, destX, destY, destZ) {

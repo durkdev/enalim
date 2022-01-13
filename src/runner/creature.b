@@ -44,15 +44,20 @@ def restoreCreature(savedCreature) {
     move := decodeMovement(savedCreature.move, tmpl.baseWidth, tmpl.baseHeight, tmpl.sizeZ, tmpl.shape, tmpl.speed, false, tmpl.isFlying);
     move.setShape(tmpl.shape);
     c := {
-        "id": savedCreature.id,
-        "template": tmpl,
-        "move": move,
-        "anchor": [ move.x, move.y, move.z ],
-        "anchorTimer": 0,
-        "anchorMode": ANIM_MOVE,
-        "npc": decodeNpc(savedCreature.npc),
-        "movement": savedCreature.movement,
-        "hp": savedCreature.hp,
+        id: savedCreature.id,
+        template: tmpl,
+        move: move,
+        anchor: [ move.x, move.y, move.z ],
+        anchorTimer: 0,
+        anchorMode: ANIM_MOVE,
+        npc: decodeNpc(savedCreature.npc),
+        movement: savedCreature.movement,
+        hp: savedCreature.hp,
+        coolTimer: 0,
+        attackTimer: 0,
+        attackTarget: null,
+        lastAttackTarget: null,
+        combatMode: false,
     };
     creatures[len(creatures)] := c;
     return c;
@@ -64,15 +69,20 @@ def setCreature(x, y, z, creature) {
     if(c = null) {
         # print("* Adding creature: " + creature.shape + " " + id);
         c := {
-            "id": id,
-            "template": creature,
-            "move": newMovement(x, y, z, creature.baseWidth, creature.baseHeight, creature.sizeZ, creature.shape, creature.speed, false, creature.isFlying),
-            "anchor": [ x, y, z ],
-            "anchorTimer": 0,
-            "anchorMode": ANIM_MOVE,
-            "npc": null,
-            "movement": creature.movement,
-            "hp": creature.hp,
+            id: id,
+            template: creature,
+            move: newMovement(x, y, z, creature.baseWidth, creature.baseHeight, creature.sizeZ, creature.shape, creature.speed, false, creature.isFlying),
+            anchor: [ x, y, z ],
+            anchorTimer: 0,
+            anchorMode: ANIM_MOVE,
+            npc: null,
+            movement: creature.movement,
+            hp: creature.hp,
+            coolTimer: 0,
+            attackTimer: 0,
+            attackTarget: null,
+            lastAttackTarget: null,
+            combatMode: false,
         };
         c.move.setShape(creature.shape);
         creatures[len(creatures)] := c;
