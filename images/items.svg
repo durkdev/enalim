@@ -4,7 +4,7 @@
    inkscape:export-xdpi="288"
    inkscape:export-filename="/Users/gtorok/go/src/github.com/uzudil/enalim/images/items.png"
    sodipodi:docname="items.svg"
-   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
    id="svg8"
    version="1.1"
    viewBox="0 0 264.58333 264.58334"
@@ -16155,6 +16155,15 @@
        y2="795.3125"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.26458333,0,0,0.26458333,0.0826823,1.0417969)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient97157"
+       id="linearGradient18549"
+       x1="597.625"
+       y1="195.4375"
+       x2="588.5"
+       y2="195.6875"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -16163,17 +16172,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.656854"
-     inkscape:cx="19.357049"
-     inkscape:cy="831.82278"
+     inkscape:zoom="8"
+     inkscape:cx="551"
+     inkscape:cy="184.75"
      inkscape:document-units="px"
-     inkscape:current-layer="svg8"
+     inkscape:current-layer="layer6"
      inkscape:document-rotation="0"
      showgrid="true"
      units="px"
      inkscape:snap-global="false"
-     inkscape:window-width="1440"
-     inkscape:window-height="847"
+     inkscape:window-width="1673"
+     inkscape:window-height="1166"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
@@ -17089,6 +17098,11 @@
        style="fill:#008080;fill-opacity:1;stroke:none;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
        d="m 25.400001,224.36668 -2.116667,2.11666 v 2.11667 l 2.116667,2.11667 2.116666,-2.11667 v -2.11667 z"
        id="path13976" />
+    <path
+       style="fill:#008080;fill-opacity:1;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
+       d="m 141.81667,57.149999 6.35,6.35 4.23333,-4.233331 v -8.466667 l -6.35,-6.35 -4.23333,4.233332 z"
+       id="path11258"
+       sodipodi:nodetypes="ccccccc" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -20897,6 +20911,43 @@
          d="m 46.368231,210.52566 0.165365,-0.49609 0.446484,-0.33073 0.463021,0.0496 0.214974,0.21497 -0.03307,0.21497 -0.165365,-0.11575 -0.115755,0.13229 0.04961,0.13229 0.165364,0.0827 0.297656,-0.11575 0.04961,-0.23151 0.08268,0.41341 -0.198437,0.16536 0.132291,0.21498 0.28112,0.0331 0.04961,-0.16536 -0.01654,0.33073 -0.297656,0.11575 -0.777214,-0.0165 0.03307,0.0992 0.165365,0.13229 0.198437,-0.0992 -0.08268,0.24804 -0.28112,0.0496 -0.264583,-0.0661 -0.231511,-0.3142 -0.248046,-0.31419 z"
          id="path145091" />
     </g>
+    <path
+       style="fill:#333333;fill-opacity:1;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
+       d="m 141.98203,57.083853 v -8.16901 l 6.21771,6.217708 v 8.268229 l -0.3638,-0.330729 v -0.562239 l -5.45704,-5.457031 -0.0992,0.429947 z"
+       id="path17421" />
+    <path
+       style="fill:#4d4d4d;fill-opacity:1;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
+       d="m 148.13359,55.033333 4.13412,-3.96875 v 8.202083 l -0.28112,0.28112 -0.0827,-0.28112 -3.29075,3.290755 -0.0827,0.446484 -0.36381,0.264584 z"
+       id="path17489" />
+    <path
+       style="fill:#666666;fill-opacity:1;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
+       d="m 141.98203,48.980989 4.0845,-4.084505 6.18464,6.184635 -4.06797,4.067969 z"
+       id="path17557" />
+    <path
+       style="fill:#666666;fill-opacity:1;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
+       d="m 148.66276,61.515624 3.19153,-3.191537 v -2.33164 l -3.15019,3.150195 z"
+       id="path17625" />
+    <path
+       style="fill:#666666;fill-opacity:1;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
+       d="m 148.66276,58.175259 3.19153,-3.191537 v -2.33164 l -3.15019,3.150195 z"
+       id="path17707" />
+    <circle
+       style="fill:#333333;fill-opacity:1;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
+       id="path18096"
+       cx="148.29895"
+       cy="51.163803"
+       r="2.2820313" />
+    <path
+       id="path18200"
+       style="fill:url(#linearGradient18549);fill-opacity:1;stroke-width:0.500001;stroke-linecap:round;stroke-linejoin:round"
+       d="M 586.875 184 L 586.875 200 L 587.00977 200 A 4.9999997 4.9999997 0 0 0 587 200.125 A 4.9999997 4.9999997 0 0 0 592 205.125 A 4.9999997 4.9999997 0 0 0 597 200.125 A 4.9999997 4.9999997 0 0 0 596.99609 200 L 597 200 L 597 184 L 586.875 184 z "
+       transform="scale(0.26458333)" />
+    <circle
+       style="fill:#212121;fill-opacity:1;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round"
+       id="circle18539"
+       cx="156.63333"
+       cy="48.683331"
+       r="1.3229166" />
   </g>
   <g
      inkscape:groupmode="layer"

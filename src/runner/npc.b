@@ -138,8 +138,8 @@ def moveNpc(c, delta) {
 const PARTY_FORMATION = [
     [
         [ [0, 2], [-2, 0], [-2, 0], [0, -2], [0, -2], [2, 0], [2, 0], [0, 2] ],
-        [ [-2, 2], [-2, -2], [-2, -2], [2, -2], [2, -2], [2, 2], [2, 2], [-2, 2] ],
         [ [-2, 0], [0, -2], [0, -2], [2, 0], [2, 0], [0, 2], [0, 2], [-2, 0] ],
+        [ [-2, 2], [-2, -2], [-2, -2], [2, -2], [2, -2], [2, 2], [2, 2], [-2, 2] ],
     ],
     [
         [ [-2, 0], [-2, -2], [0, -2], [2, -2], [2, 0], [2, 2], [0, 2], [-2, 2] ],
@@ -160,6 +160,10 @@ const PARTY_FORMATION_INDEX_UI = [
 ];
 
 def moveNpcNearPlayer(c, delta) {
+    #  don't move if we're scattering
+    if(player.scatter = true) {
+        return ANIM_STAND;
+    }
     partyOffset := PARTY_FORMATION[player.partyFormationIndex][c.npc.partyIndex][player.move.dir];
     destX := player.move.x + partyOffset[0];
     destY := player.move.y + partyOffset[1];
@@ -168,22 +172,63 @@ def moveNpcNearPlayer(c, delta) {
     dy := destY - c.move.y;
     dz := destZ - c.move.z;
 
-    # if close and can fit, move there
-    if(dz < 2 && abs(dx) < 4 && abs(dy) < 4) {
+    # if close and can fit, move there (most party movement uses this)
+    if(dz < 2 && abs(dx) <= 4 && abs(dy) <= 4) {
         c.move.speed := PLAYER_MOVE_SPEED;
         if(c.move.moveTo(destX, destY, player.move.scrollOffsetX, player.move.scrollOffsetY)) {
             c.move.dir := player.move.dir;
+            c.lastDestX := null;
             cancelPathFind(c);
             return player.lastAnimation;
         }
     }
-    
-    # fallback to pathfind as last resort. Note: use nearDistance=2 because at that point player will be moved. Pathfind  is hard with nearDistance=0.
+
+    # if the pc can't get to the destination, select another spot around the player
+    if(dz = 0 && isReachable(destX, destY, destZ, c.move.shape) = false) {
+        if(c.lastDestX != null && abs(c.lastDestX - destX) <= 4 && abs(c.lastDestY - destY) <= 4 && isReachable(c.lastDestX, c.lastDestY, destZ, c.move.shape)) {
+            destX := c.lastDestX;
+            destY := c.lastDestY;
+            destZ := c.lastDestZ;
+        } else {
+            pos := getNpcPositionNear(c, destX, destY, destZ);
+            if(pos != null) {
+                c.lastDestX := pos[0];
+                c.lastDestY := pos[1];
+                c.lastDestZ := pos[2];
+                destX := c.lastDestX;
+                destY := c.lastDestY;
+                destZ := c.lastDestZ;
+            } else {
+                c.lastDestX := null;
+            }
+        }
+    }
+
+    # check for and rescue "lost" pc-s
+    dd := c.move.distanceTo(destX, destY, destZ);
+    if(dd > 20) {
+        r := getRescuePosition(destX, destY, destZ, c.move.shape, 20);
+        if(r != null) {
+            c.move.forceTo(r[0], r[1], r[2]);
+            cancelPathFind(c);
+            return player.lastAnimation;
+        } else {
+            # bad news bears... hopefully as player keeps moving this is fixed
+            print(c.npc.name + " no rescue position found");
+        }
+    }
+
+    # limit steps based on distance to avoid crazy paths for small movements
+    maxSteps := min(20, dd * 1.5);
+
+    # fallback to pathfind as last resort. Note: use nearDistance=4 because at that point player will be moved. 
+    # Pathfind  is hard with nearDistance=0.
     return pathMove(c, delta, {
         name: c.npc.name, 
         dest: { "x": destX, "y": destY, "z": destZ }, 
-        nearDistance: 2,
+        nearDistance: 4,
         farDistance: 0,
+        maxSteps: maxSteps,
         largeBreak: self => random(),
         smallBreak: self => random() * 0.25,
         tempMove: (self, c, delta) => {
@@ -200,6 +245,63 @@ def moveNpcNearPlayer(c, delta) {
             return ANIM_STAND;
         },
     });
+}
+
+def getNpcPositionNear(c, destX, destY, destZ) {
+    pos := [0, 0, 0];
+    r := 2;
+    # while(r <= 4) {
+        range(-1 * r, r + 1, 2, x => {
+            xx := destX + x;
+            yy := destY - r;
+            if(pos[0] = 0 && isReachable(xx, yy, destZ, c.move.shape)) {
+                pos[0] := xx;
+                pos[1] := yy;
+                pos[2] := destZ;
+            }
+        });
+        if(pos[0] > 0) {
+            return pos;
+        }
+        range(-1 * r, r + 1, 2, x => {
+            xx := destX + x;
+            yy := destY + r;
+            if(pos[0] = 0 && isReachable(xx, yy, destZ, c.move.shape)) {
+                pos[0] := xx;
+                pos[1] := yy;
+                pos[2] := destZ;
+            }
+        });
+        if(pos[0] > 0) {
+            return pos;
+        }
+        range(-1 * r, r + 1, 2, y => {
+            xx := destX - r;
+            yy := destY + y;
+            if(pos[0] = 0 && isReachable(xx, yy, destZ, c.move.shape)) {
+                pos[0] := xx;
+                pos[1] := yy;
+                pos[2] := destZ;
+            }
+        });
+        if(pos[0] > 0) {
+            return pos;
+        }
+        range(-1 * r, r + 1, 2, y => {
+            xx := destX + r;
+            yy := destY + y;
+            if(pos[0] = 0 && isReachable(xx, yy, destZ, c.move.shape)) {
+                pos[0] := xx;
+                pos[1] := yy;
+                pos[2] := destZ;
+            }
+        });
+        if(pos[0] > 0) {
+            return pos;
+        }
+        # r :+ 2;
+    # }
+    return null;
 }
 
 def moveNpcSchedule(c, delta) {
@@ -256,21 +358,23 @@ def getTraderInventory(npc, cat) {
 }
 
 def npcScatter(x, y, z, shape) {
+    player.scatter := true;
     array_foreach(creatures, (i, c) => {
-        if(c.npc != null && intersectsShapes(x, y, z, shape, c.move.x, c.move.y, c.move.z, c.move.shape)) {
+        if(c.npc != null && (c.npc.partyIndex != null || intersectsShapes(x, y, z, shape, c.move.x, c.move.y, c.move.z, c.move.shape))) {
             tryNpcScatter(c);
         }
     });
+    player.scatter := false;
 }
 
 def tryNpcScatter(c) {
     moves := [ [0, 1], [0, -1], [1, 0], [-1, 0] ];
-    success := false;
-    while(success || len(moves) > 0) {
+    done := false;
+    while(done = false && len(moves) > 0) {
         idx := int(random() * len(moves));
         d := moves[idx];
         if(c.move.moveInDir(d[0], d[1], c.move.speed, null, null)) {
-            success := true;
+            done := true;
         }
         del moves[idx];
     }

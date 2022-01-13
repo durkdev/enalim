@@ -22,7 +22,6 @@ def pathMove(c, delta, opts) {
 
     # already there?
     if(int(destDistance) <= minDist) {
-        # print(c.pathMove.name + " move done - will act!");
         return opts.onSuccess();
     }
 
@@ -32,7 +31,6 @@ def pathMove(c, delta, opts) {
             # finished path?
             c.pathMove.path := null;
             c.pathMove.step := 0;
-            # print(c.pathMove.name + " path done, will try new path");
         } else {
             return takePathMoveStep(c, delta, destDistance, minDist, opts);
         }
@@ -53,14 +51,13 @@ def pathMove(c, delta, opts) {
     
     # try to get there via astar
     # print("+++ " + c.pathMove.name + " calling findPath!");
-    path := c.move.findPath(opts.dest.x, opts.dest.y, opts.dest.z, c.template.baseWidth, opts.nearDistance);
-    # if(opts.name = "Enandil" && path != null) {
-    #     print("---------------------------------------");
-    #     print("player=" + player.move.x + "," + player.move.y);
-    #     print("shape at c=" + getShape(c.move.x, c.move.y, c.move.z));
-    #     print("len=" + len(path)/3);
-    #     print("+++ [" + c.move.x + "," + c.move.y + "]-[" + opts.dest.x + "," + opts.dest.y + "] " + printPathDelta(path));
-    # }
+    maxSteps := opts.maxSteps;
+    if(maxSteps = null) {
+        maxSteps := 20;
+    }
+    path := c.move.findPath(opts.dest.x, opts.dest.y, opts.dest.z, c.template.baseWidth, opts.nearDistance, maxSteps);
+    # print("len=" + len(path)/3);
+    # print("+++ [" + c.move.x + "," + c.move.y + "]-[" + opts.dest.x + "," + opts.dest.y + "] " + printPathDelta(path));
     if(path != null) {
         #print("+++ " + c.pathMove.name + " has path: ");
         #s := "";

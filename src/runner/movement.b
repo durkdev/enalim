@@ -32,6 +32,14 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
             move.set(saved.x, saved.y, saved.z);
             move.dir := saved.dir;
         },
+        forceTo: (move, newX, newY, newZ) => {
+            move.erase();
+            move.set(newX, newY, newZ);
+            move.setShape(move.shape);
+            move.scrollOffsetX := 0;
+            move.scrollOffsetY := 0;
+            setOffset(move.x, move.y, move.z, move.scrollOffsetX, move.scrollOffsetY);
+        },
         moveTo: (move, newX, newY, sx, sy) => {
             if(newX != move.x || newY != move.y) {
                 newZ := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying);
@@ -67,7 +75,7 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                     }
                 }
 
-                newZ := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying);
+                newZ := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying, move.shape);
                 if(newZ > -1) {
                     if(move.centerView) {
                         moveViewTo(newX, newY);
@@ -103,13 +111,33 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                 setViewScroll(0, 0, int(move.z / 7) * 7);
             }
         },
+        setNear: (move, x, y, z) => {
+            r := 1;
+            done := false;
+            while(done = false && r <= 8) {
+                xx := x - r;
+                while(done = false && xx <= x + r) {
+                    yy := y - r;
+                    while(done = false && yy <= y + r) {
+                        if(isEmpty(xx, yy, z, move.shape) && isEmpty(xx, yy, z - 1, move.shape) = false) {
+                            print("Moving " + move.shape + " to " + xx + "," + yy + "," + z);
+                            move.set(xx, yy, z);
+                            done := true;
+                        }
+                        yy :+ 1;
+                    }
+                    xx :+ 1;
+                }
+                r :+ 1;
+            }
+        },
         isAt: (move, x, y, z) => x = move.x && y = move.y && z = move.z,
         setAnimation: (move, animation) => setAnimation(move.x, move.y, move.z, animation, move.dir),
         erase: move => eraseShapeExact(move.x, move.y, move.z),
         setShape: (move, shape) => setShape(move.x, move.y, move.z, shape),
         distanceTo: (move, nx, ny, nz) => distance(move.x, move.y, move.z, nx, ny, nz),
         distanceXyTo: (move, nx, ny) => distance(move.x, move.y, move.z, nx, ny, move.z),
-        findPath: (move, destX, destY, destZ, dSrc, dDst) => findPath(move.x, move.y, move.z, destX, destY, destZ, move.isFlying, dSrc, dDst),
+        findPath: (move, destX, destY, destZ, dSrc, dDst, maxSteps) => findPath(move.x, move.y, move.z, destX, destY, destZ, move.isFlying, dSrc, dDst, maxSteps),
         findNearby: (move, radius, evalFx, successFx) => {
             found := [false];
             range(-1 * radius, move.width + radius, 1, x => {

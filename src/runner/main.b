@@ -197,6 +197,12 @@ def eventsTeleport(delta, fadeDir) {
         player.move.setShape(player.shape);
         player.teleportPos := null;
         setRoofVisiblity();
+        array_foreach(player.party, (i, pc) => {
+            pc.move.erase();
+            pc.move.setNear(player.move.x, player.move.y, player.move.z);
+            pc.move.setShape(pc.move.shape);
+            pc.move.setAnimation(ANIM_STAND);
+        });
         player.mode := MODE_GAME;
     }
     player.move.setAnimation(ANIM_STAND);
@@ -912,6 +918,9 @@ def checkTeleportLocations(newX, newY, newZ) {
     if(player.teleportPos != null) {
         # erase player or else it stays on map sometimes...
         player.move.erase();
+        array_foreach(player.party, (i, pc) => {
+            pc.move.erase();
+        });
         player.mode := MODE_TELEPORT;
         fadeViewTo(player.teleportPos[0], player.teleportPos[1]);
         return true;
