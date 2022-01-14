@@ -136,21 +136,33 @@ def moveNpc(c, delta) {
 
 # order: w, sw, s, se, e, ne, n, nw
 const PARTY_FORMATION = [
-    [
-        [ [0, 2], [-2, 0], [-2, 0], [0, -2], [0, -2], [2, 0], [2, 0], [0, 2] ],
-        [ [-2, 0], [0, -2], [0, -2], [2, 0], [2, 0], [0, 2], [0, 2], [-2, 0] ],
-        [ [-2, 2], [-2, -2], [-2, -2], [2, -2], [2, -2], [2, 2], [2, 2], [-2, 2] ],
-    ],
-    [
-        [ [-2, 0], [-2, -2], [0, -2], [2, -2], [2, 0], [2, 2], [0, 2], [-2, 2] ],
-        [ [-4, 0], [-4, -4], [0, -4], [4, -4], [4, 0], [4, 4], [0, 4], [-4, 4] ],
-        [ [-6, 0], [-6, -6], [0, -6], [6, -6], [6, 0], [6, 6], [0, 6], [-6, 6] ],
-    ],
-    [
-        [ [-2, -2], [0, -4], [2, -2], [4, 0], [2, 2], [0, 4], [-2, 2], [-4, 0] ],
-        [ [-2, 0], [-2, -2], [0, -2], [2, -2], [2, 0], [2, 2], [0, 2], [-2, 2] ],
-        [ [-2, 2], [-4, 0], [-2, -2], [0, -4], [2, -2], [4, 0], [2, 2], [0, 4] ]
-    ],
+    {
+        follow: "player",
+        minDist: 4,
+        formation: [
+            [ [0, 2], [-2, 0], [-2, 0], [0, -2], [0, -2], [2, 0], [2, 0], [0, 2] ],
+            [ [-2, 0], [0, -2], [0, -2], [2, 0], [2, 0], [0, 2], [0, 2], [-2, 0] ],
+            [ [-2, 2], [-2, -2], [-2, -2], [2, -2], [2, -2], [2, 2], [2, 2], [-2, 2] ],
+        ]
+    },
+    {
+        follow: "previous",
+        minDist: 2,
+        formation: [
+            [ [-2, 0], [-2, -2], [0, -2], [2, -2], [2, 0], [2, 2], [0, 2], [-2, 2] ],
+            [ [-2, 0], [-2, -2], [0, -2], [2, -2], [2, 0], [2, 2], [0, 2], [-2, 2] ],
+            [ [-2, 0], [-2, -2], [0, -2], [2, -2], [2, 0], [2, 2], [0, 2], [-2, 2] ],
+        ]
+    },
+    {
+        follow: "player",
+        minDist: 4,
+        formation: [
+            [ [-2, -2], [0, -4], [2, -2], [4, 0], [2, 2], [0, 4], [-2, 2], [-4, 0] ],
+            [ [-2, 0], [-2, -2], [0, -2], [2, -2], [2, 0], [2, 2], [0, 2], [-2, 2] ],
+            [ [-2, 2], [-4, 0], [-2, -2], [0, -4], [2, -2], [4, 0], [2, 2], [0, 4] ]
+        ]
+    },
 ];
 
 const PARTY_FORMATION_INDEX_UI = [
@@ -161,7 +173,6 @@ const PARTY_FORMATION_INDEX_UI = [
 
 def moveNpcNearPlayer(c, delta) {
     #  don't move if we're scattering or fighting
-    print(c.npc.name + " combat=" + c.combatMode);
     if(c.attackTimer > 0) {
         c.attackTimer :- delta;
         return ANIM_ATTACK;
@@ -170,46 +181,45 @@ def moveNpcNearPlayer(c, delta) {
             attackDamage(c);
         }
         c.coolTimer :- delta;
+        return ANIM_STAND;
     } else if(player.scatter = true) {
         return ANIM_STAND;
     }
-    print(c.npc.name + " b");
 
-    continueCombat(c);
-    print(c.npc.name + " c combat=" + c.combatMode);
-
-    if(c.combatMode) {
-        print(c.npc.name + " combat mode!");
-        if(c.attackTarget != null) {
-            print(c.npc.name + " targets " + c.attackTarget.id);
-            return pathMove(c, delta, {
-                name: c.npc.name, 
-                dest: c.attackTarget.move, 
-                nearDistance: 2,
-                farDistance: 20,
-                onSuccess: self => {
-                    return ANIM_ATTACK;
-                },
-            });
-        } else {
-            print(c.npc.name + " has no target");
-            return ANIM_STAND;
-        }
+    if(continueCombat(c)) {
+        return pathMove(c, delta, {
+            name: c.npc.name, 
+            dest: c.attackTarget.move, 
+            nearDistance: 2,
+            farDistance: 20,
+            onSuccess: self => {
+                return ANIM_STAND;
+            },
+        });
     } else {
-        print(c.npc.name + " regular movement");
-        partyOffset := PARTY_FORMATION[player.partyFormationIndex][c.npc.partyIndex][player.move.dir];
-        destX := player.move.x + partyOffset[0];
-        destY := player.move.y + partyOffset[1];
-        destZ := player.move.z;
+        info := PARTY_FORMATION[player.partyFormationIndex];
+        offsetPc := player;
+        if(info.follow = "previous" && c.npc.partyIndex > 0) {
+            offsetPc := player.party[c.npc.partyIndex - 1];
+        }
+        partyOffset := info.formation[c.npc.partyIndex][offsetPc.move.dir];
+        destX := offsetPc.move.x + partyOffset[0];
+        destY := offsetPc.move.y + partyOffset[1];
+        destZ := offsetPc.move.z;
         dx := destX - c.move.x;
         dy := destY - c.move.y;
         dz := destZ - c.move.z;
 
+        # don't react to small movements
+        if(dz = 0 && abs(dx) <= info.minDist && abs(dy) <= info.minDist && player.moveTimer < 0.2) {
+            return ANIM_STAND;
+        }
+
         # if close and can fit, move there (most party movement uses this)
-        if(dz < 2 && abs(dx) <= 4 && abs(dy) <= 4) {
+        if(dz < 2 && abs(dx) <= info.minDist && abs(dy) <= info.minDist) {
             c.move.speed := PLAYER_MOVE_SPEED;
-            if(c.move.moveTo(destX, destY, player.move.scrollOffsetX, player.move.scrollOffsetY)) {
-                c.move.dir := player.move.dir;
+            if(c.move.moveTo(destX, destY, offsetPc.move.scrollOffsetX, offsetPc.move.scrollOffsetY)) {
+                c.move.dir := offsetPc.move.dir;
                 c.lastDestX := null;
                 cancelPathFind(c);
                 return player.lastAnimation;
@@ -218,7 +228,7 @@ def moveNpcNearPlayer(c, delta) {
 
         # if the pc can't get to the destination, select another spot around the player
         if(dz = 0 && isReachable(destX, destY, destZ, c.move.shape) = false) {
-            if(c.lastDestX != null && abs(c.lastDestX - destX) <= 4 && abs(c.lastDestY - destY) <= 4 && isReachable(c.lastDestX, c.lastDestY, destZ, c.move.shape)) {
+            if(c.lastDestX != null && abs(c.lastDestX - destX) <= info.minDist && abs(c.lastDestY - destY) <= info.minDist && isReachable(c.lastDestX, c.lastDestY, destZ, c.move.shape)) {
                 destX := c.lastDestX;
                 destY := c.lastDestY;
                 destZ := c.lastDestZ;
@@ -256,24 +266,18 @@ def moveNpcNearPlayer(c, delta) {
 
         # fallback to pathfind as last resort. Note: use nearDistance=4 because at that point player will be moved. 
         # Pathfind  is hard with nearDistance=0.
+        c.move.speed := PLAYER_MOVE_SPEED * 0.5;
         return pathMove(c, delta, {
             name: c.npc.name, 
             dest: { "x": destX, "y": destY, "z": destZ }, 
-            nearDistance: 4,
+            nearDistance: info.minDist,
             farDistance: 0,
             maxSteps: maxSteps,
             largeBreak: self => random(),
             smallBreak: self => random() * 0.25,
             tempMove: (self, c, delta) => {
                 return ANIM_STAND;
-            },
-            onDistance: (self, d) => {
-                if(d >= 2) {
-                    c.move.speed := PLAYER_MOVE_SPEED * 0.5;
-                } else {
-                    c.move.speed := PLAYER_MOVE_SPEED;
-                }
-            },
+            },            
             onSuccess: self => {
                 return ANIM_STAND;
             },

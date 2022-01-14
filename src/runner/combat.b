@@ -1,8 +1,8 @@
-def startAttack(creature, pc) {
+def runAttack(pc) {
     if(pc.coolTimer <= 0) {
-        distAndDir := distanceAndDirToCreature(creature, pc);
+        distAndDir := distanceAndDirToCreature(pc.attackTarget, pc);
         pc.move.dir := distAndDir[1];
-        if(int(distAndDir[0]) <= creature.template.baseWidth/2 + 1) {
+        if(int(distAndDir[0]) <= pc.attackTarget.template.baseWidth/2 + 1) {
             # attack
             if(random() >= 0.75) {
                 timedMessage(
@@ -15,10 +15,6 @@ def startAttack(creature, pc) {
             }
             pc.attackTimer := ANIMATION_SPEED * 2;
             pc.coolTimer := 0.5;
-            pc.attackTarget := creature;
-            pc.combatMode := true;
-        } else {
-            # move nearer to the enemy
         }
     }
 }
@@ -44,16 +40,25 @@ def distanceAndDirToCreature(creature, pc) {
 }
 
 def continueCombat(pc) {
-    if(pc.lastAttackTarget != null) {
-        if(pc.lastAttackTarget.hp > 0) {
-            startAttack(player.lastAttackTarget, pc);
-            return 1;
-        }
+    c := pc.lastAttackTarget;
+    if(c = null || c.hp <= 0) {
+        c := findNearestMonster(pc);
     }
-    c := findNearestMonster(pc);
-    if(c != null) {
-        startAttack(c, pc);
+    if(c = null) {
+        pc.attackTarget := null;
+        pc.combatMode := false;
+    } else {
+        pc.attackTarget := c;
+        pc.combatMode := true;
+        runAttack(pc);
     }
+    return pc.combatMode;
+}
+
+def startCombat(creature, pc) {
+    pc.attackTarget := c;
+    pc.combatMode := true;
+    runAttack(pc);
 }
 
 def findNearestMonster(pc) {
@@ -76,7 +81,7 @@ def attackDamage(pc) {
         array_remove(creatures, cc => {
             return cc.id = c.id;
         });
-        pc.combatMode := findNearestMonster(pc) != null;
+        # pc.combatMode := findNearestMonster(pc) != null;
     });
     pc.lastAttackTarget := pc.attackTarget;
     pc.attackTarget := null;

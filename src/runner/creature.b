@@ -58,6 +58,7 @@ def restoreCreature(savedCreature) {
         attackTarget: null,
         lastAttackTarget: null,
         combatMode: false,
+        moveTimer: 0,
     };
     creatures[len(creatures)] := c;
     return c;

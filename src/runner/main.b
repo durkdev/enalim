@@ -57,6 +57,8 @@ player := {
     movieState: 0,
     party: [],
     partyFormationIndex: 0,
+    moveTimer: 0,
+    moving: false,
 };    
 
 # the player's shape size
@@ -211,6 +213,7 @@ def eventsTeleport(delta, fadeDir) {
 }
 
 def eventsGameplay(delta, fadeDir) {
+    player.moving := false;
     if(player.movie != null) {
         if(player.movie = "wyntergale") {
             wyntergale_cutscene(delta, fadeDir);
@@ -237,7 +240,7 @@ def eventsGameplay(delta, fadeDir) {
             dy := cursorDir[1];
             if(dx != 0 || dy != 0) {
                 animationType := ANIM_MOVE;
-                playerMove(dx, dy, delta);
+                player.moving := playerMove(dx, dy, delta);                
             }
         } else {
             player.mouseDrive := false;
@@ -259,7 +262,7 @@ def eventsGameplay(delta, fadeDir) {
 
         if(dx != 0 || dy != 0) {
             animationType := ANIM_MOVE;
-            playerMove(dx, dy, delta);
+            player.moving := playerMove(dx, dy, delta);
         }
 
         if(isPressed(KeySpace)) {
@@ -295,6 +298,11 @@ def eventsGameplay(delta, fadeDir) {
         }
     }
 
+    if(player.moving) {
+        player.moveTimer :+ delta;
+    } else {
+        player.moveTimer := 0;
+    }
     player.lastAnimation := animationType;
     player.move.setAnimation(animationType);
     moveCreatures(delta);
@@ -384,7 +392,7 @@ def handleGameClick() {
 
             creature := getCreature(pos[0], pos[1], pos[2]);
             if(creature != null && creature.template.movement = "hunt") {
-                startAttack(creature, player);
+                startCombat(creature, player);
                 return 1;
             }
 
@@ -1123,7 +1131,7 @@ def setShapeNearby(targetX, targetY, targetZ, shape, isExtra) {
     path := findPath(
         player.move.x, player.move.y, player.move.z, 
         targetX, targetY, targetZ, 
-        false, 2, 20);
+        false, 2, 20, 20);
     if(path != null) {
         pos[0] := targetX;
         pos[1] := targetY;
@@ -1139,7 +1147,7 @@ def setShapeNearby(targetX, targetY, targetZ, shape, isExtra) {
                         path := findPath(
                             player.move.x, player.move.y, player.move.z, 
                             sx, sy, targetZ, 
-                            false, 2, 20);
+                            false, 2, 20, 20);
                         if(path != null) {
                             pos[0] := sx;
                             pos[1] := sy;

@@ -42,7 +42,8 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
         },
         moveTo: (move, newX, newY, sx, sy) => {
             if(newX != move.x || newY != move.y) {
-                newZ := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying);
+                r := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying);
+                newZ := r[0];
                 if(newZ < 0) {
                     return false;
                 } else {
@@ -75,7 +76,8 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                     }
                 }
 
-                newZ := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying, move.shape);
+                r := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying, move.shape);
+                newZ := r[0];
                 if(newZ > -1) {
                     if(move.centerView) {
                         moveViewTo(newX, newY);
@@ -86,7 +88,10 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                     }
                 } else {
                     if(move.centerView) {
-                        npcScatter(newX, newY, move.z, move.shape);
+                        # todo: only when hitting a creature (not wall)
+                        if(r[1] = 0 || array_find(creatures, c => c.npc != null && c.move.x = r[1] && c.move.y = r[2] && c.move.z = r[3]) != null) {
+                            npcScatter(newX, newY, move.z, move.shape);
+                        }
                     }
                     # player is blocked
                     moved := false;
