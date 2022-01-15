@@ -1344,6 +1344,24 @@
                     "dirs": [ "e", "ne", "n", "nw", "w",  "sw", "s", "se" ]
                 }
             ]
+        },
+        { 
+            "name": "enandil", 
+            "size": [ 2, 2, 4 ], 
+            "dim": [ 64, 64 ], 
+            "breathe": true,
+            "frames": [
+                {
+                    "name": "move",
+                    "steps": 4,
+                    "dirs": [ "w", "sw", "s", "se", "e", "ne", "n", "nw" ]
+                },
+                {
+                    "name": "stand",
+                    "steps": 1,
+                    "dirs": [ "w", "sw", "s", "se", "e", "ne", "n", "nw" ]
+                }
+            ]
         }
     ]
 }

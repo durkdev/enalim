@@ -35,11 +35,11 @@ addNpcDef({
 addNpcDef({
     name: "Enandil",
     label: "Enandil",
-    creature: "beard",
+    creature: "enandil",
     convo: {
         "": () => {
             if(player.convo.npc.partyIndex = null) {
-                return "You meet a gray-haired man with a sharp expression: \"Well met stranger, my name is Enandil. How can I be of $service?\"";
+                return "A strong farmer with a tan face hails you: \"Well met stranger, my name is Enandil. How can I be of $service?\"";
             }
             return "Elandil, your faithful companion greets you: \"Hail Lydell! Where in the wide lands of Enalim shall we $journey next?\"";
         },
@@ -65,43 +65,6 @@ addNpcDef({
         { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 },
     ],
 });
-
-addNpcDef({
-    name: "Enandil2",
-    label: "Enandil2",
-    creature: "beard2",
-    convo: {
-        "": "can I $join?",
-        "join": () => {
-            joinParty(findCreatureByName("Enandil2"));
-            return "_end_convo_";
-        },
-    },
-    waypoints: [ [ 5770, 5831, 1] ],
-    schedule: [
-        { name: "work", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
-        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 },
-    ],
-});
-
-addNpcDef({
-    name: "Enandil3",
-    label: "Enandil3",
-    creature: "woman",
-    convo: {
-        "": "can I $join?",
-        "join": () => {
-            joinParty(findCreatureByName("Enandil3"));
-            return "_end_convo_";
-        },
-    },
-    waypoints: [ [ 5775, 5840, 1] ],
-    schedule: [
-        { name: "work", from: 8, to: 18, movement: "anchor", waypointDir: 1 },
-        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: -1 },
-    ],
-});
-
 
 addNpcDef({
     name: "ender",
