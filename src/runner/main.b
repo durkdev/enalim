@@ -293,6 +293,13 @@ def eventsGameplay(delta, fadeDir) {
             }
         }
 
+        # temporary testing
+        if(isPressed(KeyP)) {
+            array_foreach(player.party, (i, pc) => {
+                pc.move.setShape(pc.template.shape + choose(["-bow", "-sword", "-axe", "-staff", "-dagger", "-lance"]));
+            });
+        }
+
         if(player.combatMode) {
             continueCombat(player);
         }
