@@ -46,6 +46,11 @@ def registerNpc(npc) {
 def setNpc(x, y, z, npc) {
     creature := setCreature(x, y, z, npc.creature);
     creature.npc := npc;
+    creature.inventory := newInventory();
+    creature.equipment := newEquipment();
+    if(npc.inventory != null) {
+        array_foreach(npc.inventory, (i, shape) => creature.inventory.add(shape));
+    }
     return creature;
 }
 
@@ -64,7 +69,7 @@ def encodeNpc(npc) {
     }
     print("* Saving npc " + npc.name);
     o := {
-        "name": npc.name
+        "name": npc.name,
     };
     if(npc.tradeInv != null) {
         o.tradeInv := array_map(npc.tradeInv, item => item.name);
@@ -163,12 +168,6 @@ const PARTY_FORMATION = [
             [ [-2, 2], [-4, 0], [-2, -2], [0, -4], [2, -2], [4, 0], [2, 2], [0, 4] ]
         ]
     },
-];
-
-const PARTY_FORMATION_INDEX_UI = [
-    [120, 704, 164, 747],
-    [192, 704, 236, 747],
-    [260, 704, 304, 747],
 ];
 
 def moveNpcNearPlayer(c, delta) {

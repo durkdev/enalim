@@ -280,11 +280,11 @@ def eventsGameplay(delta, fadeDir) {
         }
 
         if(isPressed(KeyI)) {
-            openInventory();
+            openInventory(player);
         }
 
         if(isPressed(KeyE)) {
-            openEquipmentPanel();
+            openEquipmentPanel(player);
         }
 
         if(isPressed(KeyEscape)) {
@@ -369,21 +369,24 @@ def handleGameClick() {
         panel := getOverPanel();
         if(panel[0] != null) {
             # raise clicked panel
-            if(panel[0] = "inventory") {
-                openInventory();
-            } else if(panel[0] = "player") {
-                raisePanel("player", "player");
-                px := panel[1];
-                py := panel[2];
-                index := array_find_index(PARTY_FORMATION_INDEX_UI, b => {
-                    return b[0] <= px && b[1] <= py && b[2] > px && b[3] > py;
-                });
-                if(index > -1) {
-                    player.partyFormationIndex := index;
+            if(startsWith(panel[0], "inv.")) {
+                openInventory(getCreatureById(substr(panel[0], 4)));
+            } else if(startsWith(panel[0], "equ.")) {
+                raisePanel(panel[0], "player");
+                if(panel[0] = "equ.player") {
+                    px := panel[1];
+                    py := panel[2];
+                    if(px >= 120 && px < 164 && py >= 704 && py < 747) {
+                        player.partyFormationIndex :+ 1;
+                        if(player.partyFormationIndex >= 3) {
+                            player.partyFormationIndex := 0;
+                        }
+                    }
                 }
-                updateEquipmentPanel();
+                c := getCreatureById(substr(panel[0], 4));
+                updateEquipmentPanel(c);
                 if(panel[1] >= 104 * SLOT_POS_MUL && panel[1] < 150 * SLOT_POS_MUL && panel[2] >= 208 * SLOT_POS_MUL && panel[2] < 251 * SLOT_POS_MUL) {
-                    openInventory();
+                    openInventory(c);
                 }                
             } else {
                 c := getItemById(panel[0]);
@@ -438,14 +441,19 @@ def handleGameClick() {
             }
 
             if(shape[0] = player.shape) {
-                openEquipmentPanel();
+                openEquipmentPanel(player);
                 return 1;
             }
 
             if(creature != null && creature.npc != null) {
-                print("convo with creature: " + creature.id);
-                startConvo(creature.npc);
-                return 1;
+                if(creature.npc.partyIndex != null) {
+                    openEquipmentPanel(creature);
+                    return 1;
+                } else {
+                    print("convo with creature: " + creature.id);
+                    startConvo(creature.npc);
+                    return 1;
+                }
             }
 
             print("MAP click: mouseOnInteractive=" + player.mouseOnInteractive);
@@ -464,10 +472,12 @@ def handleGameClick() {
 }
 
 def getContainedShape(location, index) {
-    if(location = "inventory") {
-        return player.inventory.items[index].shape;
-    } else if (location = "player") {
-        return player.equipment.getDescription(index);
+    if(startsWith(location, "inv.")) {
+        pc := getCreatureById(substr(location, 4));
+        return pc.inventory.items[index].shape;
+    } else if(startsWith(location, "equ.")) {
+        pc := getCreatureById(substr(location, 4));
+        return pc.equipment.getDescription(index);
     } else {
         c := getItemById(location);
         return c.items.items[index].shape;
@@ -585,306 +595,6 @@ def eventsBook(delta, fadeDir) {
     setCursor("cursor.hand");
 }
 
-def openInventory() {
-    raisePanel("inventory", "inventory");
-    updateInventoryUi();
-}
-
-def updateInventoryUi() {
-    updatePanel("inventory", player.inventory.render());
-}
-
-def addToInventory(shape, container, panelX, panelY) {
-    index := player.inventory.add(shape, panelX, panelY);
-    updateInventoryUi();
-    if(container != null) {
-        updateItemLocation(container, index, -1, -1, "inventory");
-    }
-    debugInventory();
-}
-
-def equipItem(shape, panelX, panelY) {
-    obj := OBJECTS_BY_SHAPE[shape];
-    if(obj != null && obj.slot != null) {
-        # remove equipped item if any
-        if(player.equipment.equipment[obj.slot] != null) {
-            addToInventory(player.equipment.equipment[obj.slot], null, -1, -1);
-        }
-
-        # equip new item
-        player.equipment.equipment[obj.slot] := obj.shape;
-
-        # repaint equipment window
-        updateEquipmentPanel();
-
-        # change player shape
-        setShapeFromEquipment();
-        player.move.erase();
-        player.move.setShape(player.shape);
-
-        return true;
-    }
-    return false;
-}
-
-def unequipItem(slot) {
-    player.equipment.equipment[slot] := null;
-    updateEquipmentPanel();
-    setShapeFromEquipment();
-    player.move.erase();
-    player.move.setShape(player.shape);
-    updatePlayerLight();
-}
-
-def setShapeFromEquipment() {
-    var_shape := array_find(player.equipment.equipment, shape => {
-        if(shape != null) {
-            obj := OBJECTS_BY_SHAPE[shape];
-            if(obj.variation != null) {
-                return true;
-            }
-        }
-        return false;
-    });
-
-    player.shape := PLAYER_SHAPE;
-    if(var_shape != null) {
-        obj := OBJECTS_BY_SHAPE[var_shape];
-        player.shape := PLAYER_SHAPE + "-" + obj.variation;
-    }
-}
-
-def openEquipmentPanel() {
-    raisePanel("player", "player");
-    updateEquipmentPanel();
-}
-
-def updateEquipmentPanel() {
-    updatePanel("player", player.equipment.render());
-}
-
-def getItemName(x, y, z, location) {
-    return "unknown";
-}
-
-def openContainer(x, y, z, location) {
-    c := getItem(x, y, z, location);
-    if(c = null) {
-        if(location != "map") {
-            print("No item at " + x + " in " + location + ":");
-            array_foreach(items, (i, c) => {
-                if(c.location = location) {
-                    print("\t" + c.x + " " + c.uiImage);
-                }
-            });
-        }
-        return false;
-    }
-    print("openContainer: c=" + c + " type=" + c.type);
-    if(c.type = CONTAINER_TYPE) {
-        raisePanel(c.id, c.uiImage);
-        updateContainerUi(c);
-        return true;
-    }
-    if(c.type = BOOK_TYPE) {
-        raisePanel(c.id, c.uiImage);
-        centerPanel(c.id);
-        lockPanel(c.id);
-        openBook.currentPage := 0;
-        updateBookUi(c);
-        setCalendarPaused(true);
-        player.mode := MODE_BOOK;
-        return true;
-    }
-    return false;
-}
-
-def updateContainerUi(c) {
-    updatePanel(c.id, c.items.render());
-}
-
-def startDrag(pos, action, index) {
-    if(action = "inventory") {
-        # drag from inventory ui
-        item := player.inventory.remove(index, action);
-        player.dragShape := {
-            "shape": item.shape,
-            "pos": [item.x, item.y, -1],
-            "fromUi": action,
-            "draggedContainer": item.item,
-        };
-        debugInventory();
-        updateInventoryUi();
-    } else if(action = "player") {
-        # drag from equipment panel (index is the non-null slot)
-        usedSlots := [];
-        array_foreach(player.equipment.equipment, (i, e) => {
-            if(e != null) {
-                usedSlots[len(usedSlots)] := i;
-            }
-        });
-        slot := usedSlots[index];
-        player.dragShape := {
-            "shape": player.equipment.equipment[slot],
-            "pos": [-1, -1, -1],                
-            "fromUi": action,
-            "draggedContainer": null,
-        };
-        unequipItem(slot);
-    } else if(startsWith(action, "i.")) {
-        # drag from a container ui
-        c := getItemById(action);
-        item := c.items.remove(index, action);
-        player.dragShape := {
-            "shape": item.shape,
-            "pos": [item.x, item.y, -1],                
-            "fromUi": action,
-            "draggedContainer": item.item,
-        };
-        updateContainerUi(c);
-    } else {
-        info := getDraggableShape(pos[0], pos[1], pos[2]);
-        if(info != null && onPickup(info[1], info[2], info[3], info[0]) != true) {
-            # drag from map
-            player.dragShape := {
-                "shape": info[0],
-                "pos": [info[1], info[2], info[3]],
-                "fromUi": "map",
-                "draggedContainer": getItem(info[1], info[2], info[3], "map"),
-            };
-            eraseDraggableShape(info[1], info[2], info[3], info[4]);            
-        }
-    }
-    setCursorShape(player.dragShape.shape);
-}
-
-def debugInventory() {
-    print("------------------------------");
-    print("inventory:");
-    array_foreach(player.inventory.items, (i, c) => {
-        print("\t" + i + ": " + c.shape);
-    });
-    print("items:");
-    array_foreach(items, (i, c) => {
-        if(c.location = "inventory") {
-            print("\t" + c.x + " " + c.uiImage);
-        }
-    });
-    print("------------------------------");
-}
-
-def endDrag(pos) {
-    if(player.dragShape != null) {
-        handled := false;
-        if(pos[2] > 0) {
-            info := getShape(pos[0], pos[1], pos[2] - 1);
-            if(info != null) {
-                if(info[0] = player.shape) {
-                    # drop over character
-                    index := player.inventory.add(player.dragShape.shape, -1, -1);
-                    updateInventoryUi();
-                    if(player.dragShape.draggedContainer != null) {
-                        updateItemLocation(player.dragShape.draggedContainer, index, -1, -1, "inventory");
-                    }
-                    debugInventory();
-                    handled := true;
-                } else {
-                    # drop over container
-                    c := getItem(info[1], info[2], info[3], "map");
-                    if(c != null) {
-                        index := c.items.add(player.dragShape.shape, -1, -1);
-                        updateContainerUi(c);
-                        if(player.dragShape.draggedContainer != null) {
-                            updateItemLocation(player.dragShape.draggedContainer, index, -1, -1, c.id);
-                        }
-                        handled := true;
-                    }
-                }
-            }
-        }
-
-        if(handled = false) {
-            panel := getOverPanel();
-            if(panel[0] = "inventory") {
-                # drop over inventory panel
-                addToInventory(player.dragShape.shape, player.dragShape.draggedContainer, panel[1], panel[2]);
-                handled := true;
-            } else if(panel[0] = "player") {
-                handled := equipItem(player.dragShape.shape, panel[1], panel[2]);
-            } else if(panel[0] != null) {
-                # drop over a container panel
-                targetContainer := getItemById(panel[0]);
-                if(player.dragShape.draggedContainer != null && targetContainer.id = player.dragShape.draggedContainer.id) {
-                    # trying to drop container on itself?
-                    cancelDrag();
-                    handled := true;
-                }
-                if(handled = false) {
-                    index := targetContainer.items.add(player.dragShape.shape, panel[1], panel[2]);
-                    updateContainerUi(targetContainer);
-                    if(player.dragShape.draggedContainer != null) {
-                        updateItemLocation(player.dragShape.draggedContainer, index, -1, -1, targetContainer.id);
-                    }
-                }
-                handled := true;
-            }
-        }
-
-        if(handled = false) {
-            # drop on map
-            x := pos[0];
-            y := pos[1];
-            z := findTop(x, y, player.dragShape.shape);
-            if(z = 0) {
-                cancelDrag();
-            } else {
-                # drop on map
-                setDraggableShape(x, y, z, player.dragShape.shape);
-                if(player.dragShape.draggedContainer != null) {
-                    updateItemLocation(player.dragShape.draggedContainer, x, y, z, "map");
-                }
-                onDrop(x, y, z, player.dragShape.shape);
-            }
-        }
-
-        # dragging is done
-        restartActiveSections();
-        player.dragShape := null;
-        clearCursorShape();
-        updatePlayerLight();
-    }
-}
-
-def cancelDrag() {
-    print("Can't drop item there.");
-    if(player.dragShape.fromUi = "inventory") {
-        # return to inventory
-        player.inventory.add(player.dragShape.shape, player.dragShape.pos[0], player.dragShape.pos[1]);
-        debugInventory();
-        updateInventoryUi();
-    } else if(player.dragShape.fromUi = "player") {
-        # return to equipment
-        equipItem(player.dragShape.shape, -1, -1);
-    } else {
-        if(player.dragShape.fromUi = "map") {
-            # return to original map location
-            x := player.dragShape.pos[0];
-            y := player.dragShape.pos[1];
-            z := player.dragShape.pos[2];
-            # drop on map
-            setDraggableShape(x, y, z, player.dragShape.shape);
-            if(player.dragShape.draggedContainer != null) {
-                updateItemLocation(player.dragShape.draggedContainer, x, y, z, "map");
-            }
-            onDrop(x, y, z, player.dragShape.shape);
-        } else {
-            # return to container
-            c := getItemById(player.dragShape.fromUi);
-            c.items.add(player.dragShape.shape, player.dragShape.pos[0], player.dragShape.pos[1]);
-            updateContainerUi(c);
-        }
-    }    
-}
 
 def playerMove(dx, dy, delta) {
     moved := player.move.moveInDir(dx, dy, delta, checkTeleportLocations, null);
@@ -920,8 +630,22 @@ def setRoofVisiblity() {
 
 def updatePlayerLight() {
     # player carries light?
+    found := false;
     e := player.equipment.equipment[SLOT_LEFT_HAND];
     if(e != null && isLightShape(e)) {
+        found := true;
+    } else {
+        i := 0;
+        while(found = false && i < len(player.party)) {
+            e := player.party[i].equipment.equipment[SLOT_LEFT_HAND];
+            if(e != null && isLightShape(e)) {
+                found := true;
+            }
+            i :+ 1;
+        }
+    }
+
+    if(found) {
         setPlayerLight(1);
     } else {
         setPlayerLight(0);
@@ -1129,7 +853,8 @@ def load_game(saved) {
         pc.npc.partyIndex := i;
         pc.move.speed := PLAYER_MOVE_SPEED;
     });
-    setShapeFromEquipment();
+    setShapeFromEquipment(player);
+    array_foreach(player.party, (i, pc) => setShapeFromEquipment(pc));
 }
 
 def setShapeNearby(targetX, targetY, targetZ, shape, isExtra) {

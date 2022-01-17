@@ -651,7 +651,10 @@
                 { "name": "player", "size": [148, 254], "pos": [704, 288] },
                 { "name": "barrel", "size": [155, 196], "pos": [22, 462] },
                 { "name": "crate", "size": [156, 126], "pos": [200, 464] },
-                { "name": "logo", "size": [118, 63], "pos": [720, 600] }
+                { "name": "logo", "size": [118, 63], "pos": [720, 600] },
+                { "name": "party.1", "size": [16, 16], "pos": [880, 480] },
+                { "name": "party.2", "size": [16, 16], "pos": [904, 480] },
+                { "name": "party.3", "size": [16, 16], "pos": [928, 480] }
             ]
         },
         {

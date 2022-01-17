@@ -45,7 +45,7 @@ addNpcDef({
         },
         "service": "Before you can help it, you blurt out the story of your travel from the Necromancer's island. Enandil listens attentively and
             then says: \"It seems to me that you could use help on your adventure. If you'll have me, I would gladly $join you on your journeys 
-            throught Enalim. It may not look it but back in my youth I knew my way around the sword...\" - he trails off, reminiscing over his
+            throught Enalim. It may not look it but back in my youth I knew my way around the sword...\" - she trails off, reminiscing over her
             younger years.",
         "join": () => {
             joinParty(findCreatureByName("Enandil"));
@@ -59,6 +59,7 @@ addNpcDef({
             ]);
         }
     },
+    inventory: [ "item.sword.longsword", "item.helm.hard", "item.legging.leather", "item.armor.leather", "item.shield.kite" ],
     waypoints: [ [ 5743, 5839, 1 ], [ 5759, 5839, 1 ], [ 5751, 5822, 1] ],
     schedule: [
         { name: "work", from: 8, to: 18, movement: "anchor", waypointDir: 1 },

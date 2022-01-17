@@ -10,7 +10,7 @@ def findCreatureByName(name) {
 }
 
 def encodeCreature(c) {
-    return {
+    o := {
         "id": c.id,
         "name": c.template.name,
         "move": c.move.encode(),
@@ -18,6 +18,13 @@ def encodeCreature(c) {
         "movement": c.movement,
         "hp": c.hp,
     };
+    if(c.inventory != null) {
+        o["inventory"] := c.inventory.encode();
+    }
+    if(c.equipment != null) {
+        o["equipment"] := c.equipment.encode();
+    }
+    return o;
 }
 
 def pruneCreatures(sectionX, sectionY) {
@@ -60,6 +67,14 @@ def restoreCreature(savedCreature) {
         combatMode: false,
         moveTimer: 0,
     };
+    if(savedCreature.inventory != null) {
+        c.inventory := newInventory();
+        c.inventory.decode(savedCreature.inventory);
+    }
+    if(savedCreature.equipment != null) {
+        c.equipment := newEquipment();
+        c.equipment.decode(savedCreature.equipment);
+    }
     creatures[len(creatures)] := c;
     return c;
 }
@@ -203,4 +218,11 @@ def removeCreatureById(id) {
     m := creatures[idx].move;
     creatures[idx].move.erase();
     del creatures[idx];
+}
+
+def getCreatureById(id) {
+    if(id = "player") {
+        return player;
+    }
+    return array_find(creatures, c => c.id = id);
 }
