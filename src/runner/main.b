@@ -186,7 +186,7 @@ def eventsTitle4(delta, fadeDir) {
         player.move.setShape(player.shape);
         player.move.setAnimation(ANIM_STAND);
         array_foreach(player.party, (i, pc) => {
-            pc.move.setShape(pc.move.shape);
+            pc.move.setShape(pc.shape);
             pc.move.setAnimation(ANIM_STAND);
         });
         player.mode := MODE_GAME;
@@ -846,7 +846,6 @@ def load_game(saved) {
     player.equipment.decode(saved.equipment);
     player.party := array_map(saved.party, pc => {
         c := restoreCreature(pc);
-        print("Restored pc: " + c.npc.name);
         return c;
     });
     array_foreach(player.party, (i, pc) => {
