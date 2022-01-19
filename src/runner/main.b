@@ -203,7 +203,7 @@ def eventsTeleport(delta, fadeDir) {
         array_foreach(player.party, (i, pc) => {
             pc.move.erase();
             pc.move.setNear(player.move.x, player.move.y, player.move.z);
-            pc.move.setShape(pc.move.shape);
+            pc.move.setShape(pc.shape);
             pc.move.setAnimation(ANIM_STAND);
         });
         player.mode := MODE_GAME;
@@ -291,13 +291,6 @@ def eventsGameplay(delta, fadeDir) {
             if(closeTopPanel() != true) {
                 startExitMode();
             }
-        }
-
-        # temporary testing
-        if(isPressed(KeyP)) {
-            array_foreach(player.party, (i, pc) => {
-                pc.move.setShape(pc.template.shape + choose(["-bow", "-sword", "-axe", "-staff", "-dagger", "-lance"]));
-            });
         }
 
         if(player.combatMode) {

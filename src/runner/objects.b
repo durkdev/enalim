@@ -119,6 +119,23 @@ const OBJECTS = [
     { name: "Turquise Ring", slot: SLOT_RING, shape: "item.ring.turquise", cat: CAT_JEWELRY, price: 120 },
     { name: "Azure Ring", slot: SLOT_RING, shape: "item.ring.azure", cat: CAT_JEWELRY, price: 120 },
     { name: "Ruby Ring", slot: SLOT_RING, shape: "item.ring.ruby", cat: CAT_JEWELRY, price: 120 },
+
+    { name: "Roast chicken", shape: "item.food.chicken", cat: CAT_FOOD, price: 10 },
+    { name: "Raw steak", shape: "item.food.steak", cat: CAT_FOOD, price: 12 },
+    { name: "Smoked fish", shape: "item.food.fish", cat: CAT_FOOD, price: 10 },
+    { name: "Mutton", shape: "item.food.mutton", cat: CAT_FOOD, price: 11 },
+    { name: "Bread", shape: "item.food.bread", cat: CAT_FOOD, price: 8 },
+    { name: "Grapes", shape: "item.food.grapes", cat: CAT_FOOD, price: 5 },
+    { name: "Red wine", shape: "item.food.wine", cat: CAT_DRINK, price: 12 },
+    { name: "Wine glass", shape: "item.food.glass", cat: CAT_MISC, price: 10 },
+    { name: "Tin plate", shape: "item.plate", cat: CAT_MISC, price: 10 },
+    { name: "Tin pot", shape: "item.pot", cat: CAT_MISC, price: 10 },
+    { name: "Apple", shape: "item.food.apple", cat: CAT_FOOD, price: 3 },
+    { name: "Small egg", shape: "item.food.egg", cat: CAT_FOOD, price: 4 },
+    { name: "Silverware", shape: "item.silverware.n", cat: CAT_MISC, price: 10 },
+    { name: "Silverware", shape: "item.silverware.w", cat: CAT_MISC, price: 10 },
+    { name: "Silverware", shape: "item.silverware.e", cat: CAT_MISC, price: 10 },
+    { name: "Silverware", shape: "item.silverware.s", cat: CAT_MISC, price: 10 }
 ];
 
 const OBJECTS_BY_SHAPE = {};

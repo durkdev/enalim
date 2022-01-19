@@ -276,14 +276,7 @@ def newEquipment() {
                         y: pos[1],
                     };
                 }
-            });
-            uis[len(uis)] := {
-                type: "uiImage",
-                img: "party." + (player.partyFormationIndex + 1),
-                x: 120,
-                y: 704,
-                drag: false,
-            };
+            });            
             return uis;
         },
         getDescription: (self, index) => {

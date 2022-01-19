@@ -60,10 +60,9 @@ def setShapeFromEquipment(pc) {
         return false;
     });
 
-    # todo:...
     baseShape := PLAYER_SHAPE;
     if(pc.id != "player") {
-        baseShape := "enandil";
+        baseShape := toLower(pc.npc.name);
     }
     pc.shape := baseShape;
     if(var_shape != null) {
@@ -80,7 +79,15 @@ def openEquipmentPanel(pc) {
 def updateEquipmentPanel(pc) {
     c := pc.equipment.render();
     name := "Lydell";
-    if(pc.id != "player") {
+    if(pc.id = "player") {
+        c[len(c)] := {
+            type: "uiImage",
+            img: "party." + (player.partyFormationIndex + 1),
+            x: 120,
+            y: 704,
+            drag: false,
+        };
+    } else {
         name := pc.npc.name;
     }
     c[len(c)] := {

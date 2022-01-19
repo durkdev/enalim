@@ -903,7 +903,18 @@
                 { "name": "item.food.bread", "size": [ 2, 2, 0], "pos": [128, 784], "extra": true, "drag": true },
                 { "name": "item.food.grapes", "size": [ 2, 2, 0], "pos": [160, 784], "extra": true, "drag": true },
                 { "name": "item.food.wine", "size": [ 1, 1, 1], "pos": [8, 848], "extra": true, "drag": true },
-                { "name": "item.food.glass", "size": [ 1, 1, 1], "pos": [24, 848], "extra": true, "drag": true }
+                { "name": "item.food.glass", "size": [ 1, 1, 1], "pos": [24, 848], "extra": true, "drag": true },
+                { "name": "item.stove.y", "size": [ 2, 3, 3], "pos": [536, 176] },
+                { "name": "item.chimney", "size": [ 1, 1, 3], "pos": [584, 176] },
+                { "name": "item.stove.x", "size": [ 3, 2, 3], "pos": [536, 104] },
+                { "name": "item.plate", "size": [ 2, 2, 0], "pos": [0, 816], "extra": true, "drag": true },
+                { "name": "item.pot", "size": [ 2, 2, 0], "pos": [32, 816], "extra": true, "drag": true },
+                { "name": "item.food.apple", "size": [ 1, 1, 1], "pos": [40, 848], "extra": true, "drag": true },
+                { "name": "item.food.egg", "size": [ 1, 1, 1], "pos": [56, 848], "extra": true, "drag": true },
+                { "name": "item.silverware.n", "size": [ 1, 1, 1], "pos": [72, 848], "extra": true, "drag": true },
+                { "name": "item.silverware.w", "size": [ 1, 1, 1], "pos": [88, 848], "extra": true, "drag": true },
+                { "name": "item.silverware.e", "size": [ 1, 1, 1], "pos": [104, 848], "extra": true, "drag": true },
+                { "name": "item.silverware.s", "size": [ 1, 1, 1], "pos": [120, 848], "extra": true, "drag": true }
             ]
         }        
     ],    

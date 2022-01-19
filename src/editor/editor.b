@@ -101,6 +101,14 @@ def editorInsertCommand() {
         drawPath(getPosition(), "ground.grass");
         step := 4;
     }    
+    if(isPressed(KeyMinus)) {
+        pos := getPosition();
+        drawPath([pos[0], pos[1]], "ground.cobble");
+        drawPath([pos[0]+4, pos[1]], "ground.cobble");
+        drawPath([pos[0]+4, pos[1]+4], "ground.cobble");
+        drawPath([pos[0], pos[1]+4], "ground.cobble");
+        step := 8;
+    }    
     
     if(step != 0 && (editor.dirX != 0 || editor.dirY != 0)) {
         moveViewTo(editor.lastX + editor.dirX * step, editor.lastY + editor.dirY * step);
