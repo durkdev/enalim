@@ -114,6 +114,7 @@ const OBJECTS = [
     { name: "Pearl Necklace", slot: SLOT_AMULET, shape: "item.necklace.pearl", cat: CAT_JEWELRY, price: 150 },
     { name: "Asteni's Necklace", slot: SLOT_AMULET, shape: "item.necklace.pearl.avined", cat: CAT_JEWELRY, price: 150 },
     { name: "Opal Necklace", slot: SLOT_AMULET, shape: "item.necklace.opal", cat: CAT_JEWELRY, price: 150 },
+    { name: "Quartz Necklace", slot: SLOT_AMULET, shape: "item.necklace.quartz", cat: CAT_JEWELRY, price: 150 },
     { name: "Gold Ring", slot: SLOT_RING, shape: "item.ring.gold", cat: CAT_JEWELRY, price: 120 },
     { name: "Silver Ring", slot: SLOT_RING, shape: "item.ring.silver", cat: CAT_JEWELRY, price: 120 },
     { name: "Turquise Ring", slot: SLOT_RING, shape: "item.ring.turquise", cat: CAT_JEWELRY, price: 120 },
@@ -135,7 +136,8 @@ const OBJECTS = [
     { name: "Silverware", shape: "item.silverware.n", cat: CAT_MISC, price: 10 },
     { name: "Silverware", shape: "item.silverware.w", cat: CAT_MISC, price: 10 },
     { name: "Silverware", shape: "item.silverware.e", cat: CAT_MISC, price: 10 },
-    { name: "Silverware", shape: "item.silverware.s", cat: CAT_MISC, price: 10 }
+    { name: "Silverware", shape: "item.silverware.s", cat: CAT_MISC, price: 10 },
+    { name: "Beer mug", shape: "item.food.mug", cat: CAT_MISC, price: 10 },
 ];
 
 const OBJECTS_BY_SHAPE = {};

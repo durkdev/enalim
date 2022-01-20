@@ -914,7 +914,10 @@
                 { "name": "item.silverware.n", "size": [ 1, 1, 1], "pos": [72, 848], "extra": true, "drag": true },
                 { "name": "item.silverware.w", "size": [ 1, 1, 1], "pos": [88, 848], "extra": true, "drag": true },
                 { "name": "item.silverware.e", "size": [ 1, 1, 1], "pos": [104, 848], "extra": true, "drag": true },
-                { "name": "item.silverware.s", "size": [ 1, 1, 1], "pos": [120, 848], "extra": true, "drag": true }
+                { "name": "item.silverware.s", "size": [ 1, 1, 1], "pos": [120, 848], "extra": true, "drag": true },
+                { "name": "item.food.mug", "size": [ 1, 1, 1], "pos": [136, 848], "extra": true, "drag": true },
+                { "name": "item.shackles.y", "size": [ 0.25, 2, 4], "pos": [680, 264], "extra": true },
+                { "name": "item.shackles.x", "size": [ 2, 0.25, 4], "pos": [712, 264], "extra": true }
             ]
         }        
     ],    
