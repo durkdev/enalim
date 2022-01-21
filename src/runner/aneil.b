@@ -95,3 +95,21 @@ addNpcDef({
         { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
     ],    
 });
+
+
+addNpcDef({
+    name: "Mesnar",
+    label: "Mesnar",
+    creature: "mesnar",
+    convo: {
+        "": "sdfasdf $join",
+        "join": () => {
+            joinParty(findCreatureByName("Mesnar"));
+            return "_end_convo_";
+        }
+    },
+    waypoints: [ [ 6423, 7479, 1 ] ],
+    schedule: [
+        { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
+    ],    
+});

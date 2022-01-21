@@ -75,6 +75,9 @@ creaturesTemplates := {
     "enandil": {
         shape: "enandil", speed: 0.25, baseWidth: 2, baseHeight: 2, sizeZ: 4, isFlying: false, movement: "anchor", hp: 10,
     },
+    "mesnar": {
+        shape: "mesnar", speed: 0.25, baseWidth: 2, baseHeight: 2, sizeZ: 4, isFlying: false, movement: "anchor", hp: 10,
+    },
 };
 
 def initCreatures() {

@@ -201,7 +201,7 @@ def debugInventory(pc) {
     print("------------------------------");
     print("inventory:");
     array_foreach(pc.inventory.items, (i, c) => {
-        print("\t" + i + ": " + c.shape);
+        print("\t" + i + ": " + c.shape + " pos=" + c.x + "," + c.y);
     });
     print("items:");
     array_foreach(items, (i, c) => {

@@ -814,10 +814,15 @@ def timedMessageXY(x, y, message, rise=false) {
 
 def save_game() {
     if(player.move != null) {
+        # Collect the items in the global items array that are also in the inventories of the pc-s.
+        # Collect them but don't remove them.
+        # The items in the inventory have extended definitions (book contents, container contents, etc. in global items.)
+        inv_items := pruneItems("inv.player", 0, 0, false);
+        array_foreach(player.party, (i, pc) => array_concat(inv_items, pruneItems("inv." + pc.id, 0, 0, false)));
         saveMap("savegame.json", {
             "calendar": getCalendarRaw(),
             "gameState": player.gameState,
-            "items": pruneItems("inventory", 0, 0, false),
+            "items": inv_items,
             "inventory": player.inventory.encode(),
             "equipment": player.equipment.encode(),
             "move": player.move.encode(),

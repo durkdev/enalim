@@ -1385,6 +1385,30 @@
                     "dirs": [ "w", "sw", "s", "se", "e", "ne", "n", "nw" ]
                 }
             ]
+        },
+        { 
+            "name": "mesnar", 
+            "variations": [ "sword", "axe", "bow", "staff", "lance", "dagger" ],
+            "size": [ 2, 2, 4 ], 
+            "dim": [ 64, 64 ], 
+            "breathe": true,
+            "frames": [
+                {
+                    "name": "move",
+                    "steps": 4,
+                    "dirs": [ "w", "sw", "s", "se", "e", "ne", "n", "nw" ]
+                },
+                {
+                    "name": "stand",
+                    "steps": 1,
+                    "dirs": [ "w", "sw", "s", "se", "e", "ne", "n", "nw" ]
+                },
+                {
+                    "name": "attack",
+                    "steps": 2,
+                    "dirs": [ "w", "sw", "s", "se", "e", "ne", "n", "nw" ]
+                }
+            ]
         }
     ]
 }
