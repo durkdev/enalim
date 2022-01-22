@@ -21,6 +21,7 @@ def onSectionLoad(sectionX, sectionY, data) {
 
             # add npc-s
             array_foreach(keys(npcDefs), (i, name) => {
+                # only add npc if not in party
                 npc := npcDefs[name];
                 pos := npc.schedule[0].pos;
                 sectionPos := getSectionPos(pos[0], pos[1]);

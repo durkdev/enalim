@@ -68,6 +68,7 @@ def setShapeFromEquipment(pc) {
     if(var_shape != null) {
         obj := OBJECTS_BY_SHAPE[var_shape];
         pc.shape := baseShape + "-" + obj.variation;
+        pc.move.shape := pc.shape;
     }
 }
 

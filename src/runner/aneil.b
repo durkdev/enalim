@@ -108,7 +108,93 @@ addNpcDef({
             return "_end_convo_";
         }
     },
-    waypoints: [ [ 6423, 7479, 1 ] ],
+    waypoints: [ [ 6423, 7479, 1 ], [ 6439, 7479, 1], [ 6446, 7464, 1], [6471, 7464, 1], [6471, 7444, 1] ],
+    inventory: [ "item.axe.military", "item.helm.hard", "item.legging.leather", "item.armor.leather", "item.shield.kite" ],
+    schedule: [
+        { name: "pub", from: 10, to: 20, movement: "anchor", waypointDir: 1 },
+        { name: "home", from: 20, to: 10, movement: "anchor", waypointDir: -1 },
+    ],    
+});
+
+
+addNpcDef({
+    name: "Rednar",
+    label: "Rednar",
+    creature: "man-blue",
+    convo: {
+        "": "A jovial barkeep hails you: \"Welcome to the 'Sage Brew' at $Aneil, traveler. What will it be? Food or drink?\"",
+    },
+    waypoints: [ [ 6465, 7426, 1 ] ],
+    schedule: [
+        { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+addNpcDef({
+    name: "Ednar",
+    label: "Ednar",
+    creature: "man-yellow",
+    convo: {
+        "": "This large man looks like the cook. He is clearly annoyed at your presence: \"If you're looking to buy food, ask the $barkeep up front 
+            but get out of my kitchen.\"",
+    },
+    waypoints: [ [ 6452, 7431, 1 ] ],
+    schedule: [
+        { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+addNpcDef({
+    name: "Extandis Sangrist",
+    label: "Extandis",
+    creature: "woman2",
+    convo: {
+        "": "A woman is busy with paperwork here. She glances up at you briefly, then returns to her work. \"Need $something?\" - she says quickly.",
+    },
+    waypoints: [ [ 6424, 7448, 1 ] ],
+    schedule: [
+        { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+addNpcDef({
+    name: "Netul",
+    label: "Netul",
+    creature: "woman",
+    trade: [CAT_JEWELRY],
+    convo: {
+        "": "A woman with a glittering smile and rings on every finger greets you: \"Welcome to $Aneil traveler. If you're looking
+            for fine jewelry, please let me know!\"",
+    },
+    waypoints: [ [ 6469, 7478, 1 ], [6454, 7478, 1] ],
+    schedule: [
+        { name: "work", from: 8, to: 18, movement: "anchor", waypointDir: -1 },
+        { name: "home", from: 18, to: 8, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+addNpcDef({
+    name: "Captain Rhone",
+    label: "Rhone",
+    creature: "guard",
+    convo: {
+        "": "A guard glances at you. \"State your $business in $Aneil, traveler.\" - he says briskly.",
+    },
+    waypoints: [ [ 6395, 7480, 8 ] ],
+    schedule: [
+        { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+addNpcDef({
+    name: "Miner Meb",
+    label: "Meb",
+    creature: "beard",
+    convo: {
+        "": "A man covered in grayish dust stands before you. \"Production has been good,\" - he mumbles - \"But
+            the $ore has had a weaker color lately...\" He barely notices you as he's lost in thought.",
+    },
+    waypoints: [ [ 6411, 7407, 1 ] ],
     schedule: [
         { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
     ],    

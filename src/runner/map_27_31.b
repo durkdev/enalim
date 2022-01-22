@@ -35,6 +35,10 @@ SECTIONS["27,31"] := {
             restartActiveSections();
             return true;
         }
+        if(x = 6480 && y = 7483 && z = 1) {
+            timedMessage(x, y, z, "Aneil Jewelry", false);
+            return true;
+        }
         return null;
     },
     "locked": (this, x, y, z) => {
