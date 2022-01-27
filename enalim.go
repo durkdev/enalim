@@ -2,19 +2,9 @@ package main
 
 import (
 	"flag"
-	"log"
-	"runtime"
 
-	"github.com/go-gl/glfw/v3.3/glfw"
-	"github.com/uzudil/isongn/gfx"
-	"github.com/uzudil/isongn/runner"
-	"github.com/uzudil/isongn/script"
+	"github.com/uzudil/isongn/top"
 )
-
-func init() {
-	// GLFW event handling must run on the main OS thread
-	runtime.LockOSThread()
-}
 
 func main() {
 	winWidth := flag.Int("width", 1200, "Window width (default: 1200)")
@@ -23,13 +13,5 @@ func main() {
 	fs := flag.Bool("fullscreen", false, "Fullscreen mode?")
 	flag.Parse()
 
-	if err := glfw.Init(); err != nil {
-		log.Fatalln("failed to initialize glfw:", err)
-	}
-	defer glfw.Terminate()
-
-	var game gfx.Game = runner.NewRunner()
-	script.InitScript()
-	app := gfx.NewApp(game, ".", *winWidth, *winHeight, *fps, *fs)
-	app.Run()
+	top.Start("runner", ".", *winWidth, *winHeight, *fps, *fs)
 }
