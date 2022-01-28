@@ -102,7 +102,21 @@ addNpcDef({
     label: "Mesnar",
     creature: "mesnar",
     convo: {
-        "": "sdfasdf $join",
+        "": "A tall man rises to greet you. His face is weathered by countless years spent working outdoors. \"Hail traveler, what brings you to our town of $Aneil? Most 
+            people travel here to speak with $Extandis the sage. Others come to seek adventure in the dusty passages of the dungeon $Delude.\" - he looks you over, not
+            without kindness - \"You seem like someone on an important quest. If there is any way I can $help, let me know.\"",
+        "help": "He nods and continues: \"My name is Mesnar the Ranger. I've spent most of my years traveling the length and breadth of Enalim. I am familiar with
+            many strange wonders - as well as the horrors - this land holds. I would gladly $join your party, if you will have me by your side.\" For reasons mysterious
+            even to yourself, you trust this outdoorsman completely.",
+        "Delude": "He motions to the north: \"Aye, the dungeon Delude awaits within the walled city of $Aneil. No one truly knows what lies at its ancient, stone heart because
+            most who enter don't come back to tell the tale.\" - he shrugs - \"Still, if that is where you must go, I would $help with that burden if you will have me.\"",
+        "Aneil": "\"Aneil the walled city, has been my home since birth. Well, when I'm not outdoors myself, which is most of the time.\" - he smiles, then continues - \"We
+            have a few notable people in Aneil. Foremost is $Extandis, the sage, of course. She lives in that windowless stone house at the center of town. Next,
+            there is Captain Rhone who oversees the gate guard. Ednar and Rednar run the Sage's Brew\" - he points west - \"Then there is Netul the jeweler and Meb the miner.\" -
+            he pauses, then adds - \"Oh yes, and the Aneil guard. Best stay away from those jokers.\"",
+        "Extandis": "He points north: \"Extandis the Sage is a busy woman. She rarely leaves her house and does not take kindly to intrusion. Some say, in order to see her
+            one must first complete a trio of ardeous missions and retrieve the relics of some ancient order. She is a local legend who really put $Aneil on the map!\" - he 
+            smiles and adds: \"If you need $help seeing her, or really with anything else: don't hesitate to ask!\"",
         "join": () => {
             joinParty(findCreatureByName("Mesnar"));
             return "_end_convo_";
@@ -149,7 +163,37 @@ addNpcDef({
     label: "Extandis",
     creature: "woman2",
     convo: {
-        "": "A woman is busy with paperwork here. She glances up at you briefly, then returns to her work. \"Need $something?\" - she says quickly.",
+        "": () => {
+            relics := 0;
+            if(player.inventory.findIndex("item.chalice.krynt") > -1) {
+                relics :+ 1;
+            }
+            if(player.inventory.findIndex("item.sceptre.krynt") > -1) {
+                relics :+ 1;
+            }
+            if(player.inventory.findIndex("item.seal.krynt") > -1) {
+                relics :+ 1;
+            }
+            if(relics = 0) {
+                return "You see a middle aged woman with strange, shimmering, purple eyes. She takes note of you, nods, and returns to her paperwork.
+                    You don't know why but her nod of dismissal feels like a physical push out the door. You feel compelled to leave her alone and return
+                    outside.";
+            } else if(relics = 1) {
+                return "You see a middle aged woman with strange, shimmering, purple eyes. She takes note of you, smiles and says: \"Do not loose hope
+                    Lydell! Know that you are on the right path and even if things seem dark, there are those who would aid you in your quest. Return
+                    to me when you have found the relics.\" - she adds cryptically. She says no more and an odd silence fills the room.";
+            } else if(relics = 2) {
+                return "You see a middle aged woman with strange, shimmering, purple eyes. She takes note of you, smiles and says: \"You are on the right
+                path, Lydell. Return to me when you have found all three of the relics.\" She says no more and an odd silence fills the room.";
+            } else {
+                player.gameState["extandis_phase"] := "sanctum";
+                restartActiveSections();
+                return "You see a middle aged woman with strange, shimmering, purple eyes. She takes note of you, smiles and says: \"Welcome Lydell to your
+                    belated $inheritence. By finding the three relics of the $Knights of Krynt, you have proven that you have what it takes to stop the 
+                    advance of $Vesnu and perhaps save Enalim from the pending $calamity.\" - she smiles tranquilly. \"When you are rested, join me in my
+                    inner sanctum where I will reveal what you must do next.\"";
+            }
+        },
     },
     waypoints: [ [ 6424, 7448, 1 ] ],
     schedule: [

@@ -32,13 +32,13 @@ def onSectionLoad(sectionX, sectionY, data) {
                 }
             });
         }
-        print("+++ Init done " + sectionX + "," + sectionY);
+        # print("+++ Init done " + sectionX + "," + sectionY);
     } else {
         # restore a section from saved data
         print("+++ Restore load " + sectionX + "," + sectionY);
         array_foreach(data.creatures, (i, c) => restoreCreature(c));
         array_foreach(data.items, (i, c) => restoreItem(c));
-        print("+++ Done restoring " + sectionX + "," + sectionY);
+        # print("+++ Done restoring " + sectionX + "," + sectionY);
     }
 
     # start section

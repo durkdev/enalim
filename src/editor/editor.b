@@ -154,7 +154,7 @@ def editorCommand() {
         editor.lastY := pos[1];
     }
 
-    if(isPressed(KeyTab)) {
+    if(isPressed(KeyM)) {
         if(editor.roofMode) {
             print("to NO roof");
             setMaxZ(24, null, null);
