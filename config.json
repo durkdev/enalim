@@ -917,7 +917,10 @@
                 { "name": "item.silverware.s", "size": [ 1, 1, 1], "pos": [120, 848], "extra": true, "drag": true },
                 { "name": "item.food.mug", "size": [ 1, 1, 1], "pos": [136, 848], "extra": true, "drag": true },
                 { "name": "item.shackles.y", "size": [ 0.25, 2, 4], "pos": [680, 264], "extra": true },
-                { "name": "item.shackles.x", "size": [ 2, 0.25, 4], "pos": [712, 264], "extra": true }
+                { "name": "item.shackles.x", "size": [ 2, 0.25, 4], "pos": [712, 264], "extra": true },
+                { "name": "item.pentagram", "size": [ 4, 4, 0 ], "pos": [576, 80], "extra": true },
+                { "name": "item.ore.meteorite", "size": [ 1, 1, 1], "pos": [152, 848], "extra": true, "drag": true },
+                { "name": "item.ore.iron", "size": [ 1, 1, 1], "pos": [168, 848], "extra": true, "drag": true }
             ]
         }        
     ],    

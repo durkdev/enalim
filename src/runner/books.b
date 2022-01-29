@@ -172,6 +172,25 @@ structures.
 
 ";
 
+const BOOK_METALS = "On the Shaping of Metals
+by Harry Flinster
+
+Dear reader, it is my hope that by the time you have entertained thoughts of learning the arts of metallurgy, you have at least
+in passing have had a chance to plumb the mysteries of Hierileous' 'Guide to arms and armor' as well as the introductory chapters on
+mining from Shafnil's 'On the mining and processing of Brigo'. With these preliminaries out of the way let's dive in by first categorizing
+the various types of metal ore you may encounter.
+
+Chapter 1: Types of metal ore
+
+Tools, weapons and armor can be constructed by the skilled smith from a variety of ores. Most common among these is iron (which can be fashioned into steel). Working with 
+this grayish-red ore requires high temperature smelting equipment, such as you're likely to find in the village blacksmith shop.
+
+More complex is the work of the smith who endeavours to fashion precious metals (gold or silver) into jewelry or other decorative items.
+
+And finally, the most mysterious of all ore in Enalim is the purple meteorite, which can be used to create magical objects. A word of caution: never handle raw meteorite ore
+without some protective equipment (such as leather gloves). The raw magical heat given off by this ore is likely to cause you permanent damage!
+";
+
 BOOKS := {
     "Raising the dead": RAISE_DEAD,
     "On ghosts and spirits": ON_GHOSTS,
@@ -182,6 +201,7 @@ BOOKS := {
     "The age of Krynt": BOOK_KRYNT,
     "Fenlen grammar primer": BOOK_FENLEN,
     "Guide to arms and armor": BOOK_ARMS,
+    "On the shaping of metals": BOOK_METALS,
 };
 
 const PAGE_LINE_COUNT = 20;
