@@ -5,9 +5,12 @@ SECTIONS["25,30"] := {
     "start": this => {
     },
     "teleport": (this, x, y, z) => {
-        # if(x = 5955 && y >= 5686  && y <= 5689 && z = 1) {
-        #     return [6051, 5660, 1];
-        # }
+        if(x = 6226 && y >= 7246  && y <= 7249 && z = 1) {
+            return [6352, 7311, 1];
+        }
+        if(x = 6226 && y >= 7314  && y <= 7317 && z = 1) {
+            return [6352, 7311, 1];
+        }
         return null;
     },
     "action": (this, x, y, z) => {

@@ -76,7 +76,11 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                     }
                 }
 
-                r := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying, move.shape);
+                moveTestShape := null;
+                if(move.isPlayer) {
+                    moveTestShape := move.shape;
+                }
+                r := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying, moveTestShape);
                 newZ := r[0];
                 if(newZ > -1) {
                     if(move.centerView) {

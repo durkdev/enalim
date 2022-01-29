@@ -186,11 +186,14 @@ def moveNpcNearPlayer(c, delta) {
     }
 
     if(continueCombat(c)) {
+        c.move.speed := PLAYER_MOVE_SPEED * 0.5;
         return pathMove(c, delta, {
             name: c.npc.name, 
             dest: c.attackTarget.move, 
             nearDistance: 2,
-            farDistance: 20,
+            farDistance: 0,
+            largeBreak: self => random(),
+            smallBreak: self => random() * 0.25,
             onSuccess: self => {
                 return ANIM_STAND;
             },
