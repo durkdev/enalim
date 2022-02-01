@@ -881,7 +881,7 @@
                 { "name": "item.picture.figure.x", "size": [ 3, 0.25, 3], "pos": [600, 272], "extra": true },
                 { "name": "item.picture.figure.y", "size": [ 0.25, 3, 3], "pos": [640, 272], "extra": true },
                 { "name": "item.bellows.x", "size": [ 4, 2, 2], "pos": [48, 272] },
-                { "name": "item.anvil.x", "size": [ 2, 1, 2], "pos": [104, 296] },
+                { "name": "item.anvil.x", "size": [ 2, 1, 2], "pos": [104, 296], "interactive": true },
                 { "name": "item.dagger.vesnu", "size": [ 2, 2, 0], "pos": [96, 544], "drag": true, "extra": true },
                 { "name": "item.orb.confusion", "description": "Orb of confusion", "size": [ 4, 4, 4], "pos": [320, 400], "animations": [ "item.orb.confusion.2" ], "interactive": true },
                 { "name": "item.orb.confusion.2", "description": "Orb of confusion", "size": [ 4, 4, 4], "pos": [392, 408], "interactive": true },
@@ -920,7 +920,9 @@
                 { "name": "item.shackles.x", "size": [ 2, 0.25, 4], "pos": [712, 264], "extra": true },
                 { "name": "item.pentagram", "size": [ 4, 4, 0 ], "pos": [576, 80], "extra": true },
                 { "name": "item.ore.meteorite", "size": [ 1, 1, 1], "pos": [152, 848], "extra": true, "drag": true },
-                { "name": "item.ore.iron", "size": [ 1, 1, 1], "pos": [168, 848], "extra": true, "drag": true }
+                { "name": "item.ore.iron", "size": [ 1, 1, 1], "pos": [168, 848], "extra": true, "drag": true },
+                { "name": "item.sword.magic", "size": [ 2, 4, 0], "pos": [224, 544], "drag": true, "extra": true },
+                { "name": "item.axe.magic", "size": [ 2, 4, 0], "pos": [240, 400], "drag": true, "extra": true }
             ]
         }        
     ],    

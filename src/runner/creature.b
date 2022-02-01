@@ -68,7 +68,7 @@ def restoreCreature(savedCreature) {
         moveTimer: 0,
     };
     if(savedCreature.inventory != null) {
-        c.inventory := newInventory();
+        c.inventory := newInventory("inv." + c.id);
         c.inventory.decode(savedCreature.inventory);
     }
     if(savedCreature.equipment != null) {

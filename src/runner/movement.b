@@ -9,6 +9,8 @@ const SWITCH = [
     ["switch.open.2", "switch.closed.2"],
 ];
 
+const REACH_RADIUS = 24;
+
 def newMovement(startX, startY, startZ, width, height, depth, shape, speed, centerView, isFlying) {
     return {
         x: startX,
@@ -75,18 +77,17 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                         return true;
                     }
                 }
-
-                moveTestShape := null;
-                if(move.isPlayer) {
-                    moveTestShape := move.shape;
-                }
-                r := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying, moveTestShape);
+                
+                r := moveShape(move.x, move.y, move.z, newX, newY, move.isFlying);
                 newZ := r[0];
                 if(newZ > -1) {
                     if(move.centerView) {
                         moveViewTo(newX, newY);
                     }
                     move.set(newX, newY, newZ);
+                    if(move.isPlayer) {
+                        updateReachable(move.x, move.y, move.z, REACH_RADIUS, move.shape);
+                    }
                     if(onPosChange != null) {
                         onPosChange(newX, newY, newZ);
                     }
@@ -111,6 +112,11 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                 setOffset(move.x, move.y, move.z, move.scrollOffsetX, move.scrollOffsetY);
             }
             return moved;
+        },
+        updateReachable: move => {
+            if(move.isPlayer) {
+                updateReachable(move.x, move.y, move.z, REACH_RADIUS, move.shape);
+            }
         },
         set: (move, x, y, z) => {
             move.x := x;
@@ -143,7 +149,12 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
         isAt: (move, x, y, z) => x = move.x && y = move.y && z = move.z,
         setAnimation: (move, animation) => setAnimation(move.x, move.y, move.z, animation, move.dir),
         erase: move => eraseShapeExact(move.x, move.y, move.z),
-        setShape: (move, shape) => setShape(move.x, move.y, move.z, shape),
+        setShape: (move, shape) => {
+            setShape(move.x, move.y, move.z, shape);
+            if(move.isPlayer) {
+                updateReachable(move.x, move.y, move.z, REACH_RADIUS, shape);
+            }
+        },
         distanceToMove: (move, otherMove) => distance(move.x, move.y, move.z, otherMove.x, otherMove.y, otherMove.z),
         distanceTo: (move, nx, ny, nz) => distance(move.x, move.y, move.z, nx, ny, nz),
         distanceXyTo: (move, nx, ny) => distance(move.x, move.y, move.z, nx, ny, move.z),
@@ -228,6 +239,7 @@ def newMovement(startX, startY, startZ, width, height, depth, shape, speed, cent
                 if(intersectsShapes(x, y, z, newShape, move.x, move.y, move.z, move.shape) = false) {
                     eraseShape(x, y, z);
                     setShape(x, y, z, newShape);
+                    move.updateReachable();
                     return 1;
                 }
                 d := d + 1;

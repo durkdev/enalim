@@ -117,7 +117,7 @@ addNpcDef({
         "": () => {
             idx := player.inventory.findIndex("item.necklace.pearl.avined");
             if(idx > -1) {
-                player.inventory.remove(idx, "inventory");
+                player.inventory.remove(idx);
                 return "You give Professor Asteni back her lost necklace. She thanks you profusely, saying: \"Thank you for recovering this! It's strange though... a few pearls are missing. Oh
                     well, it was my mother's so I mainly keep it for sentimental reasons. Thanks you again!\"";
             }

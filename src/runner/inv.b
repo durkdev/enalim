@@ -13,7 +13,7 @@ def setBook(x, y, z, location, book) {
 def setContainer(uiImage, x, y, z, location, invItems) {
     c := setItem(uiImage, x, y, z, location, CONTAINER_TYPE);
     if(c["items"] = null) {
-        c["items"] := newInventory();
+        c["items"] := newInventory(c.id);
         array_foreach(invItems, (i, item) => {
             if(typeof(item) = "map") {
                 c.items.add(item.shape, -1, -1);
@@ -122,7 +122,7 @@ def loadItem(savedItem) {
         location: savedItem.location,
     };
     if(savedItem["items"] != null) {
-        c["items"] := newInventory();
+        c["items"] := newInventory(c.id);
         c.items.decode(savedItem.items);
     }
     if(savedItem["book"] != null) {
@@ -186,8 +186,9 @@ def restore_contained(saved) {
     });
 }
 
-def newInventory() {
+def newInventory(location) {
     return {
+        location: location,
         items: [],
         add: (self, shape, xpos=-1, ypos=-1) => {
             if(xpos < 0) {
@@ -202,14 +203,14 @@ def newInventory() {
             return len(self.items) - 1;
         },
         findIndex: (self, name) => array_find_index(self.items, item => item.shape = name),
-        remove: (self, index, location) => {
+        remove: (self, index) => {
             # adjust the location of items in this inventory
-            item := getItem(index, -1, -1, location);
+            item := getItem(index, -1, -1, self.location);
             i := index + 1;
             while(i < len(self.items)) {
-                c := getItem(i, -1, -1, location);
+                c := getItem(i, -1, -1, self.location);
                 if(c != null) {
-                    updateItemLocation(c, i - 1, -1, -1, location);
+                    updateItemLocation(c, i - 1, -1, -1, self.location);
                 }
                 i := i + 1;
             }

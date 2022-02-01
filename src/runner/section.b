@@ -115,6 +115,10 @@ def onDrop(x, y, z, shape) {
 }
 
 def onPickup(x, y, z, shape) {
+    obj := OBJECTS_BY_SHAPE[shape];
+    if(obj != null && obj["onPickup"] != null) {
+        obj.onPickup();
+    }
     sectionPos := getSectionPos(x, y);
     section := getSection(sectionPos[0], sectionPos[1]);
     if(section != null) {

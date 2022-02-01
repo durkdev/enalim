@@ -925,7 +925,7 @@ def main() {
     EVENTS_MAP[MODE_EXIT] := (s, d,f) => eventsExit(d, f);
 
     # init player
-    player.inventory := newInventory();    
+    player.inventory := newInventory("inv.player");
     player.equipment := newEquipment();
 
     setPathThroughShapes(keys(REPLACE_SHAPES));

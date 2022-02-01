@@ -145,7 +145,7 @@ def startDrag(pos, action, index) {
     if(startsWith(action, "inv.")) {
         pc := getCreatureById(substr(action, 4));
         # drag from inventory ui
-        item := pc.inventory.remove(index, action);
+        item := pc.inventory.remove(index);
         player.dragShape := {
             "shape": item.shape,
             "pos": [item.x, item.y, -1],
@@ -174,7 +174,7 @@ def startDrag(pos, action, index) {
     } else if(startsWith(action, "i.")) {
         # drag from a container ui
         c := getItemById(action);
-        item := c.items.remove(index, action);
+        item := c.items.remove(index);
         player.dragShape := {
             "shape": item.shape,
             "pos": [item.x, item.y, -1],                

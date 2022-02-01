@@ -47,12 +47,14 @@ const OBJECTS = [
     { name: "Ninjato", slot: SLOT_RIGHT_HAND, variation: "sword", shape: "item.sword.ninjato", cat: CAT_SWORD, price: 180 },
     { name: "Rapier", slot: SLOT_RIGHT_HAND, variation: "sword", shape: "item.sword.rapier", cat: CAT_SWORD, price: 160 },
     { name: "Cutlass", slot: SLOT_RIGHT_HAND, variation: "sword", shape: "item.sword.cutlass", cat: CAT_SWORD, price: 120 },
+    { name: "Magic Sword", slot: SLOT_RIGHT_HAND, variation: "sword", shape: "item.sword.magic", cat: CAT_SWORD, price: 400 },
 
     { name: "Short axe", slot: SLOT_RIGHT_HAND, variation: "axe", shape: "item.axe.shortaxe", cat: CAT_AXE, price: 80 },
     { name: "Battle axe", slot: SLOT_RIGHT_HAND, variation: "axe", shape: "item.axe.battleaxe", cat: CAT_AXE, price: 150 },
     { name: "Military axe", slot: SLOT_RIGHT_HAND, variation: "axe", shape: "item.axe.military", cat: CAT_AXE, price: 160 },
     { name: "War axe", slot: SLOT_RIGHT_HAND, variation: "axe", shape: "item.axe.waraxe", cat: CAT_AXE, price: 170 },
     { name: "Dwarven axe", slot: SLOT_RIGHT_HAND, variation: "axe", shape: "item.axe.dwarven", cat: CAT_AXE, price: 180 },
+    { name: "Magic axe", slot: SLOT_RIGHT_HAND, variation: "axe", shape: "item.axe.magic", cat: CAT_AXE, price: 420 },
 
     { name: "Shortbow", slot: SLOT_RIGHT_HAND, variation: "bow", shape: "item.bow.shortbow", cat: CAT_BOW, price: 75 },
     { name: "Longbow", slot: SLOT_RIGHT_HAND, variation: "bow", shape: "item.bow.longbow", cat: CAT_BOW, price: 100 },
@@ -138,6 +140,18 @@ const OBJECTS = [
     { name: "Silverware", shape: "item.silverware.e", cat: CAT_MISC, price: 10 },
     { name: "Silverware", shape: "item.silverware.s", cat: CAT_MISC, price: 10 },
     { name: "Beer mug", shape: "item.food.mug", cat: CAT_MISC, price: 10 },
+
+    { 
+        name: "Meteorite Ore", shape: "item.ore.meteorite", cat: CAT_MISC, price: 50, onPickup: o => {
+           if(player.equipment.equipment[SLOT_GLOVES] = null) {
+                # todo: set state poisoned
+
+                timedMessage(player.move.x, player.move.y, player.move.z, "Poisoned!", true);
+            }
+        } 
+    },
+    { name: "Iron Ore", shape: "item.ore.iron", cat: CAT_MISC, price: 20 },
+    { name: "Anvil", shape: "item.anvil.x", cat: CAT_MISC, price: 30 },
 ];
 
 const OBJECTS_BY_SHAPE = {};

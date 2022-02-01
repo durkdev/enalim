@@ -22,6 +22,16 @@ SECTIONS["25,30"] := {
             timedMessage(x, y, z, "Warning: Meteorite!", false);
             return true;
         }
+        if(x = 6237 && y = 7246 && z = 1 && player.gameState["forge_6237_7246_1"] = null) {
+            idx := player.inventory.findIndex("item.ore.meteorite");
+            if(idx > -1) {
+                player.gameState["forge_6237_7246_1"] := 1;
+                player.inventory.remove(idx);
+                player.inventory.add("item.sword.magic", -1, -1);
+                timedMessage(x, y, z, "You forge a magic weapon!", true);
+                return true;
+            }
+        }
         return null;
     },
     "locked": (this, x, y, z) => {

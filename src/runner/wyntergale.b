@@ -186,9 +186,9 @@ addNpcDef({
                 idx2 := player.inventory.findIndex("item.reeds.dried");
                 idx3 := player.inventory.findIndex("item.corpse.aldain");
                 if(idx1 > -1 && idx2 > -1 && idx3 > -1) {
-                    player.inventory.remove(idx1, "inventory");
-                    player.inventory.remove(idx2, "inventory");
-                    player.inventory.remove(idx3, "inventory");
+                    player.inventory.remove(idx1);
+                    player.inventory.remove(idx2);
+                    player.inventory.remove(idx3);
                     player.movie := "wyntergale";
                     player.movieState := 0;
                     return "_end_convo_";
