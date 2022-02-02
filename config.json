@@ -630,7 +630,8 @@
                 { "name": "sign.shop.archery.x", "size": [ 2, 1, 5], "pos": [584, 168], "extra": true },
                 { "name": "sign.shop.potions.y", "size": [ 1, 2, 5], "pos": [608, 168], "extra": true },
                 { "name": "sign.shop.potions.x", "size": [ 2, 1, 5], "pos": [632, 168], "extra": true },
-                { "name": "key.avined", "description": "Avined catacombs key", "size": [1, 1, 1], "pos": [112, 208], "drag": true, "extra": true }
+                { "name": "key.avined", "description": "Avined catacombs key", "size": [1, 1, 1], "pos": [112, 208], "drag": true, "extra": true },
+                { "name": "key.aneil", "description": "Sceptre key", "size": [1, 1, 1], "pos": [64, 208], "drag": true, "extra": true }
             ],
             "images": [
                 { "name": "inventory", "size": [192, 176], "pos": [0, 824] },

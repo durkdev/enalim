@@ -42,6 +42,12 @@ SECTIONS["26,30"] := {
             setShape(6361, 7320, 1, "door.bars.x");
             setShape(6368, 7305, 1, "door.bars.y");
         }
+        eraseShape(6433, 7369, 1);
+        if(player.gameState["switch_6453_7477_8"] = true) {
+            setShape(6433, 7369, 1, "door.bars.x");
+        } else {
+            setShape(6433, 7369, 1, "door.bars.y");
+        }
     },
     "teleport": (this, x, y, z) => {
         if(x = 6350 && y >= 7310  && y <= 7313 && z = 1) {

@@ -137,6 +137,16 @@ addNpcDef({
     creature: "man-blue",
     convo: {
         "": "A jovial barkeep hails you: \"Welcome to the 'Sage Brew' at $Aneil, traveler. What will it be? Food or drink?\"",
+        "Aneil": "\"Aneil is a small town, but we do have our share of $personalities and $rumors. For one thing, we're the only town in Enalim with a $sage of our own!\"",
+        "sage": "He polishes a beer mug while talking: \"Aye, Extandis the sage lives right here in $Aneil. Of course I have not seen her as she keeps mostly to herself and
+            her studies. And she is just one of the town's $personalities!\"",
+        "personalities": "He lights up, this clearly must be his favorite topic: \"For such a small town as $Aneil, we have a $sage, Netul the jeweler, a Brigo $miner, a retired 
+            ranger named Mesnar, some city guards and my brother Ednar\" - he points to the kitchen - \"who is my cook.\"",
+        "miner": "\"The original $Aneil wall was built to protect the Brigo mine, a century ago. Today, the last descendent of the original mining family is still here: Meb
+            the miner. He is in the north-east corner of town.\"",
+        "rumors": "He pauses polishing the bar and stares into space then says: \"Well, I did hear Captain Rhone offerring a reward to get information about a dangerous cult
+            that may have members here in $Aneil. Can you believe that?\" - he laughs - \"We have some strange $personalities here but I would not think any of them are the
+            cultist type...\"",
     },
     waypoints: [ [ 6465, 7426, 1 ] ],
     schedule: [
@@ -149,8 +159,32 @@ addNpcDef({
     label: "Ednar",
     creature: "man-yellow",
     convo: {
-        "": "This large man looks like the cook. He is clearly annoyed at your presence: \"If you're looking to buy food, ask the $barkeep up front 
-            but get out of my kitchen.\"",
+        "": () => {
+            if(player.gameState["aneil_ednar"] = 1) {
+                return "The large man eyes you suspiciously. \"What do you want?\" - he barks - \"You can ask the $barkeep for food up front. But if
+                    you're $interested in something more... we can discuss it.\" He seems uncharacteristically chatty today.";
+            } else {
+                return "This large man looks like the cook. He is clearly annoyed at your presence: \"If you're looking to buy food, ask the $barkeep up front 
+                    but get out of my kitchen.\"";
+            }            
+        },
+        "barkeep": "He points to the bar area: \"You can find my brother Rednar, slinging ale there day and night.\" With that he goes back to his cooking.",
+        "interested": "He squints at you for a while, then says: \"Aye, Netul the Jeweler told me ye might drop by. I guess she thought you were all right, so I'll
+            tell you: it all started when $Korag first came to town. He brought with him news of $something coming. Something good.\" - he adds mysteriously.",
+        "Korag": () => {
+            player.gameState["aneil_korag"] := 1;
+            return "\"Korag is a prophet of a new philosphy. His teachings changed my life and I'm pleased to tell you about it also. Unfortunately,\" - he scratches
+                his stubbly chin - \"the local $law doesn't believe in an open exchange of ideas and branded him a wanted man. If you want to learn more about Korag's
+                teachings you will have to find him in the dungeon $Delude.\"";
+        },
+        "something": "He smiles a gaptoothed smile: \"Aye very good news indeed. If you, like me, have spent your life toiling and working for the man, only to be 
+            told how wonderful paradise is after you die... Well this new thinking by $Korag might appeal to you too. But keep this on the down-low... I don't want
+            the $law coming after me for spreading heresy.\"",
+        "law": "He nods towards the city walls: \"That would be Captain Rhone and his dogs on the wall. Let's just say they're not very open-minded when it comes to 
+            discussing the ideas taught by $Korag.\"",
+        "Delude": "He points to the east: \"The dungeon Delude is to the east  of here. If you venture in there looking for $Korag, be careful as the place is also home
+            to various monsters.\"",
+
     },
     waypoints: [ [ 6452, 7431, 1 ] ],
     schedule: [
@@ -209,6 +243,15 @@ addNpcDef({
     convo: {
         "": "A woman with a glittering smile and rings on every finger greets you: \"Welcome to $Aneil traveler. If you're looking
             for fine jewelry, please let me know!\"",
+        "Aneil": "\"I just moved here recently, but it does seem like a friendly town. I'm a deeply spiritual person and having a $sage here
+            shows me that the town is open to all all $types of devotion.\" - she glares at you suggestively - \"...all types.\"",
+        "types": () => {
+            player.gameState["aneil_ednar"] := 1;
+            return "You decide to bite and ask about her religious beliefs. She mutters something under her breath and says: \"There are of
+                course many fine religions. I happen to believe in one with a ...uh quicker path to happiness. If you are interested, ask $Ednar the
+                cook about it.\"";
+        },
+        "Ednar": "She points north: \"He works at the Sage Brew, just across the road. It's the only inn in $Aneil.\"",
     },
     waypoints: [ [ 6469, 7478, 1 ], [6454, 7478, 1] ],
     schedule: [
@@ -222,7 +265,25 @@ addNpcDef({
     label: "Rhone",
     creature: "guard",
     convo: {
-        "": "A guard glances at you. \"State your $business in $Aneil, traveler.\" - he says briskly.",
+        "": "A middle aged man is busy with paperwork here. Although he wears an old guard uniform, you get the sense he may be a ranking officer: \"Ah a 
+            visitor to our fine town of $Aneil. I am Captain Rhone, head of the city guard. Welcome traveler, may your stay be $safe here.\"",
+        "Aneil": "Captain Rhone points at the city walls: \"Aneil is a small town. Most people only know of us either because the sage Extandis lives here, or
+            because they're interested in $brigo mining. Life used to be $safe and uneventful.\"",
+        "brigo": "He nods to the north east of town: \"Aye, ask Miner Meb about it. I understand mining the mineral brigo was the original reason for the founding
+            of $Aneil, many years ago.\"",
+        "safe": "Captain Rhone sighs and says: \"There is always something, even in a small place like $Aneil. These days it's rumored that some kind of demon-
+            worshipping cult is $recruiting members here. Demons\" - he sighs again - \"will be the death of me.\"",
+        "recruiting":  () => {
+            if(player.gameState["aneil_korag"] = 1) {
+                return "You explain to the captain what you've learned from Ednar the cook. Rhone listens attentively and says: \"If you should meet this Korag,
+                    I would appreciate a heads up. You won't feel like an informant, I promise. We just want to talk to the man to clear things up.\" - you get the
+                    sense 'talking' would involve chains, somehow.";
+            } else {
+                return "The captain looks tired, as if this talk of cults has kept him up all night. \"Listen, I know you have just arrived here in $Aneil, and
+                    I don't want you to get the wrong impression: the city is a great tourist spot. But I don't have any extra men to put on this, so if you hear
+                    anything... if, for example, someone tries to recruit you into a cult... do let us know.\"";
+            }
+        }
     },
     waypoints: [ [ 6395, 7480, 8 ] ],
     schedule: [
@@ -239,6 +300,55 @@ addNpcDef({
             the $ore has had a weaker color lately...\" He barely notices you as he's lost in thought.",
     },
     waypoints: [ [ 6411, 7407, 1 ] ],
+    schedule: [
+        { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+const CULTIST_CONVO = {
+    "": "A man in dark robes rushes past. It seems they're busy inspecting the prison cells on both sides of this large room.",
+};
+
+addNpcDef({
+    name: "cultist1",
+    label: "cultist1",
+    creature: "monk",
+    convo: CULTIST_CONVO,
+    waypoints: [ [ 6446, 7362, 1 ] ],
+    schedule: [
+        { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+addNpcDef({
+    name: "cultist2",
+    label: "cultist2",
+    creature: "monk",
+    convo: CULTIST_CONVO,
+    waypoints: [ [ 6446, 7384, 1 ] ],
+    schedule: [
+        { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
+    ],    
+});
+
+addNpcDef({
+    name: "Korag",
+    label: "Korag",
+    creature: "monk-red",
+    convo: {
+                "": "You see a tall man with piercing flinty eyes. He seems alarmed at your presence: \"I... how... You should not be here.\" - he stammers
+             - \"What is your $business here?\"",
+        "business": () => {
+            if(player.gameState["aneil_korag"] = 1) {
+                return "You tell Korag - for this must be him - that you are interested in his teachings and have talked to Netul and Ednar in town already. He seems
+                    much relieved by this news: \"Ah excellent! I was afraid you were sent by Rhone or his minions\" - he spits the name out with venomous hatred - \"In 
+                    fact, you came just at the right time to uh... $assist me in a small task. That is unless you have $question first.\"";
+            } else {
+                return "You mumble something about just passing through and quickly shuffle off. You feel the man's burning gaze on your back as you exit the room.";
+            }
+        }
+    },
+    waypoints: [ [ 6464, 7380, 1 ] ],
     schedule: [
         { name: "pos1", from: 0, to: 24, movement: "anchor", waypointDir: 1 },
     ],    
