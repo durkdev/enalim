@@ -191,6 +191,42 @@ And finally, the most mysterious of all ore in Enalim is the purple meteorite, w
 without some protective equipment (such as leather gloves). The raw magical heat given off by this ore is likely to cause you permanent damage!
 ";
 
+const BOOK_VESNU = "The book of Vesnu
+aka. Infernalis Dominatio Aeternus
+by Anonymous
+
+All hail the unknowable mysteries of the benefactor of worlds: Vesnu! Worship the sacred pleasures of his
+dominion and bask in the revelations of his divine will. Conqueror of worlds, subjugator of universes, with
+his will alone he shall reign forever. The beloved tyrant of realities will grant  his most sacred boon to all who
+dare doff their earthly husk to embrace his coming utopia. While some fear him and his divine destruction,
+those who are loyal to him and turn away from the perverted, antiquated rituals of lesser gods will find
+eternal salvation in the ranks of his ever growing host. Hail Lord Vesnu!
+
+The first revelation: Mortification to aid the rise of Vesnu
+
+The ritual to raise the Infernal Lord Vesnu from his extradimensional slumber is described in more detail in
+Volume DCLXVI of 'Breathing Exercises of Transcendence'. Here we focus on what else a devoted acolyte can do
+to grant his liege entry to the world of men. May the purefying fire of eternal servitude burn brightly in his name!
+
+The second revelation: The blissful thralldom of Vesnu
+
+Great will be the joy when the angelic agony of a thousand burning worlds consumes Enalim. Hark and listen to his
+forerunners who have risen already to begin their work to ease his entry. May the mining of the green ore continue
+unabated, well knowing that each lump pulled from the deep only hastens the arrival of our Lord! Thus, exalt the miners
+and aid them in their sacred toils! May the inexorable machinery of human ingenuity in the service of usury and avarice
+not fail to bring about the riches of His kingdom!";
+
+const BOOK_GEMS = "The book of gemstones and crystals
+by Fenlaven A. Myst
+
+Here follows the scholarly discourse of the categorization of gems, crystals and other minerals of worth.
+
+Chapter 1: Precious Gems
+
+Chapter 2: Notable crystalline forms
+
+Chapter 3: Lesser minerals of note";
+
 BOOKS := {
     "Raising the dead": RAISE_DEAD,
     "On ghosts and spirits": ON_GHOSTS,
@@ -202,6 +238,8 @@ BOOKS := {
     "Fenlen grammar primer": BOOK_FENLEN,
     "Guide to arms and armor": BOOK_ARMS,
     "On the shaping of metals": BOOK_METALS,
+    "The book of Vesnu": BOOK_VESNU,
+    "The book of gems": BOOK_GEMS,
 };
 
 const PAGE_LINE_COUNT = 20;

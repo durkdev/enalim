@@ -25,7 +25,9 @@ SECTIONS["26,30"] := {
         setCreature(6364, 7299, 1, creaturesTemplates.spirit);
         setCreature(6364, 7304, 1, creaturesTemplates.spirit);
         setCreature(6364, 7316, 1, creaturesTemplates.spirit);
-        
+
+        setBook(6456, 7368, 3, "map", "The book of Vesnu");
+        setBook(6415, 7402, 1, "map", "Brigo processing");
     },
     "start": this => {
         eraseShape(6350, 7310, 1);

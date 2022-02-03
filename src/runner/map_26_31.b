@@ -1,5 +1,8 @@
 SECTIONS["26,31"] := {
     "init": this => {
+        setBook(6464, 7478, 5, "map", "The book of gems");
+        setBook(6458, 7473, 4, "map", "The nature of magic");
+        setBook(6454, 7490, 3, "map", "The book of Vesnu");
     },
     "start": this => {
     },

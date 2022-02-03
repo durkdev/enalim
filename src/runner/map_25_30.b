@@ -22,6 +22,10 @@ SECTIONS["25,30"] := {
             timedMessage(x, y, z, "Warning: Meteorite!", false);
             return true;
         }
+        if(x = 6226 && y = 7241 && z = 1) {
+            timedMessage(x, y, z, "Delude smithy", false);
+            return true;
+        }
         if(x = 6237 && y = 7246 && z = 1 && player.gameState["forge_6237_7246_1"] = null) {
             idx := player.inventory.findIndex("item.ore.meteorite");
             if(idx > -1) {
