@@ -182,13 +182,7 @@ addNpcDef({
             sound of the Horn of Hekate. If my research is correct, this should compell the demon to return home with haste.\"",
         "ingredients": () => {
             if(player.gameState["mertund.quest"] = 1) {
-                idx1 := player.inventory.findIndex("item.mineral.brigo");
-                idx2 := player.inventory.findIndex("item.reeds.dried");
-                idx3 := player.inventory.findIndex("item.corpse.aldain");
-                if(idx1 > -1 && idx2 > -1 && idx3 > -1) {
-                    player.inventory.remove(idx1);
-                    player.inventory.remove(idx2);
-                    player.inventory.remove(idx3);
+                if(isItemInInventoryAll(["item.mineral.brigo", "item.reeds.dried", "item.corpse.aldain"], true)) {
                     player.movie := "wyntergale";
                     player.movieState := 0;
                     return "_end_convo_";

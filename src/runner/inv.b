@@ -4,6 +4,38 @@ const BOOK_TYPE = "book";
 
 items := [];
 
+
+def isItemInInventoryAll(shapes, remove=False) {
+    # all items in inventory?
+    found := array_reduce(shapes, (b, shape) => {
+        if(b = false) {
+            return false;
+        }
+        return isItemInInventory(shape);
+    }, true);
+
+    # if all are found, actually remove them
+    if(found && remove) {
+        array_foreach(shapes, (i, shape) => isItemInInventory(shape, remove));
+    }
+    return found;
+}
+
+def isItemInInventory(shape, remove=False) {
+    return isItemInInventoryPc(player, shape, remove) || array_find(player.party, pc => isItemInInventoryPc(pc, shape, remove)) != null;
+}
+
+def isItemInInventoryPc(pc, shape, remove=False) {
+    idx := pc.inventory.findIndex(shape);
+    if(idx > -1) {
+        if(remove) {
+            pc.inventory.remove(idx);
+        }
+        return true;
+    }
+    return false;
+}
+
 def setBook(x, y, z, location, book) {
     c := setItem("book", x, y, z, location, BOOK_TYPE);
     c["book"] := book;

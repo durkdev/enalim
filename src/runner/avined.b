@@ -115,9 +115,7 @@ addNpcDef({
     creature: "woman2",
     convo: {
         "": () => {
-            idx := player.inventory.findIndex("item.necklace.pearl.avined");
-            if(idx > -1) {
-                player.inventory.remove(idx);
+            if(isItemInInventory("item.necklace.pearl.avined", true)) {
                 return "You give Professor Asteni back her lost necklace. She thanks you profusely, saying: \"Thank you for recovering this! It's strange though... a few pearls are missing. Oh
                     well, it was my mother's so I mainly keep it for sentimental reasons. Thanks you again!\"";
             }
@@ -176,10 +174,10 @@ addNpcDef({
              an expert in the history of the republic of $Krynt.\" - he seems to peer at you more intensely - \"I believe the past can 
              teach us many things, don't you? Anyway, my work is on hold until this $murder is cleared up.\"",
         "Krynt": () => {
-            idx1 := player.inventory.findIndex("item.chalice.krynt");
-            idx2 := player.inventory.findIndex("item.sceptre.krynt");
-            idx3 := player.inventory.findIndex("item.seal.krynt");
-            if(idx1 > -1 || idx2 > -1 || idx3 > -1) {
+            idx1 := isItemInInventory("item.chalice.krynt");
+            idx2 := isItemInInventory("item.sceptre.krynt");
+            idx3 := isItemInInventory("item.seal.krynt");
+            if(idx1 || idx2 || idx3) {
                 if(player.gameState["avined.catacombs.key"] = null) {
                     player.gameState["avined.catacombs.key"] := 1;
                     player.inventory.add("key.avined", -1, -1);
@@ -228,8 +226,7 @@ addNpcDef({
         "": "A large, smiling man greets you: \"Ah welcome treasured customer! Welcome to Enner's $weapon shop! Please take your time and browse
             my wares. Let me know if you have questions, for I am also a $researcher of antique daggers, besides working in sales.\"",
         "researcher": () => {
-            idx := player.inventory.findIndex("item.dagger.vesnu");
-            if(idx > -1) {
+            if(isItemInInventory("item.dagger.vesnu")) {
                 player.gameState["avined.dagger"] := 1;
                 return "You show Enner the dagger you found next to Professor Fenzeri's body. Enner inspects the weapon with a thoughtful expression: \"Hmm, I can't say I've seen
                     a one like it before. The inscriptions on the blade\" - something you completely failed to notice - \"are in an ancient language I'm not familiar with. Oh well,

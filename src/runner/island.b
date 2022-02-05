@@ -7,9 +7,7 @@ addNpcDef({
             if(player.gameState["ourdlen_done"] != null) {
                 return "The Necromancer starts when he sees you: \"Why haven't you left yet? It is you Lydell, you must go $immediately!\"";
             } else {
-                idx := player.inventory.findIndex("doc.ourdlen");
-                if(idx > -1) {
-                    player.inventory.remove(idx);
+                if(isItemInInventory("doc.ourdlen", true)) {
                     player.gameState["ourdlen_done"] := 1;
                     return "The Necromancer ^takes the manuscript from you^ and reads it intently. After what seems like several intense minutes he gazes at you with a deranged expression: \"You must leave $immediately.\"";
                 } else {
@@ -40,9 +38,7 @@ addNpcDef({
         "Vesnu": "The Necromancer's look is somewhere between concern and barely checked irritation. \"Vesnu is an ancient being - some call him a god - of pure malignant energy. Nothing good can come of his awakening. Of course, \" - he adds - \"we have gone over this many times. You are $prepared for the $conjunction, correct?\"",
         "prepared": () => {
             if(player.gameState["chores_done"] = null) {
-                idx := player.inventory.findIndex("item.thermex");
-                if(idx > -1) {
-                    player.inventory.remove(idx);
+                if(isItemInInventory("item.thermex", true)) {
                     player.gameState["chores_done"] := 1;
                     return "The Necromancer ^takes the vial of reagents^ from you. \"Thank you for bringing me this.\" - his expression looks more judgemental than thankful - \"Now before we begin the $ritual, there is the issue of the $ghost in the cornfield you need to deal with...\"";
                 } else {

@@ -199,13 +199,13 @@ addNpcDef({
     convo: {
         "": () => {
             relics := 0;
-            if(player.inventory.findIndex("item.chalice.krynt") > -1) {
+            if(isItemInInventory("item.chalice.krynt")) {
                 relics :+ 1;
             }
-            if(player.inventory.findIndex("item.sceptre.krynt") > -1) {
+            if(isItemInInventory("item.sceptre.krynt")) {
                 relics :+ 1;
             }
-            if(player.inventory.findIndex("item.seal.krynt") > -1) {
+            if(isItemInInventory("item.seal.krynt")) {
                 relics :+ 1;
             }
             if(relics = 0) {

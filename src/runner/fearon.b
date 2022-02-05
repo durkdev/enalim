@@ -27,8 +27,7 @@ addNpcDef({
         "one": "His eyes glow in zealous admiration: \"Yes, yes, you may just be the one to fix everything! Thwart the advance of $Vesnu and his
             agents of evil. But there is no time for this now,\" - he points to the north - \"onward for the $chalice!\"",
         "chalice": () => {
-            idx := player.inventory.findIndex("item.chalice.krynt");
-            if(idx > -1) {
+            if(isItemInInventory("item.chalice.krynt")) {
                 return "The old man claps you on the back: \"I knew you could do it! Now complete the other $challenges and then journey to $Extandis!\"";
             } else {
                 return "\"The Azure Chalice of Krynt is said to lie in the sacred chamber to the north. It is one of three magical artifacts which

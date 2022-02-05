@@ -118,8 +118,7 @@ addNpcDef({
                     smiles creepily - \"Despite my personal misgivings about the dungeon $Ravenous, I believe you could brave its depths 
                     and bring me the $jewel the thief was carrying. Do that and I will show you the way to Fearon.\"";
             } else {
-                idx := player.inventory.findIndex("item.gem.theohadron");
-                if(idx > -1) {
+                if(isItemInInventory("item.gem.theohadron")) {
                     if(player.gameState["ender_quest_after"] = null) {
                         player.gameState["ender_quest_after"] := true;
                         return "You pull the shiny gem from your bag with, what you perceive as, an air casual confidence.
