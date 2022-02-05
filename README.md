@@ -27,7 +27,7 @@ go build
 
 `enalim` is in active development and the game's status is `pre-alpha`. You can explore the start of the story, complete some quests, gain companions and items/treasure. You can marvel at the day/night cycles, explore the land and its caves/dungeons. Combat at the moment is basically a place-holder (you suffer no damage.) Spells, stats, states, as well as many critical items don't yet exist. The game works best at its intended resolution; there are known issues with full-screen mode.
 
-<a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/ritual.png"><img src="images/screens/ritual.png" width="250"></a>
+<a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/ritual.png"><img src="images/screens/ritual.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/delude.png"><img src="images/screens/delude.png" width="250"></a>
 
 2022 (c) uzudil
 
