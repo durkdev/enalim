@@ -10,7 +10,7 @@ SECTIONS["22,25"] := {
         setCreature(5504, 6072, 1, creaturesTemplates.goblin);
         setCreature(5478, 6022, 1, creaturesTemplates.goblin);
 
-        setBook(5520, 6129, 5, "map", "Spell reagents");
+        setBook(5520, 6129, 5, "Spell reagents");
     },
     "start": this => {
         eraseShape(5504, 6068, 1);

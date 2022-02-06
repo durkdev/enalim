@@ -1,12 +1,12 @@
 SECTIONS["27,22"] := {
     "init": this => {
-        setBook(6557, 5382, 3, "map", "The book of Vreit");
-        setBook(6537, 5463, 3, "map", "The book of Vreit");
-        setBook(6525, 5444, 3, "map", "The book of Vreit");
-        setBook(6521, 5426, 3, "map", "The book of Vreit");
-        setBook(6495, 5441, 5, "map", "The book of Vreit");
-        setBook(6527, 5421, 3, "map", "Spell reagents");
-        setContainer("chest", 6521, 5422, 1, "map", [ "item.dagger", "item.candle", "item.belt.1" ]);
+        setBook(6557, 5382, 3, "The book of Vreit");
+        setBook(6537, 5463, 3, "The book of Vreit");
+        setBook(6525, 5444, 3, "The book of Vreit");
+        setBook(6521, 5426, 3, "The book of Vreit");
+        setBook(6495, 5441, 5, "The book of Vreit");
+        setBook(6527, 5421, 3, "Spell reagents");
+        setContainer("chest", 6521, 5422, 1, [ "item.dagger", "item.candle", "item.belt.1" ]);
         setCreature(6488, 5414, 1, creaturesTemplates.goblin);
         setCreature(6493, 5416, 1, creaturesTemplates.goblin);
         setCreature(6493, 5434, 2, creaturesTemplates.goblin);

@@ -1,6 +1,6 @@
 SECTIONS["26,22"] := {
     "init": this => {
-        setContainer("barrel", 6391, 5318, 1, "map", [ "key.ourdlen2", "item.gem.ruby", { "shape": "item.book.1", "book": "The book of Vreit" } ]);
+        setContainer("barrel", 6391, 5318, 1, [ "key.ourdlen2", "item.gem.ruby", { "shape": "item.book.1", "book": "The book of Vreit" } ]);
         setCreature(6396, 5322, 1, creaturesTemplates.ogre);
         setCreature(6396, 5331, 1, creaturesTemplates.ogre);
         setCreature(6427, 5354, 1, creaturesTemplates.goblin);

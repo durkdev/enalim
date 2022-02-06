@@ -1,6 +1,6 @@
 SECTIONS["23,25"] := {
     "init": this => {        
-        setContainer("crate", 5593, 6036, 1, "map", [ "item.bottle", "item.trash.fish.2", "item.pants.blue", "item.dagger" ]);
+        setContainer("crate", 5593, 6036, 1, [ "item.bottle", "item.trash.fish.2", "item.pants.blue", "item.dagger" ]);
         setCreature(5560, 6023, 1, creaturesTemplates.goblin);
         setCreature(5555, 6024, 1, creaturesTemplates.goblin);
         setCreature(5551, 6029, 1, creaturesTemplates.goblin);
@@ -29,7 +29,7 @@ SECTIONS["23,25"] := {
         setCreature(5732, 6096, 1, creaturesTemplates.skeleton_blue);
         setCreature(5720, 6088, 1, creaturesTemplates.skeleton_red);
 
-        setBook(5667, 6021, 3, "map", "On ghosts and spirits");
+        setBook(5667, 6021, 3, "On ghosts and spirits");
     },
     "combatWin": (this, creatureId, x, y, z) => {
         if(creatureId = "c.5720.6088.1") {

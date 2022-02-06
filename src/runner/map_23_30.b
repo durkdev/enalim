@@ -11,7 +11,7 @@ SECTIONS["23,30"] := {
         setCreature(5608, 7224, 1, creaturesTemplates.ogre);
         setCreature(5605, 7233, 1, creaturesTemplates.ogre);
         setCreature(5608, 7239, 1, creaturesTemplates.ogre);
-        setContainer("barrel", 5600, 7222, 1, "map", [ "item.mineral.brigo", "item.mineral.brigo", "item.mineral.brigo", "item.mineral.brigo", "item.mineral.brigo" ]);
+        setContainer("barrel", 5600, 7222, 1, [ "item.mineral.brigo", "item.mineral.brigo", "item.mineral.brigo", "item.mineral.brigo", "item.mineral.brigo" ]);
     },
     "start": this => {
     },

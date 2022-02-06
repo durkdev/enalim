@@ -4,7 +4,7 @@ def wyntergale_winch() {
 
 SECTIONS["23,29"] := {
     "init": this => {
-        setContainer("barrel", 5725, 6986, 15, "map", [ "key.wyntergale" ]);
+        setContainer("barrel", 5725, 6986, 15, [ "key.wyntergale" ]);
         setCreature(5524, 7023, 1, creaturesTemplates.ogre);
         setCreature(5531, 7023, 1, creaturesTemplates.ogre);
         setCreature(5539, 7023, 1, creaturesTemplates.ogre);

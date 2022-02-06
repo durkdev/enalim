@@ -59,6 +59,7 @@ player := {
     partyFormationIndex: 0,
     moveTimer: 0,
     moving: false,
+    globalInventory: null,
 };    
 
 # the player's shape size
@@ -429,7 +430,7 @@ def handleGameClick() {
                 return 1;
             }
 
-            if(openContainer(shape[1], shape[2], shape[3], "map")) {
+            if(openContainer(shape[1], shape[2], shape[3])) {
                 return 1;
             }
 
@@ -455,6 +456,7 @@ def handleGameClick() {
             }
         }
     } else {
+        # todo: what is this?
         if(openContainer(dragIndex, -1, -1, dragAction)) {
             return 1;
         }
@@ -814,15 +816,9 @@ def timedMessageXY(x, y, message, rise=false) {
 
 def save_game() {
     if(player.move != null) {
-        # Collect the items in the global items array that are also in the inventories of the pc-s.
-        # Collect them but don't remove them.
-        # The items in the inventory have extended definitions (book contents, container contents, etc. in global items.)
-        inv_items := pruneItems("inv.player", 0, 0, false);
-        array_foreach(player.party, (i, pc) => array_concat(inv_items, pruneItems("inv." + pc.id, 0, 0, false)));
         saveMap("savegame.json", {
             "calendar": getCalendarRaw(),
             "gameState": player.gameState,
-            "items": inv_items,
             "inventory": player.inventory.encode(),
             "equipment": player.equipment.encode(),
             "move": player.move.encode(),
@@ -838,7 +834,6 @@ def load_game(saved) {
     player.hp := saved.hp;
     player.coins := saved.coins;
     player.gameState := saved.gameState;
-    array_foreach(saved.items, (i, c) => restoreItem(c));
     player.inventory.decode(saved.inventory);
     player.move.decode(saved.move);
     player.equipment.decode(saved.equipment);
@@ -925,8 +920,9 @@ def main() {
     EVENTS_MAP[MODE_EXIT] := (s, d,f) => eventsExit(d, f);
 
     # init player
-    player.inventory := newInventory("inv.player");
+    player.inventory := newInventory("player");
     player.equipment := newEquipment();
+    player.globalInventory := newInventory("global");
 
     setPathThroughShapes(keys(REPLACE_SHAPES));
 

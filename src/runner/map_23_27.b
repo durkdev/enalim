@@ -1,6 +1,6 @@
 SECTIONS["23,27"] := {
     "init": this => {
-        setBook(5646, 6707, 3, "map", "The age of Krynt");
+        setBook(5646, 6707, 3, "The age of Krynt");
         setCreature(5620, 6707, 1, creaturesTemplates.spirit);
         setCreature(5622, 6712, 1, creaturesTemplates.spirit);
         setCreature(5619, 6716, 1, creaturesTemplates.spirit);        
@@ -8,8 +8,8 @@ SECTIONS["23,27"] := {
         setCreature(5712, 6701, 1, creaturesTemplates.spirit);        
         setCreature(5706, 6701, 1, creaturesTemplates.spirit);        
         setCreature(5665, 6594, 1, creaturesTemplates.ogre);        
-        setContainer("barrel", 5586, 6701, 1, "map", [ "item.ring.gold" ]);
-        setContainer("barrel", 5715, 6516, 1, "map", [ "item.spear.spiked" ]);
+        setContainer("barrel", 5586, 6701, 1, [ "item.ring.gold" ]);
+        setContainer("barrel", 5715, 6516, 1, [ "item.spear.spiked" ]);
     },
     "start": this => {
         eraseShape(5596, 6643, 1);

@@ -2,17 +2,27 @@
 const CONTAINER_TYPE = "container";
 const BOOK_TYPE = "book";
 
-items := [];
+globalItemId := 0;
 
+def getItemById(id) {
+    # todo: this is slow (but avoids keeping a global item lookup map up to date)
+    i := player.globalInventory.getItemById(id);
+    if(i = null) {
+        i := player.inventory.getItemById(id);
+        if(i = null) {
+            idx := 0;
+            while(i = null && idx < len(player.party)) {
+                i := player.party[idx].getItemById(id);
+                idx :+ 1;
+            }
+        }
+    }
+    return i;
+}
 
 def isItemInInventoryAll(shapes, remove=False) {
     # all items in inventory?
-    found := array_reduce(shapes, (b, shape) => {
-        if(b = false) {
-            return false;
-        }
-        return isItemInInventory(shape);
-    }, true);
+    found := array_reduce(shapes, true, (b, shape) => b && isItemInInventory(shape));
 
     # if all are found, actually remove them
     if(found && remove) {
@@ -22,74 +32,75 @@ def isItemInInventoryAll(shapes, remove=False) {
 }
 
 def isItemInInventory(shape, remove=False) {
-    return isItemInInventoryPc(player, shape, remove) || array_find(player.party, pc => isItemInInventoryPc(pc, shape, remove)) != null;
+    return player.inventory.isContained(shape, remove) || 
+        array_find(player.party, pc => pc.inventory.isContained(shape, remove)) != null;
 }
 
-def isItemInInventoryPc(pc, shape, remove=False) {
-    idx := pc.inventory.findIndex(shape);
-    if(idx > -1) {
-        if(remove) {
-            pc.inventory.remove(idx);
-        }
-        return true;
-    }
-    return false;
+def setBook(x, y, z, book, inventory=null) {
+    item := newItem("book", BOOK_TYPE);
+    item.book := book;    
+    addItemAt(x, y, z, item, inventory);
+    return item;
 }
 
-def setBook(x, y, z, location, book) {
-    c := setItem("book", x, y, z, location, BOOK_TYPE);
-    c["book"] := book;
-    return c;
-}
-
-def setContainer(uiImage, x, y, z, location, invItems) {
-    c := setItem(uiImage, x, y, z, location, CONTAINER_TYPE);
-    if(c["items"] = null) {
-        c["items"] := newInventory(c.id);
-        array_foreach(invItems, (i, item) => {
-            if(typeof(item) = "map") {
-                c.items.add(item.shape, -1, -1);
-                if(item["book"] != null) {
-                    setBook(len(c.items.items) - 1, 0, 0, c.id, item.book);
-                }
-            } else {
-                c.items.add(item, -1, -1);
+def setContainer(uiImage, x, y, z, invItems, inventory=null) {
+    c := newItem(uiImage, CONTAINER_TYPE);
+    array_foreach(invItems, (i, invItem) => {
+        if(typeof(invItem) = "map") {
+            # decode the given map
+            item := null;
+            if(invItem["book"] != null) {
+                item := newItem("book", BOOK_TYPE);
+                item.book := invItem.book;
             }
-        });
-    }
+            c.inventory.add(invItem.shape, item);
+        } else {
+            # if just a string, assume it's a shape
+            c.inventory.add(invItem);
+        }
+    });
+    # add the container to the inventory
+    addItemAt(x, y, z, c, inventory);
     return c;
 }
 
-def setItem(uiImage, x, y, z, location, type) {
-    id := "";
-    if(location = "map") {
-        id := "i." + x + "." + y + "." + z;
-    } else {
-        id := location + "." + x;
-    }
-    c := array_find(items, cc => cc.id = id);
-    if(c = null) {
-        c := {
-            id: id,
-            type: type,
-            uiImage: uiImage,
-            x: x,
-            y: y,
-            z: z,
-            location: location,
-        };
-        # print("*** Adding item of type: " + c.type);
-        items[len(items)] := c;
-    }
-    return c;
+# extra item information for books, containers
+def newItem(uiImage, type) {
+    id := "i." + globalItemId;
+    globalItemId :+ 1;
+    return {
+        id: id,
+        type: type,
+        uiImage: uiImage,
+        book: null,
+        inventory: newInventory("item inventory " + id),
+        encode: self => {
+            return {
+                uiImage: self.uiImage,
+                type: self.type,
+                inventory: self.inventory.encode(),
+                book: self.book,
+            };
+        },
+        decode: (self, saved) => {
+            self.type := saved.type;
+            self.uiImage := saved.uiImage;
+            self.inventory.decode(saved.inventory);
+            self.book := saved.book;
+        }
+    };
 }
 
-def updateItemLocation(c, x, y, z, location) {
-    c.x := x;
-    c.y := y;
-    c.z := z;
-    c.location := location;
-    # print("New item location for id=" + c.id + " " + c.location + ":" + c.x + "," + c.y + "," + c.z);
+def addItemAt(x, y, z, item, inventory=null) {
+    # add to inventory
+    inv := inventory;
+    if(inv = null) {
+        inv := player.globalInventory;
+    }
+    inv.addItemAt(item, x, y, z);
+    
+    # return item
+    return item;
 }
 
 const EMPTY_CONTAINERS = {
@@ -99,136 +110,87 @@ const EMPTY_CONTAINERS = {
     "crate": "crate",
 };
 
-def getItem(x, y, z, location) {
-    # todo: linear search
-    if(location = "map") {
-        mapItem := array_find(items, c => c.x = x && c.y = y && c.z = z);
-        if(mapItem = null) {
-            # try to create an empty container
-            shape := getShape(x, y, z);
-            if(shape != null) {
-                c := EMPTY_CONTAINERS[shape[0]];
-                if(c != null) {
-                    # print("Creating empty container.");
-                    return setContainer(c, x, y, z, "map", []);
+def newInventory(name) {
+    return {
+        name: name,
+        items: [],
+        isContained: (self, shape, doRemove=False) => {
+            idx := self.findIndex(shape);
+            found := idx > -1;
+            if(found && doRemove) {
+                self.remove(idx);
+            }
+            return found;
+        },
+        debug: self => {
+            print("--------------------------------");
+            print(self.name);
+            array_foreach(self.items, (i, c) => {
+                print("\t" + i + ": " + c.shape + " pos=" + c.pos + " xy=" + c.x + "," + c.y);
+                if(c.item != null) {
+                    print("\t" + c.item);
+                }
+            });
+            print("--------------------------------");
+        },
+        getItemById: (self, id) => {
+            item := array_find(self.items, i => i.item != null && i.item.id = id);
+            if(item != null) {
+                return item.item;
+            }
+            return null;
+        },
+        getItemAt: (self, x, y, z) => {
+            # todo: linear search
+            mapItem := array_find(self.items, c => c.pos[0] = x && c.pos[1] = y && c.pos[2] = z);
+            if(mapItem = null) {
+                # try to create an empty container
+                shape := getShape(x, y, z);
+                if(shape != null) {
+                    c := EMPTY_CONTAINERS[shape[0]];
+                    if(c != null) {
+                        # print("Creating empty container.");
+                        return setContainer(c, x, y, z, [], self);
+                    }
                 }
             }
-        }
-        return mapItem;
-    }
-    return array_find(items, c => c.x = x && c.location = location);
-}
+            return mapItem;
+        },
+        addItemAt: (self, item, x, y, z) => {
 
-def getItemById(id) {
-    return array_find(items, c => c.id = id);
-}
-
-def saveItem(item) {
-    saved := {
-        id: item.id,
-        uiImage: item.uiImage,
-        type: item.type,
-        x: item.x,
-        y: item.y,
-        z: item.z,
-        location: item.location,
-        containers: [],
-    };
-    if(item["items"] != null) {
-        saved["items"] := item.items.encode();
-    }
-    if(item["book"] != null) {
-        saved["book"] := item["book"];
-    }
-    return saved;
-}
-
-def loadItem(savedItem) {
-    c := {
-        id: savedItem.id,
-        uiImage: savedItem.uiImage,
-        type: savedItem.type,
-        x: savedItem.x,
-        y: savedItem.y,
-        z: savedItem.z,
-        location: savedItem.location,
-    };
-    if(savedItem["items"] != null) {
-        c["items"] := newInventory(c.id);
-        c.items.decode(savedItem.items);
-    }
-    if(savedItem["book"] != null) {
-        c["book"] := savedItem["book"];
-    }
-    return c;
-}
-
-def pruneItems(location, sectionX, sectionY, doRemove) {
-    saves := array_reduce(items, [], (a, c) => {
-        b := c.location = location;
-        if(location = "map") {
-            sectionPos := getSectionPos(c.x, c.y);
-            b := sectionPos[0] = sectionX && sectionPos[1] = sectionY;
-        }
-        if(b) {
-            a[len(a)] := saveItem(c);
-        }
-        return a;
-    });
-    if(doRemove && len(saves) > 0) {
-        array_remove(items, c => array_find(saves, s => s.id = c.id) != null);
-    }
-    prune_contained(saves, doRemove);
-    return saves;
-}
-
-def prune_contained(tests, doRemove) {
-    if(len(tests) = 0) {
-        return 1;
-    }
-    saves := array_reduce(tests, [], (a, r) => {
-        array_foreach(items, (t, c) => {
-            if(c.location = r.id) {
-                result := saveItem(c);
-                r.containers[len(r.containers)] := result;
-                a[len(a)] := result;
+            # find the shape on the map
+            shape := null;
+            print("getShape: " + x + "," + y + "," + z);
+            info := getShape(x, y, z);
+            print("info=" + info);
+            if(info = null) {
+                print("getShapeExtra: " + x + "," + y + "," + z);
+                shapes := getShapeExtra(x, y, z);
+                print("shapes=" + shapes);
+                if(len(shapes) > 0) {
+                    shape := shapes[0];
+                }
+            } else {
+                shape := info[0];
             }
-        });
-        return a;
-    });
-    if(doRemove && len(saves) > 0) {
-        array_remove(items, c => array_find(saves, s => s.id = c.id) != null);
-    }
-    prune_contained(saves, doRemove);
-}
 
-def restoreItem(savedItem) {
-    # print("* Restoring item " + savedItem.uiImage + " " + savedItem.id + " saved=" + savedItem);
-    c := loadItem(savedItem);
-    items[len(items)] := c;
-    restore_contained(savedItem.containers);
-    # print("* Done restoring item");
-}
-
-def restore_contained(saved) {
-    array_foreach(saved, (i, s) => {
-        c := loadItem(s);
-        items[len(items)] := c;
-        restore_contained(s.containers);
-    });
-}
-
-def newInventory(location) {
-    return {
-        location: location,
-        items: [],
-        add: (self, shape, xpos=-1, ypos=-1) => {
+            # add it to inventory
+            if(shape = null) {
+                print("Error: can't find shape at: " + x + "," + y + "," + z);
+            } else {
+                print("* adding to inventory: " + self.name + " shape=" + shape + " item=" + item);
+                self.add(shape, item, [x, y, z]);
+            }
+        },
+        add: (self, shape, item=null, pos=null, xpos=-1, ypos=-1) => {
             if(xpos < 0) {
                 xpos := int(40 + random() * 400);
                 ypos := int(20 + random() * 440);
             }
             self.items[len(self.items)] := {
                 shape: shape,
+                item: item,
+                pos: pos,
                 x: xpos,
                 y: ypos,
             };
@@ -236,26 +198,31 @@ def newInventory(location) {
         },
         findIndex: (self, name) => array_find_index(self.items, item => item.shape = name),
         remove: (self, index) => {
-            # adjust the location of items in this inventory
-            item := getItem(index, -1, -1, self.location);
-            i := index + 1;
-            while(i < len(self.items)) {
-                c := getItem(i, -1, -1, self.location);
-                if(c != null) {
-                    updateItemLocation(c, i - 1, -1, -1, self.location);
-                }
-                i := i + 1;
-            }
             # remove the item
             invItem := self.items[index];
+            # out is a clone of invItem
             out := { 
                 shape: invItem.shape, 
                 x: invItem.x, 
                 y: invItem.y, 
-                item: item,
+                item: invItem.item,
             };
             del self.items[index];
             return out;
+        },
+        prune: (self, sectionX, sectionY) => {
+            saved := [];
+            array_remove(self.items, item => {
+                if(item.pos != null) {
+                    sectionPos := getSectionPos(item.pos[0], item.pos[1]);
+                    if(sectionPos[0] = sectionX && sectionPos[1] = sectionY) {
+                        saved[len(saved)] := self.encodeItem(item);
+                        return true;
+                    }
+                }
+                return false;
+            });
+            return saved;
         },
         render: self => {
             return array_map(self.items, item => {
@@ -267,29 +234,32 @@ def newInventory(location) {
                 };
             });
         },
+        encodeItem: (self, item) => {
+            out := {
+                shape: item.shape,
+                pos: item.pos,
+                x: item.x,
+                y: item.y,
+                item: null,
+            };
+            if(item.item != null) {
+                out.item := item.item.encode();
+            }
+            return out;
+        },
         encode: self => {
-            return array_map(self.items, i => {
-                return {
-                    shape: i.shape,
-                    x: i.x,
-                    y: i.y,
-                };
-            });
+            return array_map(self.items, i => self.encodeItem(i));
+        },
+        decodeItem: (self, savedItem) => {
+            item := null;
+            if(savedItem.item != null) {
+                item := newItem(null, null);
+                item.decode(savedItem.item);
+            }
+            self.add(savedItem.shape, item, savedItem.pos, savedItem.x, savedItem.y);
         },
         decode: (self, saved) => {
-            array_foreach(saved, (i, item) => self.add(item.shape, item.x, item.y));
-        },
-        forItem: (self, fx) => {
-            # todo: make recursive for containers
-            i := 0;
-            while(i < len(self.items)) {
-                r := fx(self.items[i]);
-                if(r != null) {
-                    return r;
-                }
-                i := i + 1;
-            }
-            return null;
+            array_foreach(saved, (i, savedItem) => self.decodeItem(savedItem));
         }
     };
 }

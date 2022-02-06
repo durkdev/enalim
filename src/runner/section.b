@@ -37,7 +37,7 @@ def onSectionLoad(sectionX, sectionY, data) {
         # restore a section from saved data
         print("+++ Restore load " + sectionX + "," + sectionY);
         array_foreach(data.creatures, (i, c) => restoreCreature(c));
-        array_foreach(data.items, (i, c) => restoreItem(c));
+        array_foreach(data.items, (i, c) => player.globalInventory.decodeItem(c));
         # print("+++ Done restoring " + sectionX + "," + sectionY);
     }
 
@@ -58,7 +58,7 @@ def beforeSectionSave(sectionX, sectionY) {
     save_game();
     return { 
         "creatures": pruneCreatures(sectionX, sectionY), 
-        "items": pruneItems("map", sectionX, sectionY, true),
+        "items": player.globalInventory.prune(sectionX, sectionY),
     };
 }
 

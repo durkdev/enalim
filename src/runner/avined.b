@@ -180,7 +180,7 @@ addNpcDef({
             if(idx1 || idx2 || idx3) {
                 if(player.gameState["avined.catacombs.key"] = null) {
                     player.gameState["avined.catacombs.key"] := 1;
-                    player.inventory.add("key.avined", -1, -1);
+                    player.inventory.add("key.avined");
                     return "He moves closer and whispers conspiratorially: \"I sense something special about you traveler. An unexplainable 
                         connection to the Knights of Krynt perhaps? For some reason I feel like you already know more about them than you're
                         letting on.\" - pulls a great, ^brass key^ from his robes and hands it to you - \"I rarely let people enter the $catacombs

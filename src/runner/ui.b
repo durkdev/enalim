@@ -8,11 +8,8 @@ def updateInventoryUi(pc) {
 }
 
 def addToInventory(pc, shape, container, panelX, panelY) {
-    index := pc.inventory.add(shape, panelX, panelY);
+    index := pc.inventory.add(shape, container, panelX, panelY);
     updateInventoryUi(pc);
-    if(container != null) {
-        updateItemLocation(container, index, -1, -1, "inv." + pc.id);
-    }
     debugInventory(pc);
 }
 
@@ -101,21 +98,15 @@ def updateEquipmentPanel(pc) {
     updatePanel("equ." + pc.id, c);
 }
 
-def getItemName(x, y, z, location) {
-    return "unknown";
-}
-
-def openContainer(x, y, z, location) {
-    c := getItem(x, y, z, location);
+def openContainer(x, y, z, inventory=null) {
+    inv := inventory;
+    if(inv = null) {
+        inv := player.globalInventory;
+    }
+    c := inv.getItemAt(x, y, z);
     if(c = null) {
-        if(location != "map") {
-            print("No item at " + x + " in " + location + ":");
-            array_foreach(items, (i, c) => {
-                if(c.location = location) {
-                    print("\t" + c.x + " " + c.uiImage);
-                }
-            });
-        }
+        print("No item at " + x + "," + y + "," + z);
+        inv.debug();
         return false;
     }
     print("openContainer: c=" + c + " type=" + c.type);
@@ -138,7 +129,7 @@ def openContainer(x, y, z, location) {
 }
 
 def updateContainerUi(c) {
-    updatePanel(c.id, c.items.render());
+    updatePanel(c.id, c.inventory.render());
 }
 
 def startDrag(pos, action, index) {
@@ -190,7 +181,7 @@ def startDrag(pos, action, index) {
                 "shape": info[0],
                 "pos": [info[1], info[2], info[3]],
                 "fromUi": "map",
-                "draggedContainer": getItem(info[1], info[2], info[3], "map"),
+                "draggedContainer": globalInventory.getItemAt(info[1], info[2], info[3]),
             };
             eraseDraggableShape(info[1], info[2], info[3], info[4]);            
         }
@@ -201,15 +192,9 @@ def startDrag(pos, action, index) {
 def debugInventory(pc) {
     print("------------------------------");
     print("inventory:");
-    array_foreach(pc.inventory.items, (i, c) => {
-        print("\t" + i + ": " + c.shape + " pos=" + c.x + "," + c.y);
-    });
-    print("items:");
-    array_foreach(items, (i, c) => {
-        if(c.location = "inv." + pc.id) {
-            print("\t" + c.x + " " + c.uiImage);
-        }
-    });
+    pc.inventory.debug();
+    print("global:");
+    player.globalInventory.debug();
     print("------------------------------");
 }
 
@@ -221,11 +206,8 @@ def endDrag(pos) {
             if(info != null) {
                 if(info[0] = player.shape) {
                     # drop over character
-                    index := player.inventory.add(player.dragShape.shape, -1, -1);
+                    index := player.inventory.add(player.dragShape.shape, player.dragShape.draggedContainer);
                     updateInventoryUi(player);
-                    if(player.dragShape.draggedContainer != null) {
-                        updateItemLocation(player.dragShape.draggedContainer, index, -1, -1, "inv.player");
-                    }
                     debugInventory(player);
                     handled := true;
                 } else {
@@ -235,11 +217,8 @@ def endDrag(pos) {
                         pc := player.party[i];
                         if(info[0] = pc.shape) {
                             # drop over character
-                            index := pc.inventory.add(player.dragShape.shape, -1, -1);
+                            index := pc.inventory.add(player.dragShape.shape, player.dragShape.draggedContainer);
                             updateInventoryUi(pc);
-                            if(player.dragShape.draggedContainer != null) {
-                                updateItemLocation(player.dragShape.draggedContainer, index, -1, -1, "inv." + pc.id);
-                            }
                             debugInventory(pc);
                             handled := true;
                         }
@@ -247,13 +226,10 @@ def endDrag(pos) {
                     }
                     if(handled = false) {
                         # drop over container
-                        c := getItem(info[1], info[2], info[3], "map");
+                        c := player.globalInventory.getItemAt(info[1], info[2], info[3]);
                         if(c != null) {
-                            index := c.items.add(player.dragShape.shape, -1, -1);
+                            index := c.inventory.add(player.dragShape.shape, player.dragShape.draggedContainer);
                             updateContainerUi(c);
-                            if(player.dragShape.draggedContainer != null) {
-                                updateItemLocation(player.dragShape.draggedContainer, index, -1, -1, c.id);
-                            }
                             handled := true;
                         }
                     }
@@ -283,9 +259,6 @@ def endDrag(pos) {
                     if(handled = false) {
                         index := targetContainer.items.add(player.dragShape.shape, panel[1], panel[2]);
                         updateContainerUi(targetContainer);
-                        if(player.dragShape.draggedContainer != null) {
-                            updateItemLocation(player.dragShape.draggedContainer, index, -1, -1, targetContainer.id);
-                        }
                     }
                     handled := true;
                 }
@@ -302,9 +275,6 @@ def endDrag(pos) {
             } else {
                 # drop on map
                 setDraggableShape(x, y, z, player.dragShape.shape);
-                if(player.dragShape.draggedContainer != null) {
-                    updateItemLocation(player.dragShape.draggedContainer, x, y, z, "map");
-                }
                 onDrop(x, y, z, player.dragShape.shape);
             }
         }
@@ -322,7 +292,7 @@ def cancelDrag() {
     if(startsWith(player.dragShape.fromUi, "inv.")) {
         pc := getCreatureById(substr(player.dragShape.fromUi, 4));
         # return to inventory
-        pc.inventory.add(player.dragShape.shape, player.dragShape.pos[0], player.dragShape.pos[1]);
+        pc.inventory.add(player.dragShape.shape, player.dragShape.draggedContainer, null, player.dragShape.pos[0], player.dragShape.pos[1]);
         debugInventory(pc);
         updateInventoryUi(pc);
     } else if(startsWith(player.dragShape.fromUi, "equ.")) {
@@ -337,14 +307,11 @@ def cancelDrag() {
             z := player.dragShape.pos[2];
             # drop on map
             setDraggableShape(x, y, z, player.dragShape.shape);
-            if(player.dragShape.draggedContainer != null) {
-                updateItemLocation(player.dragShape.draggedContainer, x, y, z, "map");
-            }
             onDrop(x, y, z, player.dragShape.shape);
         } else {
             # return to container
             c := getItemById(player.dragShape.fromUi);
-            c.items.add(player.dragShape.shape, player.dragShape.pos[0], player.dragShape.pos[1]);
+            c.inventory.add(player.dragShape.shape, c, null, player.dragShape.pos[0], player.dragShape.pos[1]);
             updateContainerUi(c);
         }
     }    

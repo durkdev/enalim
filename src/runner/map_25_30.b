@@ -1,6 +1,6 @@
 SECTIONS["25,30"] := {
     "init": this => {
-        setBook(6239, 7249, 3, "map", "On the shaping of metals");
+        setBook(6239, 7249, 3, "On the shaping of metals");
     },
     "start": this => {
     },
@@ -29,7 +29,7 @@ SECTIONS["25,30"] := {
         if(x = 6237 && y = 7246 && z = 1 && player.gameState["forge_6237_7246_1"] = null) {
             if(isItemInInventory("item.ore.meteorite", true)) {
                 player.gameState["forge_6237_7246_1"] := 1;
-                player.inventory.add("item.sword.magic", -1, -1);
+                player.inventory.add("item.sword.magic");
                 timedMessage(x, y, z, "You forge a magic weapon!", true);
                 return true;
             }

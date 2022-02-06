@@ -1,8 +1,8 @@
 SECTIONS["25,23"] := {
     "init": this => {
-        setBook(6050, 5654, 3, "map", "On ghosts and spirits");
-        setBook(6048, 5650, 10, "map", "Raising the dead");
-        setContainer("barrel", 6045, 5644, 1, "map", [ "item.dagger", "item.candle", "item.candle" ]);
+        setBook(6050, 5654, 3, "On ghosts and spirits");
+        setBook(6048, 5650, 10, "Raising the dead");
+        setContainer("barrel", 6045, 5644, 1, [ "item.dagger", "item.candle", "item.candle" ]);
         setCreature(6067, 5660, 1, creaturesTemplates.cow);
         setCreature(6072, 5662, 1, creaturesTemplates.cow);
     },

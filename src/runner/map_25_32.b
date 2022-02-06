@@ -1,24 +1,24 @@
 SECTIONS["25,32"] := {
     "init": this => {
-        setBook(6102, 7809, 3, "map", "The nature of magic");
-        setBook(6074, 7825, 4, "map", "Fenlen grammar primer");
-        setBook(6039, 7777, 4, "map", "Guide to arms and armor");
-        setBook(6040, 7777, 4, "map", "Guide to arms and armor");
-        setBook(6043, 7777, 4, "map", "Raising the dead");
-        setBook(6038, 7761, 4, "map", "On ghosts and spirits");
-        setBook(6073, 7767, 3, "map", "Spell reagents");
-        setBook(6066, 7771, 3, "map", "Spell reagents");
-        setBook(6068, 7790, 4, "map", "The nature of magic");
-        setBook(6069, 7790, 4, "map", "Spell reagents");
-        setBook(6066, 7793, 4, "map", "Fenlen grammar primer");
-        setBook(6066, 7730, 3, "map", "The age of Krynt");
-        setBook(6091, 7736, 3, "map", "The age of Krynt");
-        setBook(6104, 7740, 3, "map", "The age of Krynt");
+        setBook(6102, 7809, 3, "The nature of magic");
+        setBook(6074, 7825, 4, "Fenlen grammar primer");
+        setBook(6039, 7777, 4, "Guide to arms and armor");
+        setBook(6040, 7777, 4, "Guide to arms and armor");
+        setBook(6043, 7777, 4, "Raising the dead");
+        setBook(6038, 7761, 4, "On ghosts and spirits");
+        setBook(6073, 7767, 3, "Spell reagents");
+        setBook(6066, 7771, 3, "Spell reagents");
+        setBook(6068, 7790, 4, "The nature of magic");
+        setBook(6069, 7790, 4, "Spell reagents");
+        setBook(6066, 7793, 4, "Fenlen grammar primer");
+        setBook(6066, 7730, 3, "The age of Krynt");
+        setBook(6091, 7736, 3, "The age of Krynt");
+        setBook(6104, 7740, 3, "The age of Krynt");
 
-        setContainer("chest", 6065, 7737, 1, "map", [ "item.ring.silver" ]);
-        setContainer("barrel", 6065, 7783, 1, "map", [ "item.boots.leather" ]);
-        setContainer("barrel", 6082, 7825, 1, "map", [ "item.staff.yew" ]);
-        setContainer("barrel", 6043, 7825, 8, "map", [ "item.bow.shortbow" ]);
+        setContainer("chest", 6065, 7737, 1, [ "item.ring.silver" ]);
+        setContainer("barrel", 6065, 7783, 1, [ "item.boots.leather" ]);
+        setContainer("barrel", 6082, 7825, 1, [ "item.staff.yew" ]);
+        setContainer("barrel", 6043, 7825, 8, [ "item.bow.shortbow" ]);
     },
     "start": this => {
         eraseShape(6216, 7791, 1);

@@ -121,7 +121,7 @@ addNpcDef({
         },
         "task": () => {
             player.gameState["demon.quest"] := 1;
-            player.inventory.add("object.demon.gift", -1, -1);
+            player.inventory.add("object.demon.gift");
             return "\"Excellent!\" - it hands you a small but ornate box - \"Take this gift to the vic... I mean, to the honorable mage who is currently cowering in
             in the castle dungeons below. Return to me when you have done this and perhaps I'll...\" - it searches for words - \"reward you in some way.\" You take the
             box with shaking hands and add it to your travel bag.";
