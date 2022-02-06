@@ -382,7 +382,7 @@ def handleGameClick() {
                     openInventory(c);
                 }                
             } else {
-                c := getItemById(panel[0]);
+                c := getContainerById(panel[0]);
                 raisePanel(c.id, c.uiImage);
             }
         } else {
@@ -472,8 +472,8 @@ def getContainedShape(location, index) {
         pc := getCreatureById(substr(location, 4));
         return pc.equipment.getDescription(index);
     } else {
-        c := getItemById(location);
-        return c.items.items[index].shape;
+        c := getContainerById(location);
+        return c.inventory.items[index].shape;
     }
 }
 
@@ -817,12 +817,12 @@ def save_game() {
         # Collect the items in the global items array that are also in the inventories of the pc-s.
         # Collect them but don't remove them.
         # The items in the inventory have extended definitions (book contents, container contents, etc. in global items.)
-        inv_items := pruneItems("inv.player", 0, 0, false);
-        array_foreach(player.party, (i, pc) => array_concat(inv_items, pruneItems("inv." + pc.id, 0, 0, false)));
+        c := pruneItems("inv.player", 0, 0, false);
+        array_foreach(player.party, (i, pc) => array_concat(c, pruneItems("inv." + pc.id, 0, 0, false)));
         saveMap("savegame.json", {
             "calendar": getCalendarRaw(),
             "gameState": player.gameState,
-            "items": inv_items,
+            "containers": c,
             "inventory": player.inventory.encode(),
             "equipment": player.equipment.encode(),
             "move": player.move.encode(),
@@ -838,7 +838,7 @@ def load_game(saved) {
     player.hp := saved.hp;
     player.coins := saved.coins;
     player.gameState := saved.gameState;
-    array_foreach(saved.items, (i, c) => restoreItem(c));
+    array_foreach(saved.containers, (i, c) => restoreItem(c));
     player.inventory.decode(saved.inventory);
     player.move.decode(saved.move);
     player.equipment.decode(saved.equipment);
