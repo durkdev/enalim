@@ -7,12 +7,7 @@ items := [];
 
 def isItemInInventoryAll(shapes, remove=False) {
     # all items in inventory?
-    found := array_reduce(shapes, (b, shape) => {
-        if(b = false) {
-            return false;
-        }
-        return isItemInInventory(shape);
-    }, true);
+    found := array_reduce(shapes, true, (b, shape) => b && isItemInInventory(shape));
 
     # if all are found, actually remove them
     if(found && remove) {
@@ -22,18 +17,7 @@ def isItemInInventoryAll(shapes, remove=False) {
 }
 
 def isItemInInventory(shape, remove=False) {
-    return isItemInInventoryPc(player, shape, remove) || array_find(player.party, pc => isItemInInventoryPc(pc, shape, remove)) != null;
-}
-
-def isItemInInventoryPc(pc, shape, remove=False) {
-    idx := pc.inventory.findIndex(shape);
-    if(idx > -1) {
-        if(remove) {
-            pc.inventory.remove(idx);
-        }
-        return true;
-    }
-    return false;
+    return player.inventory.isContained(shape, remove) || array_find(player.party, pc => pc.inventory.isContained(shape, remove)) != null;
 }
 
 def setBook(x, y, z, location, book) {
@@ -222,6 +206,14 @@ def newInventory(location) {
     return {
         location: location,
         items: [],
+        isContained: (self, shape, remove=False) => {
+            idx := self.findIndex(shape);
+            found := idx > -1;
+            if(found && remove) {
+                self.remove(idx);
+            }
+            return found;
+        },
         add: (self, shape, xpos=-1, ypos=-1) => {
             if(xpos < 0) {
                 xpos := int(40 + random() * 400);
