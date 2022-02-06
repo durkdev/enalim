@@ -154,19 +154,15 @@ def newInventory(name) {
                     }
                 }
             }
-            return mapItem;
+            return mapItem.item;
         },
         addItemAt: (self, item, x, y, z) => {
 
             # find the shape on the map
             shape := null;
-            print("getShape: " + x + "," + y + "," + z);
             info := getShape(x, y, z);
-            print("info=" + info);
             if(info = null) {
-                print("getShapeExtra: " + x + "," + y + "," + z);
                 shapes := getShapeExtra(x, y, z);
-                print("shapes=" + shapes);
                 if(len(shapes) > 0) {
                     shape := shapes[0];
                 }
