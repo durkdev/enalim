@@ -158,42 +158,15 @@ def pruneItems(location, sectionX, sectionY, doRemove) {
     if(doRemove && len(saves) > 0) {
         array_remove(containers, c => array_find(saves, s => s.id = c.id) != null);
     }
-    prune_contained(saves, doRemove);
+    array_foreach(saves, (i, s) => {
+        s.containers := pruneItems(s.id, 0, 0, doRemove);
+    });
     return saves;
 }
 
-def prune_contained(tests, doRemove) {
-    if(len(tests) = 0) {
-        return 1;
-    }
-    saves := array_reduce(tests, [], (a, r) => {
-        array_foreach(containers, (t, c) => {
-            if(c.location = r.id) {
-                result := c.encode();
-                r.containers[len(r.containers)] := result;
-                a[len(a)] := result;
-            }
-        });
-        return a;
-    });
-    if(doRemove && len(saves) > 0) {
-        array_remove(containers, c => array_find(saves, s => s.id = c.id) != null);
-    }
-    prune_contained(saves, doRemove);
-}
-
 def restoreItem(savedItem) {
-    print("* Restoring item " + savedItem.uiImage + " " + savedItem.id + " saved=" + savedItem);
     containers[len(containers)] := initContainer().decode(savedItem);
-    restore_contained(savedItem.containers);
-    print("* Done restoring item");
-}
-
-def restore_contained(saved) {
-    array_foreach(saved, (i, s) => {
-        containers[len(containers)] := initContainer().decode(s);
-        restore_contained(s.containers);
-    });
+    array_foreach(savedItem.containers, (i, s) => restoreItem(s));
 }
 
 
