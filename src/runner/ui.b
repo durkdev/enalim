@@ -1,17 +1,17 @@
 def openInventory(pc) {
-    raisePanel("inv." + pc.id, "inventory");
+    raisePanel(pc.id, "inventory");
     updateInventoryUi(pc);
 }
 
 def updateInventoryUi(pc) {
-    updatePanel("inv." + pc.id, pc.inventory.render());
+    updatePanel(pc.id, pc.inventory.render());
 }
 
-def addToInventory(pc, shape, container, panelX, panelY) {
+def addToInventory(pc, shape, container=null, panelX=-1, panelY=-1) {
     index := pc.inventory.add(shape, panelX, panelY);
     updateInventoryUi(pc);
     if(container != null) {
-        container.updateLocation(index, -1, -1, "inv." + pc.id);
+        container.updateLocation(index, -1, -1, pc.id);
     }
     debugInventory(pc);
 }
@@ -21,7 +21,7 @@ def equipItem(pc, shape, panelX, panelY) {
     if(obj != null && obj.slot != null) {
         # remove equipped item if any
         if(pc.equipment.equipment[obj.slot] != null) {
-            addToInventory(pc, pc.equipment.equipment[obj.slot], null, -1, -1);
+            addToInventory(pc, pc.equipment.equipment[obj.slot]);
         }
 
         # equip new item
@@ -61,7 +61,7 @@ def setShapeFromEquipment(pc) {
     });
 
     baseShape := PLAYER_SHAPE;
-    if(pc.id != "player") {
+    if(pc.id != PC_ID_PREFIX + "player") {
         baseShape := toLower(pc.npc.name);
     }
     pc.shape := baseShape;
@@ -80,7 +80,7 @@ def openEquipmentPanel(pc) {
 def updateEquipmentPanel(pc) {
     c := pc.equipment.render();
     name := "Lydell";
-    if(pc.id = "player") {
+    if(pc.id = PC_ID_PREFIX + "player") {
         c[len(c)] := {
             type: "uiImage",
             img: "party." + (player.partyFormationIndex + 1),
@@ -117,7 +117,7 @@ def openContainer(x, y, z, location) {
     print("openContainer: c=" + c + " type=" + c.type);
     if(c.type = CONTAINER_TYPE) {
         raisePanel(c.id, c.uiImage);
-        updateContainerUi(c);
+        updateInventoryUi(c);
         return true;
     }
     if(c.type = BOOK_TYPE) {
@@ -133,13 +133,9 @@ def openContainer(x, y, z, location) {
     return false;
 }
 
-def updateContainerUi(c) {
-    updatePanel(c.id, c.inventory.render());
-}
-
 def startDrag(pos, action, index) {
-    if(startsWith(action, "inv.")) {
-        pc := getCreatureById(substr(action, 4));
+    if(startsWith(action, PC_ID_PREFIX)) {
+        pc := getCreatureById(action);
         # drag from inventory ui
         item := pc.inventory.remove(index);
         player.dragShape := {
@@ -167,7 +163,7 @@ def startDrag(pos, action, index) {
             "draggedContainer": null,
         };
         unequipItem(pc, slot);
-    } else if(startsWith(action, "i.")) {
+    } else if(startsWith(action, CONTAINER_ID_PREFIX)) {
         # drag from a container ui
         c := getContainerById(action);
         item := c.inventory.remove(index);
@@ -177,7 +173,7 @@ def startDrag(pos, action, index) {
             "fromUi": action,
             "draggedContainer": item.item,
         };
-        updateContainerUi(c);
+        updateInventoryUi(c);
     } else {
         info := getDraggableShape(pos[0], pos[1], pos[2]);
         if(info != null && onPickup(info[1], info[2], info[3], info[0]) != true) {
@@ -202,7 +198,7 @@ def debugInventory(pc) {
     });
     print("containers:");
     array_foreach(containers, (i, c) => {
-        if(c.location = "inv." + pc.id) {
+        if(c.location = pc.id) {
             print("\t" + c.x + " " + c.uiImage);
         }
     });
@@ -210,138 +206,111 @@ def debugInventory(pc) {
 }
 
 def endDrag(pos) {
-    if(player.dragShape != null) {
-        handled := false;
-        if(pos[2] > 0) {
-            info := getShape(pos[0], pos[1], pos[2] - 1);
-            if(info != null) {
-                if(info[0] = player.shape) {
-                    # drop over character
-                    index := player.inventory.add(player.dragShape.shape, -1, -1);
-                    updateInventoryUi(player);
-                    if(player.dragShape.draggedContainer != null) {
-                        player.dragShape.draggedContainer.updateLocation(index, -1, -1, "inv.player");
-                    }
-                    debugInventory(player);
-                    handled := true;
-                } else {
-                    # drop over pc
-                    i := 0; 
-                    while(handled = false && i < len(player.party)) {
-                        pc := player.party[i];
-                        if(info[0] = pc.shape) {
-                            # drop over character
-                            index := pc.inventory.add(player.dragShape.shape, -1, -1);
-                            updateInventoryUi(pc);
-                            if(player.dragShape.draggedContainer != null) {
-                                player.dragShape.draggedContainer.updateLocation(index, -1, -1, "inv." + pc.id);
-                            }
-                            debugInventory(pc);
-                            handled := true;
-                        }
-                        i :+ 1;
-                    }
-                    if(handled = false) {
-                        # drop over container
-                        c := getContainer(info[1], info[2], info[3], "map");
-                        if(c != null) {
-                            index := c.inventory.add(player.dragShape.shape, -1, -1);
-                            updateContainerUi(c);
-                            if(player.dragShape.draggedContainer != null) {
-                                player.dragShape.draggedContainer.updateLocation(index, -1, -1, c.id);
-                            }
-                            handled := true;
-                        }
-                    }
-                }
-            }
-        }
+    if(player.dragShape = null) {
+        return;
+    }
+    handled := false;
+    
+    print("END drag: dragShape=" + player.dragShape);
 
-        if(handled = false) {
-            panel := getOverPanel();
-            if(panel != null && panel[0] != null) {
-                if(startsWith(panel[0], "inv.")) {
-                    pc := getCreatureById(substr(panel[0], 4));
-                    # drop over inventory panel
-                    addToInventory(pc, player.dragShape.shape, player.dragShape.draggedContainer, panel[1], panel[2]);
+    # drop over a panel
+    panel := getOverPanel();
+    if(panel != null && panel[0] != null) {
+        if(startsWith(panel[0], PC_ID_PREFIX)) {
+            pc := getCreatureById(panel[0]);
+            # drop over inventory panel
+            addToInventory(pc, player.dragShape.shape, player.dragShape.draggedContainer, panel[1], panel[2]);
+            handled := true;
+        } else if(startsWith(panel[0], "equ.")) {
+            pc := getCreatureById(substr(panel[0], 4));
+            handled := equipItem(pc, player.dragShape.shape, panel[1], panel[2]);
+        } else {
+            # drop over a container panel
+            targetContainer := getContainerById(panel[0]);
+            if(player.dragShape.draggedContainer != null && targetContainer.id = player.dragShape.draggedContainer.id) {
+                # trying to drop container on itself?
+                cancelDrag();
+                handled := true;
+            }
+            if(handled = false) {
+                addToInventory(targetContainer, player.dragShape.shape, player.dragShape.draggedContainer, panel[1], panel[2]);
+            }
+            handled := true;
+        }
+    } else if(pos[2] > 0) {
+        # drop over map shape
+        info := getShape(pos[0], pos[1], pos[2] - 1);
+        if(info != null) {
+            if(info[0] = player.shape) {
+                # drop over character
+                addToInventory(player, player.dragShape.shape, player.dragShape.draggedContainer);
+                handled := true;
+            } else {
+                # drop over pc
+                pc := array_find(player.party, pc => info[0] = pc.shape);
+                if(pc != null) {
+                    addToInventory(pc, player.dragShape.shape, player.dragShape.draggedContainer);
                     handled := true;
-                } else if(startsWith(panel[0], "equ.")) {
-                    pc := getCreatureById(substr(panel[0], 4));
-                    handled := equipItem(pc, player.dragShape.shape, panel[1], panel[2]);
                 } else {
-                    # drop over a container panel
-                    targetContainer := getContainerById(panel[0]);
-                    if(player.dragShape.draggedContainer != null && targetContainer.id = player.dragShape.draggedContainer.id) {
-                        # trying to drop container on itself?
-                        cancelDrag();
+                    # drop over container
+                    c := getContainer(info[1], info[2], info[3], "map");
+                    if(c != null) {
+                        addToInventory(c, player.dragShape.shape, player.dragShape.draggedContainer);
                         handled := true;
                     }
-                    if(handled = false) {
-                        index := targetContainer.inventory.add(player.dragShape.shape, panel[1], panel[2]);
-                        updateContainerUi(targetContainer);
-                        if(player.dragShape.draggedContainer != null) {
-                            player.dragShape.draggedContainer.updateLocation(index, -1, -1, targetContainer.id);
-                        }
-                    }
-                    handled := true;
                 }
             }
         }
-
-        if(handled = false) {
-            # drop on map
-            x := pos[0];
-            y := pos[1];
-            z := findTop(x, y, player.dragShape.shape);
-            if(z = 0) {
-                cancelDrag();
-            } else {
-                # drop on map
-                setDraggableShape(x, y, z, player.dragShape.shape);
-                if(player.dragShape.draggedContainer != null) {
-                    player.dragShape.draggedContainer.updateLocation(x, y, z, "map");
-                }
-                onDrop(x, y, z, player.dragShape.shape);
-            }
-        }
-
-        # dragging is done
-        restartActiveSections();
-        player.dragShape := null;
-        clearCursorShape();
-        updatePlayerLight();
     }
-}
 
-def cancelDrag() {
-    print("Can't drop item there.");
-    if(startsWith(player.dragShape.fromUi, "inv.")) {
-        pc := getCreatureById(substr(player.dragShape.fromUi, 4));
-        # return to inventory
-        pc.inventory.add(player.dragShape.shape, player.dragShape.pos[0], player.dragShape.pos[1]);
-        debugInventory(pc);
-        updateInventoryUi(pc);
-    } else if(startsWith(player.dragShape.fromUi, "equ.")) {
-        pc := getCreatureById(substr(player.dragShape.fromUi, 4));
-        # return to equipment
-        equipItem(pc, player.dragShape.shape, -1, -1);
-    } else {
-        if(player.dragShape.fromUi = "map") {
-            # return to original map location
-            x := player.dragShape.pos[0];
-            y := player.dragShape.pos[1];
-            z := player.dragShape.pos[2];
+    if(handled = false) {
+        # drop on map
+        x := pos[0];
+        y := pos[1];
+        z := findTop(x, y, player.dragShape.shape);
+        if(z = 0) {
+            cancelDrag();
+        } else {
             # drop on map
             setDraggableShape(x, y, z, player.dragShape.shape);
             if(player.dragShape.draggedContainer != null) {
                 player.dragShape.draggedContainer.updateLocation(x, y, z, "map");
             }
             onDrop(x, y, z, player.dragShape.shape);
-        } else {
-            # return to container
-            c := getContainerById(player.dragShape.fromUi);
-            c.inventory.add(player.dragShape.shape, player.dragShape.pos[0], player.dragShape.pos[1]);
-            updateContainerUi(c);
         }
-    }    
+    }
+
+    # dragging is done
+    restartActiveSections();
+    player.dragShape := null;
+    clearCursorShape();
+    updatePlayerLight();
+}
+
+def cancelDrag() {
+    print("Can't drop item there.");
+    if(startsWith(player.dragShape.fromUi, PC_ID_PREFIX)) {
+        # return to inventory
+        pc := getCreatureById(player.dragShape.fromUi);
+        addToInventory(pc, player.dragShape.shape, player.dragShape.draggedContainer, player.dragShape.pos[0], player.dragShape.pos[1]);
+    } else if(startsWith(player.dragShape.fromUi, "equ.")) {
+        pc := getCreatureById(substr(player.dragShape.fromUi, 4));
+        # return to equipment
+        equipItem(pc, player.dragShape.shape, -1, -1);
+    } else if(player.dragShape.fromUi = "map") {
+        # return to original map location
+        x := player.dragShape.pos[0];
+        y := player.dragShape.pos[1];
+        z := player.dragShape.pos[2];
+        # drop on map
+        setDraggableShape(x, y, z, player.dragShape.shape);
+        if(player.dragShape.draggedContainer != null) {
+            player.dragShape.draggedContainer.updateLocation(x, y, z, "map");
+        }
+        onDrop(x, y, z, player.dragShape.shape);
+    } else {
+        # return to container
+        c := getContainerById(player.dragShape.fromUi);
+        addToInventory(c, player.dragShape.shape, player.dragShape.draggedContainer, player.dragShape.pos[0], player.dragShape.pos[1]);
+    }
 }

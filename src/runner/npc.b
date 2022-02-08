@@ -46,7 +46,7 @@ def registerNpc(npc) {
 def setNpc(x, y, z, npc) {
     creature := setCreature(x, y, z, npc.creature);
     creature.npc := npc;
-    creature.inventory := newInventory("inv." + creature.id);
+    creature.inventory := newInventory(creature.id);
     creature.equipment := newEquipment();
     if(npc.inventory != null) {
         array_foreach(npc.inventory, (i, shape) => creature.inventory.add(shape));

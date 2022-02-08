@@ -81,3 +81,6 @@ const CAT_DRINK = "drink";
 const CAT_CLOTHES = "clothes";
 const CAT_MISC = "misc";
 const CAT_JEWELRY = "jewelry";
+
+const PC_ID_PREFIX = "c.";
+const CONTAINER_ID_PREFIX = "i.";

@@ -26,7 +26,7 @@ const PLAYER_SHAPE = "lydell";
 
 # the global player state
 player := {
-    id: "player",
+    id: PC_ID_PREFIX + "player",
     shape: PLAYER_SHAPE,
     shapeIndex: 0,
     mode: MODE_INIT,
@@ -362,8 +362,8 @@ def handleGameClick() {
         panel := getOverPanel();
         if(panel[0] != null) {
             # raise clicked panel
-            if(startsWith(panel[0], "inv.")) {
-                openInventory(getCreatureById(substr(panel[0], 4)));
+            if(startsWith(panel[0], PC_ID_PREFIX)) {
+                openInventory(getCreatureById(panel[0]));
             } else if(startsWith(panel[0], "equ.")) {
                 raisePanel(panel[0], "player");
                 if(panel[0] = "equ.player") {
@@ -465,8 +465,8 @@ def handleGameClick() {
 }
 
 def getContainedShape(location, index) {
-    if(startsWith(location, "inv.")) {
-        pc := getCreatureById(substr(location, 4));
+    if(startsWith(location, PC_ID_PREFIX)) {
+        pc := getCreatureById(location);
         return pc.inventory.items[index].shape;
     } else if(startsWith(location, "equ.")) {
         pc := getCreatureById(substr(location, 4));
@@ -817,8 +817,8 @@ def save_game() {
         # Collect the items in the global items array that are also in the inventories of the pc-s.
         # Collect them but don't remove them.
         # The items in the inventory have extended definitions (book contents, container contents, etc. in global items.)
-        c := pruneItems("inv.player", 0, 0, false);
-        array_foreach(player.party, (i, pc) => array_concat(c, pruneItems("inv." + pc.id, 0, 0, false)));
+        c := pruneItems(player.id, 0, 0, false);
+        array_foreach(player.party, (i, pc) => array_concat(c, pruneItems(pc.id, 0, 0, false)));
         saveMap("savegame.json", {
             "calendar": getCalendarRaw(),
             "gameState": player.gameState,
@@ -925,7 +925,7 @@ def main() {
     EVENTS_MAP[MODE_EXIT] := (s, d,f) => eventsExit(d, f);
 
     # init player
-    player.inventory := newInventory("inv.player");
+    player.inventory := newInventory(player.id);
     player.equipment := newEquipment();
 
     setPathThroughShapes(keys(REPLACE_SHAPES));

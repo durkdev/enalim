@@ -68,7 +68,7 @@ def restoreCreature(savedCreature) {
         moveTimer: 0,
     };
     if(savedCreature.inventory != null) {
-        c.inventory := newInventory("inv." + c.id);
+        c.inventory := newInventory(c.id);
         c.inventory.decode(savedCreature.inventory);
     }
     if(savedCreature.equipment != null) {
@@ -80,7 +80,7 @@ def restoreCreature(savedCreature) {
 }
 
 def setCreature(x, y, z, creature) {
-    id := "c." + x + "." + y + "." + z;
+    id := PC_ID_PREFIX + x + "." + y + "." + z;
     c := array_find(creatures, c => c.id = id);
     if(c = null) {
         # print("* Adding creature: " + creature.shape + " " + id);
@@ -221,7 +221,7 @@ def removeCreatureById(id) {
 }
 
 def getCreatureById(id) {
-    if(id = "player") {
+    if(id = PC_ID_PREFIX + "player") {
         return player;
     }
     return array_find(creatures, c => c.id = id);

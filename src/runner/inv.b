@@ -4,20 +4,8 @@ const BOOK_TYPE = "book";
 
 containers := [];
 
-def newContainer(uiImage, x, y, z, location, type) {
-    id := "";
-    if(location = "map") {
-        id := "i." + x + "." + y + "." + z;
-    } else {
-        id := location + "." + x;
-    }
-    c := array_find(containers, cc => cc.id = id);
-    if(c != null) {
-        print("container id " + id + " already exists!");
-        exit();
-    }
-
-    c := {
+def initContainer(id=null, uiImage=null, x=null, y=null, z=null, location=null, type=null) {
+    return {
         id: id,
         type: type,
         uiImage: uiImage,
@@ -31,31 +19,96 @@ def newContainer(uiImage, x, y, z, location, type) {
             self.z := z;
             self.location := location;
         },
+        setBook: (self, book) => {
+            self.book := book;
+        },
+        setContainer: (self, invItems) => {
+            self.inventory := newInventory(self.id);
+            array_foreach(invItems, (i, item) => {
+                if(typeof(item) = "map") {
+                    self.inventory.add(item.shape, -1, -1);
+                    if(item["book"] != null) {
+                        setBook(len(self.inventory.items) - 1, 0, 0, self.id, item.book);
+                    }
+                } else {
+                    self.inventory.add(item, -1, -1);
+                }
+            });
+        },
+        encode: self => {
+            saved := {
+                id: self.id,
+                uiImage: self.uiImage,
+                type: self.type,
+                x: self.x,
+                y: self.y,
+                z: self.z,
+                location: self.location,
+                containers: [],
+            };
+            if(self["inventory"] != null) {
+                saved["inventory"] := self.inventory.encode();
+            }
+            if(self["book"] != null) {
+                saved["book"] := self.book;
+            }
+            return saved;
+        },
+        decode: (self, savedItem) => {
+            self.id := savedItem.id;
+            self.uiImage := savedItem.uiImage;
+            self.x := savedItem.x;
+            self.y := savedItem.y;
+            self.z := savedItem.z;
+            self.location := savedItem.location;
+            self.type := savedItem.type;
+            if(savedItem["inventory"] != null) {
+                self.inventory := newInventory(self.id);
+                self.inventory.decode(savedItem.inventory);
+            }
+            if(savedItem["book"] != null) {
+                self.book := savedItem.book;
+            }
+            return self;
+        },
     };
-    # print("*** Adding item of type: " + c.type);
+}
+
+def newContainerId(location, x, y, z) {
+    id := "";
+    if(location = "map") {
+        id := CONTAINER_ID_PREFIX + x + "." + y + "." + z;
+    } else {
+        id := location + "." + x;
+    }
+    return id;
+}
+
+def newContainer(uiImage, x, y, z, location, type) {
+    id := newContainerId(location, x, y, z);
+    if(array_find(containers, cc => cc.id = id)) {
+        # this means the items has been moved (ie. it's in the savegame file)
+        return null;
+    }
+
+    c := initContainer(id, uiImage, x, y, z, location, type);
     containers[len(containers)] := c;
     return c;
 }
 
 def setBook(x, y, z, location, book) {
     c := newContainer("book", x, y, z, location, BOOK_TYPE);
-    c["book"] := book;
+    if(c != null) {
+        c.setBook(book);
+    }
     return c;
 }
 
 def setContainer(uiImage, x, y, z, location, invItems) {
     c := newContainer(uiImage, x, y, z, location, CONTAINER_TYPE);
-    c["inventory"] := newInventory(c.id);
-    array_foreach(invItems, (i, item) => {
-        if(typeof(item) = "map") {
-            c.inventory.add(item.shape, -1, -1);
-            if(item["book"] != null) {
-                setBook(len(c.inventory.items) - 1, 0, 0, c.id, item.book);
-            }
-        } else {
-            c.inventory.add(item, -1, -1);
-        }
-    });
+    if(c != null) {
+        c.setContainer(invItems);
+    }
     return c;
 }
 
@@ -74,10 +127,10 @@ def getContainer(x, y, z, location) {
             # try to create an empty container
             shape := getShape(x, y, z);
             if(shape != null) {
-                c := EMPTY_CONTAINERS[shape[0]];
-                if(c != null) {
-                    # print("Creating empty container.");
-                    return setContainer(c, x, y, z, "map", []);
+                uiImage := EMPTY_CONTAINERS[shape[0]];
+                if(uiImage != null) {
+                    # print("Creating empty container: " + shape[0]);
+                    return setContainer(uiImage, x, y, z, "map", []);
                 }
             }
         }
@@ -90,46 +143,6 @@ def getContainerById(id) {
     return array_find(containers, c => c.id = id);
 }
 
-def saveItem(item) {
-    saved := {
-        id: item.id,
-        uiImage: item.uiImage,
-        type: item.type,
-        x: item.x,
-        y: item.y,
-        z: item.z,
-        location: item.location,
-        containers: [],
-    };
-    if(item["inventory"] != null) {
-        saved["inventory"] := item.inventory.encode();
-    }
-    if(item["book"] != null) {
-        saved["book"] := item["book"];
-    }
-    return saved;
-}
-
-def loadItem(savedItem) {
-    c := {
-        id: savedItem.id,
-        uiImage: savedItem.uiImage,
-        type: savedItem.type,
-        x: savedItem.x,
-        y: savedItem.y,
-        z: savedItem.z,
-        location: savedItem.location,
-    };
-    if(savedItem["inventory"] != null) {
-        c["inventory"] := newInventory(c.id);
-        c.inventory.decode(savedItem.inventory);
-    }
-    if(savedItem["book"] != null) {
-        c["book"] := savedItem["book"];
-    }
-    return c;
-}
-
 def pruneItems(location, sectionX, sectionY, doRemove) {
     saves := array_reduce(containers, [], (a, c) => {
         b := c.location = location;
@@ -138,7 +151,7 @@ def pruneItems(location, sectionX, sectionY, doRemove) {
             b := sectionPos[0] = sectionX && sectionPos[1] = sectionY;
         }
         if(b) {
-            a[len(a)] := saveItem(c);
+            a[len(a)] := c.encode();
         }
         return a;
     });
@@ -156,7 +169,7 @@ def prune_contained(tests, doRemove) {
     saves := array_reduce(tests, [], (a, r) => {
         array_foreach(containers, (t, c) => {
             if(c.location = r.id) {
-                result := saveItem(c);
+                result := c.encode();
                 r.containers[len(r.containers)] := result;
                 a[len(a)] := result;
             }
@@ -171,16 +184,14 @@ def prune_contained(tests, doRemove) {
 
 def restoreItem(savedItem) {
     print("* Restoring item " + savedItem.uiImage + " " + savedItem.id + " saved=" + savedItem);
-    c := loadItem(savedItem);
-    containers[len(containers)] := c;
+    containers[len(containers)] := initContainer().decode(savedItem);
     restore_contained(savedItem.containers);
-    # print("* Done restoring item");
+    print("* Done restoring item");
 }
 
 def restore_contained(saved) {
     array_foreach(saved, (i, s) => {
-        c := loadItem(s);
-        containers[len(containers)] := c;
+        containers[len(containers)] := initContainer().decode(s);
         restore_contained(s.containers);
     });
 }
