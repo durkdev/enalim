@@ -23,6 +23,10 @@ github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZN
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJyk=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
+github.com/uzudil/bscript v0.0.0-20220128012807-1decc22cdb24 h1:vd90UvZpMIq83LTQoAHOeXLaTri4cqBlGAXjz0v2VlM=
+github.com/uzudil/bscript v0.0.0-20220128012807-1decc22cdb24/go.mod h1:/a/RS7gNnW+R4MG9YBuxzZgOtVS8d9tgvSYQhN9FgNQ=
+github.com/uzudil/isongn v0.0.0-20220210181230-fab59d89516a h1:dD52VxW0BNIJlNRCB2qQg5UHbbRoszhkwliYmASZ774=
+github.com/uzudil/isongn v0.0.0-20220210181230-fab59d89516a/go.mod h1:eBI8/FWToeZBbcC2pn5ZpI3WgcnCJDQ5YS7ZrWPi6N0=
 golang.org/x/image v0.0.0-20190321063152-3fc05d484e9f/go.mod h1:kZ7UVZpmo3dzQBMxlp+ypCbDeSB+sBbTgSJuh5dn5js=
 golang.org/x/image v0.0.0-20191009234506-e7c1f5e7dbb8/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
 golang.org/x/image v0.0.0-20210628002857-a66eb6448b8d h1:RNPAfi2nHY7C2srAV8A49jpsYr0ADedCk1wq6fTMTvs=
