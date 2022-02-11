@@ -49,12 +49,15 @@ jobs:
     - name: Create info file
       run: |
         echo -e "ref: $GITHUB_REF \ncommit: $GITHUB_SHA\nbuild: $(date +"%Y-%m-%dT%H:%M:%SZ")" > info.txt
+        
+    - name: zip for release
+      run: tar czvf enalim.mac.tgz enalim bainsley creatures images maps Mirza Pirata_One src config.json info.txt
       
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: enalim.mac
+        file: enalim.mac.tgz
         tag: nightly
         overwrite: true
 
@@ -92,15 +95,3 @@ jobs:
           Pirata_One
           src
           config.json
-
-    - name: Create info file
-      run: |
-        echo -e "ref: $GITHUB_REF \ncommit: $GITHUB_SHA\nbuild: $(date +"%Y-%m-%dT%H:%M:%SZ")" > wininfo.txt
-      
-    - name: Upload binaries to release
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: enalim.win
-        tag: nightly
-        overwrite: true
