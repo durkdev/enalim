@@ -10,7 +10,7 @@ You, Lydell, apprentice to the Necromancer and one with a hazy past, are cast as
 
 The ideal contributor is someone with a passion for [this type of game](https://en.wikipedia.org/wiki/Ultima_VII:_The_Black_Gate) who doesn't mind drawing, 3d modeling, coding in golang and javascript ([kind of...](https://github.com/uzudil/bscript)) or making music. OpenGL/shader knowledge a plus! Realistically, this game will not make you rich or help you get that job at Google. If I haven't scared you off yet, let me know - preferrably via a pull request.
 
-Wiki page on [How to Contribute](/wiki/How-to-Contribute)
+Wiki page on [How to Contribute](https://github.com/uzudil/enalim/wiki/How-to-Contribute)
 
 <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/convo2.png"><img src="images/screens/convo2.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/aneil.png"><img src="images/screens/aneil.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/inventory.png"><img src="images/screens/inventory.png" width="250"></a>
 
