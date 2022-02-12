@@ -13,7 +13,10 @@ The ideal contributor is someone with a passion for [this type of game](https://
 <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/convo2.png"><img src="images/screens/convo2.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/aneil.png"><img src="images/screens/aneil.png" width="250"></a> <a href="https://raw.githubusercontent.com/uzudil/enalim/main/images/screens/inventory.png"><img src="images/screens/inventory.png" width="250"></a>
 
 # How to play
+You can download pre-built binaries from the nightly release:
+https://github.com/uzudil/enalim/releases/tag/nightly
 
+Or, install from source:
 [Install go](https://go.dev/doc/install), clone this repo, build and run the game:
 ```bash
 brew install go
