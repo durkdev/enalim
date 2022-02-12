@@ -95,3 +95,14 @@ jobs:
           Pirata_One
           src
           config.json
+
+    - name: zip for release
+      run: tar -czvf enalim.win.tgz enalim.EXE bainsley creatures images maps Mirza Pirata_One src config.json
+      
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: enalim.win.tgz
+        tag: nightly
+        overwrite: true
