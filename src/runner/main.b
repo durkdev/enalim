@@ -11,6 +11,10 @@ const MODE_TITLE3 = "title3";
 const MODE_TITLE4 = "title4";
 const MODE_BOOK = "book";
 const MODE_EXIT = "exit";
+const MODE_DEATH = "death";
+
+# I need a way to designate a dead character and we need status effects soon anyways...so here we are
+const STATUS_DEAD = "dead";
 
 const PLAYER_SHAPE = "lydell";
 
@@ -51,6 +55,7 @@ player := {
     mouseDrive: false,
     mouseOnInteractive: 0,
     hp: 20,
+    maxHp: 20,
     equipment: null,
     coins: 100,
     movie: null,
@@ -558,6 +563,15 @@ def eventsExit(delta, fadeDir) {
     }
 }
 
+def eventsDeath(delta, fadeDir) {
+    if(isPressed(KeySpace)) {
+        closeTopPanel();
+        player.hp := player.maxHp; 
+        player.status := null;
+        player.mode := MODE_GAME;
+    }
+}
+
 # called by golang on exit
 def exitEvent() {
     saveGame();
@@ -923,6 +937,7 @@ def main() {
     EVENTS_MAP[MODE_GAME] := (s, d,f) => eventsGameplay(d, f);
     EVENTS_MAP[MODE_BOOK] := (s, d,f) => eventsBook(d, f);
     EVENTS_MAP[MODE_EXIT] := (s, d,f) => eventsExit(d, f);
+    EVENTS_MAP[MODE_DEATH] := (s, d,f) => eventsDeath(d, f);
 
     # init player
     player.inventory := newInventory(player.id);

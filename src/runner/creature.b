@@ -60,11 +60,13 @@ def restoreCreature(savedCreature) {
         npc: decodeNpc(savedCreature.npc),
         movement: savedCreature.movement,
         hp: savedCreature.hp,
+        maxHp: savedCreature.maxHp,
         coolTimer: 0,
         attackTimer: 0,
         attackTarget: null,
         lastAttackTarget: null,
         combatMode: false,
+        status: null,
         moveTimer: 0,
     };
     if(savedCreature.inventory != null) {
@@ -94,11 +96,13 @@ def setCreature(x, y, z, creature) {
             npc: null,
             movement: creature.movement,
             hp: creature.hp,
+            maxHp: creature.maxHp,
             coolTimer: 0,
             attackTimer: 0,
             attackTarget: null,
             lastAttackTarget: null,
             combatMode: false,
+            status: null,
         };
         c.move.setShape(creature.shape);
         creatures[len(creatures)] := c;
@@ -125,7 +129,9 @@ def moveCreatures(delta) {
 
         if(c.npc != null) {
             animation := moveNpc(c, delta);
-        } else if(c.template.movement = "hunt") {
+        } else if(c.template.movement = "hunt" && player.status != STATUS_DEAD) {
+            # Not sure if this is the best spot for the dead status check, but it works a lot better than the other
+            # places I tried to implement it
             animation := moveMonster(c, delta);
         } else {
             animation := moveCreatureRandom(c, delta);

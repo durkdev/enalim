@@ -90,6 +90,48 @@ def attackDamage(pc) {
 }
 
 def pcTakeDamage(enemy, pc) {
-    # todo:...
+    # Very similar to the normal takeDamage function. Perhaps consolidate the two and add an if statement to check if the
+    # character that has reached 0 HP is the player, and then call the unique player death sequence from there?
     pc.combatMode := true;
+    # TODO: Create a proper damage system based on character statistics and equipment
+    dam := int(random() * 5);
+
+    if(dam > 0) {
+        showMessageAt(
+            pc.move.x, 
+            pc.move.y, 
+            pc.move.z, 
+            "-" + dam, 
+            2, 
+            DAM_R, DAM_G, DAM_B, 
+            true
+        );
+        pc.hp := pc.hp - dam;
+        if(pc.hp <= 0) {
+            pc.hp := 0;
+            enemy.combatMode := false;
+            pcOnDeath(pc);
+        }
+    }
+}
+
+def pcOnDeath(pc) {    
+    pc.status := STATUS_DEAD;
+    pc.mode := MODE_DEATH;
+    # Placeholder panel. A tombstone panel wouldn't be a bad addition here.
+    raisePanel("death", "marble");
+    updatePanel("death", [{
+        "type": "uiText",
+        "text": "Oh dear, you have died!",
+        "x": 75,
+        "y": 100,
+        "fontIndex": 0,
+    },{
+        "type": "uiText",
+        "text": "Press SPACE to live again",
+        "x": 75,
+        "y": 200,
+        "fontIndex": 0,
+    }]);
+    centerPanel("death");
 }
